@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { TrendingUp, Award, Users, Building2, Heart, DollarSign } from 'lucide-react';
+import { TrendingUp, Award, Building2, Heart, DollarSign } from 'lucide-react';
 
 export const metadata = {
   title: 'Corporate Sponsorship & Investment - Atlantic City Community Cooperative',
