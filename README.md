@@ -213,3 +213,4 @@ See [HOSTINGER-DEPLOYMENT.md](HOSTINGER-DEPLOYMENT.md) troubleshooting section.
 
 **Repository**: https://github.com/webevertech/accoop-website
 **Last Updated**: February 25, 2026
+
