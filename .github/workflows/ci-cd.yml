@@ -61,7 +61,7 @@ jobs:
             eslint.config.mjs \
             next-env.d.ts \
             README.md \
-            HOSTINGER-DEPLOYMENT.md \
+            server.js \
             -x "*.DS_Store"
 
       - name: Upload deployment artifact
@@ -151,7 +151,6 @@ jobs:
             "next.config.ts"
             "app/layout.tsx"
             "app/page.tsx"
-            "HOSTINGER-DEPLOYMENT.md"
           )
 
           for file in "${required_files[@]}"; do
