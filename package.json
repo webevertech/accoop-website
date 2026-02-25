@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "cp -r public/. ../public_html/ 2>/dev/null || true",
     "start": "next start",
     "lint": "eslint"
   },
