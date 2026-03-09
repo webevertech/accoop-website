@@ -16,7 +16,7 @@ export default function Header() {
     { name: 'Block Captain', href: '/block-captain' },
     { name: 'Vendors', href: '/vendors' },
     { name: 'Sponsorship', href: '/sponsorship' },
-    { name: 'News', href: '/news' },
+    { name: 'News & Events', href: '/news' },
     { name: 'Contact', href: '/contact' },
   ];
 
@@ -29,9 +29,9 @@ export default function Header() {
             <Image
               src="/logo.png"
               alt="Atlantic City Community Cooperative"
-              width={380}
-              height={152}
-              className="h-40 w-auto"
+              width={240}
+              height={96}
+              className="h-20 w-auto"
               priority
             />
           </Link>

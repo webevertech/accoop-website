@@ -1,66 +1,61 @@
 import Link from 'next/link';
-import { Check, ShoppingBag, Vote, DollarSign, Users, HelpCircle } from 'lucide-react';
+import { Check, ShoppingBag, Vote, DollarSign, Users, HelpCircle, Heart, ClipboardList } from 'lucide-react';
 
 export const metadata = {
-  title: 'Membership - Atlantic City Community Cooperative',
-  description: 'Join the co-op and enjoy exclusive benefits, discounts, and voting rights.',
+  title: 'Join Atlantic City Community Cooperative | Become a Member-Owner',
+  description: 'Become a member of Atlantic City\'s community-owned supermarket. Access discounts, social services, voting rights, and cooperative ownership benefits.',
 };
 
 export default function MembershipPage() {
   const benefits = [
-    { icon: ShoppingBag, title: 'Exclusive Discounts', desc: 'Members-only pricing on select products' },
-    { icon: DollarSign, title: 'Patronage Refunds', desc: 'Share in annual surplus based on purchases' },
-    { icon: Vote, title: 'Voting Rights', desc: 'Democratic say in co-op governance' },
-    { icon: Users, title: 'Community Access', desc: 'Priority access to social services & support programs' },
+    { icon: ShoppingBag, title: 'Grocery Discounts', desc: 'Grocery discounts and special promotions' },
+    { icon: Heart, title: 'Social Services', desc: 'Access to social services and financial support' },
+    { icon: DollarSign, title: 'Patronage Refunds', desc: 'Patronage refunds when profitable' },
+    { icon: Vote, title: 'Voting Rights', desc: 'Voting rights in cooperative governance' },
+    { icon: Users, title: 'Community Voice', desc: 'Participation in community decision-making' },
   ];
 
-  const membershipTiers = [
+  const membershipTypes = [
     {
       name: 'Consumer Member',
-      price: '$2,400/year',
-      period: 'in purchases',
-      features: [
-        'Shopping discounts & special promotions',
-        'Access to all co-op services',
-        'Voting rights in governance',
-        'Patronage refund eligibility',
-        'Social services access',
-      ],
-      cta: 'Join as Consumer',
-      featured: true,
+      subtitle: 'Atlantic City Residents',
+      desc: 'Active shoppers and community owners.',
     },
     {
       name: 'Vendor Member',
-      price: '$1,000/year',
-      period: 'annual fee',
-      features: [
-        'Sell products in our marketplace',
-        'Marketing & promotion support',
-        'Business development resources',
-        'Voting rights in governance',
-        'Member networking opportunities',
-      ],
-      cta: 'Become a Vendor',
-      href: '/vendors',
+      subtitle: 'Local Businesses',
+      desc: 'Local businesses offering products in the cooperative marketplace.',
     },
+    {
+      name: 'Corporate Sponsor Member',
+      subtitle: 'Organizations',
+      desc: 'Organizations supporting economic revitalization and community ownership.',
+    },
+  ];
+
+  const steps = [
+    'Complete the online registration form',
+    'Select membership category',
+    'Submit equity contribution',
+    'Receive confirmation and member credentials',
   ];
 
   const faqs = [
     {
-      question: 'Who can join the co-op?',
-      answer: 'Anyone who supports our mission can join! We welcome all Atlantic City residents and community members who want to be part of a cooperative economy.',
+      question: 'Who can join the Atlantic City Community Cooperative as a member/owner?',
+      answer: 'Atlantic City residents, Atlantic City business owners, and anyone who works in Atlantic City.',
     },
     {
-      question: 'How do I shop as a member?',
-      answer: 'Members can shop in-store at our supermarket, order online through our mobile app, or use our Block Captain delivery service for home delivery.',
+      question: 'How do members shop?',
+      answer: 'In-store, via mobile app, or through Block Captain assistance.',
     },
     {
-      question: 'What are patronage refunds?',
-      answer: 'Patronage refunds are a share of the co-op\'s annual surplus, distributed to members based on their purchases throughout the year.',
+      question: 'Do I have to become a member to shop?',
+      answer: 'No, anyone can shop at the co-op or Boardwalk Basket (our digital marketplace).',
     },
     {
-      question: 'Can I cancel my membership?',
-      answer: 'Yes, members can request to cancel at any time. Membership shares are redeemable based on our bylaws and available capital.',
+      question: 'What is the difference between Consumer and Vendor Membership?',
+      answer: 'Consumer members shop and vote; vendor members sell products and access distribution.',
     },
   ];
 
@@ -71,7 +66,7 @@ export default function MembershipPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
-              Join the Co-Op
+              Become a Member of Atlantic City Community Cooperative
             </h1>
             <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
               Become an owner and help build a stronger, more sustainable Atlantic City
@@ -80,33 +75,33 @@ export default function MembershipPage() {
         </div>
       </section>
 
-      {/* Member Benefits */}
+      {/* Membership Benefits */}
       <section className="py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              Member Benefits
+              Membership Benefits
             </h2>
             <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
               As a co-op member, you&apos;re not just a customer – you&apos;re an owner
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex flex-wrap justify-center gap-6">
             {benefits.map((benefit) => {
               const Icon = benefit.icon;
               return (
                 <div
                   key={benefit.title}
-                  className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 text-center group"
+                  className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 text-center group w-full sm:w-[calc(50%-12px)] lg:w-[calc(20%-20px)]"
                 >
                   <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-2xl flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
                     <Icon className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
                   </div>
-                  <h3 className="font-heading font-semibold text-xl text-foreground mb-2">
+                  <h3 className="font-heading font-semibold text-lg text-foreground mb-2">
                     {benefit.title}
                   </h3>
-                  <p className="text-foreground/70">{benefit.desc}</p>
+                  <p className="text-foreground/70 text-sm">{benefit.desc}</p>
                 </div>
               );
             })}
@@ -114,86 +109,63 @@ export default function MembershipPage() {
         </div>
       </section>
 
-      {/* Membership Tiers */}
+      {/* Membership Types */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              Membership Options
+              Membership Types
             </h2>
-            <p className="text-xl text-foreground/70">
-              Choose the membership that fits your needs
-            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {membershipTiers.map((tier) => (
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {membershipTypes.map((type) => (
               <div
-                key={tier.name}
-                className={`rounded-3xl p-8 shadow-lg ${
-                  tier.featured
-                    ? 'bg-linear-to-br from-primary to-primary-dark text-white ring-4 ring-accent'
-                    : 'bg-cream'
-                }`}
+                key={type.name}
+                className="bg-cream rounded-3xl p-8 shadow-md hover:shadow-xl transition-all duration-300 text-center"
               >
-                <h3 className={`text-2xl font-heading font-bold mb-2 ${tier.featured ? 'text-white' : 'text-foreground'}`}>
-                  {tier.name}
+                <h3 className="text-2xl font-heading font-bold text-foreground mb-1">
+                  {type.name}
                 </h3>
-                <div className="mb-6">
-                  <div className={`text-4xl font-heading font-bold ${tier.featured ? 'text-white' : 'text-primary'}`}>
-                    {tier.price}
-                  </div>
-                  <div className={`text-sm ${tier.featured ? 'text-white/80' : 'text-foreground/70'}`}>
-                    {tier.period}
-                  </div>
-                </div>
-
-                <ul className="space-y-3 mb-8">
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex items-start">
-                      <Check className={`w-5 h-5 mr-3 shrink-0 mt-0.5 ${tier.featured ? 'text-accent' : 'text-primary'}`} />
-                      <span className={tier.featured ? 'text-white/90' : 'text-foreground/80'}>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href={tier.href || '/membership#register'}
-                  className={`block w-full py-3 px-6 rounded-full font-heading font-semibold text-center transition-all duration-300 hover:scale-105 ${
-                    tier.featured
-                      ? 'bg-white text-primary hover:bg-cream'
-                      : 'bg-primary text-white hover:bg-primary-dark'
-                  }`}
-                >
-                  {tier.cta}
-                </Link>
+                <p className="text-primary font-heading font-semibold text-sm mb-4">
+                  {type.subtitle}
+                </p>
+                <p className="text-foreground/70 leading-relaxed">
+                  {type.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Registration Form Placeholder */}
-      <section id="register" className="py-20 bg-cream">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
-            <h2 className="text-3xl font-heading font-bold text-foreground mb-6 text-center">
-              Member Registration
+      {/* How to Join */}
+      <section className="py-20 bg-cream">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
+              How to Join
             </h2>
-            <div className="bg-primary/10 border-2 border-primary/20 rounded-2xl p-8 text-center">
-              <p className="text-lg text-foreground/80 mb-4">
-                Ready to become a member? Our registration system is coming soon.
-              </p>
-              <p className="text-foreground/70 mb-6">
-                For now, please contact us directly to start your membership.
-              </p>
-              <Link
-                href="/contact"
-                className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
-              >
-                Contact Us to Join
-              </Link>
-            </div>
+          </div>
+
+          <div className="space-y-6">
+            {steps.map((step, index) => (
+              <div key={step} className="flex items-center gap-5 bg-white rounded-2xl p-6 shadow-sm">
+                <div className="shrink-0 w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-heading font-bold text-lg">
+                  {index + 1}
+                </div>
+                <p className="text-lg text-foreground/80 font-medium">{step}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              href="/contact"
+              className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
+            >
+              Register Now
+            </Link>
           </div>
         </div>
       </section>
@@ -203,7 +175,7 @@ export default function MembershipPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              Frequently Asked Questions
+              Membership FAQs
             </h2>
           </div>
 
@@ -225,6 +197,39 @@ export default function MembershipPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-linear-to-r from-primary to-primary-dark text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold">
+            Join Our Community
+          </h2>
+          <p className="text-xl text-white/90 leading-relaxed">
+            Become part of a movement that&apos;s transforming Atlantic City through cooperative ownership
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contact"
+              className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105"
+            >
+              Become a Member
+            </Link>
+            <Link
+              href="/vendors"
+              className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105"
+            >
+              Become a Vendor
+            </Link>
+            <Link
+              href="/contact"
+              className="text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-2xl hover:scale-105"
+              style={{ backgroundColor: '#eeb171' }}
+            >
+              Invest / Sponsor
+            </Link>
           </div>
         </div>
       </section>

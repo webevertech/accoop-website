@@ -1,16 +1,15 @@
 import Link from 'next/link';
-import { TrendingUp, Award, Building2, Heart, DollarSign } from 'lucide-react';
+import { DollarSign } from 'lucide-react';
 
 export const metadata = {
-  title: 'Corporate Sponsorship & Investment - Atlantic City Community Cooperative',
-  description: 'Invest in our community cooperative and earn returns while making social impact.',
+  title: 'Invest in Atlantic City Community Cooperative | Become Impact Sponsor/Investor',
+  description: 'Invest in Atlantic City\'s community-owned supermarket. Become an impact investor, earn dividends, and support local economic revitalization.',
 };
 
 export default function SponsorshipPage() {
   const sponsorshipTiers = [
     {
       name: 'Silver Sponsor',
-      amount: '$5,000 - $9,999',
       benefits: [
         'Logo on co-op website',
         'Social media recognition',
@@ -21,7 +20,6 @@ export default function SponsorshipPage() {
     },
     {
       name: 'Gold Sponsor',
-      amount: '$10,000 - $24,999',
       benefits: [
         'All Silver benefits',
         'Logo in store signage',
@@ -34,7 +32,6 @@ export default function SponsorshipPage() {
     },
     {
       name: 'Platinum Sponsor',
-      amount: '$25,000+',
       benefits: [
         'All Gold benefits',
         'Board meeting participation',
@@ -46,29 +43,6 @@ export default function SponsorshipPage() {
     },
   ];
 
-  const investmentBenefits = [
-    {
-      icon: TrendingUp,
-      title: '5-8% Annual Dividends',
-      desc: 'Competitive returns on your preferred stock investment',
-    },
-    {
-      icon: Heart,
-      title: 'Social Impact',
-      desc: 'Support community economic development and job creation',
-    },
-    {
-      icon: Building2,
-      title: 'Tax Benefits',
-      desc: 'Potential tax advantages for qualifying investments',
-    },
-    {
-      icon: Award,
-      title: 'Priority Redemption',
-      desc: 'Stock redemption priority based on investment tier',
-    },
-  ];
-
   return (
     <>
       {/* Hero Section */}
@@ -76,65 +50,32 @@ export default function SponsorshipPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
-              Corporate Sponsorship & Investment
+              Invest in the Future of Atlantic City
             </h1>
             <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
-              Invest in Atlantic City&apos;s future while earning competitive returns
+              Support community-owned business growth and earn returns while making a lasting impact
             </p>
           </div>
         </div>
       </section>
 
-      {/* Preferred Stock Offering */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-heading font-bold text-foreground mb-6">
-                Preferred Stock Offering
-              </h2>
-              <p className="text-lg text-foreground/80 leading-relaxed mb-6">
-                Invest in the Atlantic City Community Cooperative through our preferred stock offering. Earn competitive annual dividends of 5-8% while supporting a transformative community initiative.
-              </p>
-              <p className="text-lg text-foreground/80 leading-relaxed mb-6">
-                Your investment directly funds the expansion of our supermarket, social services, and job creation programs. As we grow, so does your return and your impact.
-              </p>
-              <div className="bg-accent/10 border-l-4 border-accent p-6 rounded-r-xl">
-                <div className="flex items-start space-x-3">
-                  <DollarSign className="w-6 h-6 text-accent shrink-0 mt-1" />
-                  <div>
-                    <p className="font-heading font-semibold text-foreground mb-1">
-                      Minimum Investment: $1,000
-                    </p>
-                    <p className="text-foreground/70">
-                      Accessible entry point for individual and institutional investors
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              {investmentBenefits.map((benefit) => {
-                const Icon = benefit.icon;
-                return (
-                  <div
-                    key={benefit.title}
-                    className="bg-cream p-6 rounded-2xl hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="w-12 h-12 mb-4 bg-white rounded-xl flex items-center justify-center shadow-md">
-                      <Icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="font-heading font-semibold text-foreground mb-2">
-                      {benefit.title}
-                    </h3>
-                    <p className="text-sm text-foreground/70">
-                      {benefit.desc}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
+      {/* Investment Opportunity - Coming Soon */}
+      <section className="py-12 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-accent/10 border-l-4 border-accent p-6 rounded-r-xl text-center">
+            <DollarSign className="w-10 h-10 text-accent mx-auto mb-3" />
+            <p className="font-heading font-bold text-xl text-foreground mb-2">
+              Investment Opportunity Coming Soon
+            </p>
+            <p className="text-foreground/70">
+              Details on our preferred stock offering will be available shortly. Contact us to express interest.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-block mt-4 bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
+            >
+              Express Interest
+            </Link>
           </div>
         </div>
       </section>
@@ -144,10 +85,10 @@ export default function SponsorshipPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              Corporate Sponsorship Tiers
+              Sponsorship Tiers
             </h2>
             <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
-              Partner with us and gain visibility while supporting community transformation
+              Each tier includes branding visibility and community recognition
             </p>
           </div>
 
@@ -162,12 +103,9 @@ export default function SponsorshipPage() {
                 }`}
               >
                 <div className={`w-full h-2 rounded-full bg-linear-to-r ${tier.color} mb-6`}></div>
-                <h3 className="text-2xl font-heading font-bold text-foreground mb-2">
+                <h3 className="text-2xl font-heading font-bold text-foreground mb-6">
                   {tier.name}
                 </h3>
-                <div className="text-3xl font-heading font-bold text-primary mb-6">
-                  {tier.amount}
-                </div>
 
                 <ul className="space-y-3">
                   {tier.benefits.map((benefit) => (
@@ -181,45 +119,6 @@ export default function SponsorshipPage() {
                 </ul>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How to Invest */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-                How to Invest
-              </h2>
-              <p className="text-xl text-foreground/70">
-                Simple steps to become an investor
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                { step: '1', title: 'Review Investment Materials', desc: 'Download our investor prospectus and financial reports' },
-                { step: '2', title: 'Schedule Consultation', desc: 'Meet with our investor relations team to discuss opportunities' },
-                { step: '3', title: 'Complete Subscription Agreement', desc: 'Fill out the required documentation for investment' },
-                { step: '4', title: 'Transfer Funds', desc: 'Complete your investment and receive stock certificates' },
-              ].map((item) => (
-                <div key={item.step} className="flex items-start space-x-4 bg-cream p-6 rounded-xl">
-                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-heading font-bold text-xl shrink-0">
-                    {item.step}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-heading font-semibold text-lg text-foreground mb-1">
-                      {item.title}
-                    </h3>
-                    <p className="text-foreground/70">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
@@ -240,12 +139,12 @@ export default function SponsorshipPage() {
             >
               Contact Investor Relations
             </Link>
-            <a
-              href="#"
-              className="bg-primary-dark hover:bg-primary text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white hover:shadow-2xl hover:scale-105"
+            <Link
+              href="/membership"
+              className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105"
             >
-              Download Prospectus
-            </a>
+              Become a Member
+            </Link>
           </div>
         </div>
       </section>

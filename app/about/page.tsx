@@ -1,21 +1,28 @@
 import Link from 'next/link';
-import { Target, Eye } from 'lucide-react';
-import CountUp from '../components/CountUp';
+import { Target, Eye, Users, Briefcase, HandshakeIcon, BookOpen, Building2, Heart, Vote } from 'lucide-react';
 
 export const metadata = {
-  title: 'About Us - Atlantic City Community Cooperative',
-  description: 'Learn about our story, mission, vision, team, and cooperative principles.',
+  title: 'About Atlantic City Community Cooperative | Community-Owned Digital Supermarket NJ',
+  description: 'Learn about Atlantic City Community Cooperative\'s mission, vision, leadership, and cooperative principles. Discover how we are building a local cooperative economy in Atlantic City.',
 };
 
 export default function AboutPage() {
   const cooperativePrinciples = [
-    { title: 'Voluntary & Open Membership', desc: 'Open to all persons able to use our services' },
-    { title: 'Democratic Member Control', desc: 'Members actively participate in decision-making' },
-    { title: 'Member Economic Participation', desc: 'Members contribute equitably and benefit fairly' },
-    { title: 'Autonomy & Independence', desc: 'Member-controlled with democratic governance' },
-    { title: 'Education & Training', desc: 'Providing education for members and community' },
-    { title: 'Cooperation Among Cooperatives', desc: 'Working together to strengthen the movement' },
-    { title: 'Concern for Community', desc: 'Sustainable development of our communities' },
+    { title: 'Voluntary & Open Membership', desc: 'Open to all persons able to use our services', icon: Users },
+    { title: 'Democratic Member Control', desc: 'Members actively participate in decision-making', icon: Vote },
+    { title: 'Member Economic Participation', desc: 'Members contribute equitably and benefit fairly', icon: HandshakeIcon },
+    { title: 'Autonomy & Independence', desc: 'Member-controlled with democratic governance', icon: Building2 },
+    { title: 'Education, Training & Information', desc: 'Providing education for members and community', icon: BookOpen },
+    { title: 'Cooperation Among Cooperatives', desc: 'Working together to strengthen the movement', icon: Heart },
+    { title: 'Concern for Community', desc: 'Sustainable development of our communities', icon: Users },
+  ];
+
+  const teamExpertise = [
+    'Community development',
+    'Workforce training',
+    'Cooperative governance',
+    'Retail operations',
+    'Social impact services',
   ];
 
   return (
@@ -25,10 +32,10 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
-              About Us
+              About Atlantic City Community Cooperative
             </h1>
             <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
-              Building a community-owned economy where everyone thrives together
+              Atlantic City&apos;s community-owned economy where everyone thrives together
             </p>
           </div>
         </div>
@@ -44,33 +51,35 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-lg text-foreground/80 leading-relaxed">
                 <p>
-                  The Atlantic City Community Cooperative was born from a vision to create lasting economic change in our community. We recognized that Atlantic City residents needed more than just another supermarket – they needed ownership, opportunity, and empowerment.
+                  The Atlantic City Community Cooperative was created to address critical challenges in Atlantic City, including:
                 </p>
+                <ul className="space-y-2 pl-1">
+                  {[
+                    'Food insecurity',
+                    'Limited access to affordable groceries',
+                    'Economic leakage to outside corporations',
+                    'Lack of community-owned infrastructure',
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <span className="mt-2 w-2 h-2 rounded-full bg-primary shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
                 <p>
-                  Founded by community leaders and residents who believed in the power of cooperative economics, we set out to build something unprecedented: a full-service supermarket combined with a comprehensive social impact center, all owned and governed by the people it serves.
-                </p>
-                <p>
-                  Today, we&apos;re building a model that demonstrates how communities can take control of their economic future while providing essential services, creating jobs, and supporting local businesses.
+                  By transforming underutilized property into a vibrant community hub, AC Coop is creating a replicable model for urban revitalization and cooperative economic development in New Jersey.
                 </p>
               </div>
             </div>
             <div className="bg-linear-to-br from-primary-light/20 to-primary/20 rounded-3xl p-8 lg:p-12">
               <div className="space-y-6">
                 <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <CountUp
-                    end={2500}
-                    suffix="+"
-                    className="text-4xl font-heading font-bold text-primary"
-                  />
-                  <div className="text-foreground/70 font-medium">Community Members</div>
+                  <div className="text-4xl font-heading font-bold text-primary">Community-Owned</div>
+                  <div className="text-foreground/70 font-medium">100% Member Governed</div>
                 </div>
                 <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <CountUp
-                    end={100}
-                    suffix="%"
-                    className="text-4xl font-heading font-bold text-primary"
-                  />
-                  <div className="text-foreground/70 font-medium">Community Owned</div>
+                  <div className="text-4xl font-heading font-bold text-primary">Opening Fall 2026</div>
+                  <div className="text-foreground/70 font-medium">Atlantic City, NJ</div>
                 </div>
                 <div className="bg-white rounded-2xl p-6 shadow-lg">
                   <div className="text-4xl font-heading font-bold text-primary">Local</div>
@@ -105,47 +114,82 @@ export default function AboutPage() {
               <h2 className="text-3xl font-heading font-bold text-foreground mb-4">
                 Our Vision
               </h2>
-              <p className="text-lg text-foreground/80 leading-relaxed">
-                A self-sustaining cooperative model where community members are owners, employees, and beneficiaries, creating generational wealth and opportunity for all.
+              <p className="text-lg text-foreground/80 leading-relaxed mb-4">
+                A self-sustaining cooperative model where community members are:
               </p>
+              <ul className="space-y-2 text-lg text-foreground/80">
+                {['Owners', 'Employees', 'Entrepreneurs', 'Long-term beneficiaries'].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full bg-primary shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Team */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl font-heading font-bold text-foreground mb-6">
+              Our Team
+            </h2>
+            <p className="text-lg text-foreground/80 leading-relaxed mb-8">
+              The Atlantic City Community Cooperative is led by experienced professionals in:
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {teamExpertise.map((area) => (
+                <span
+                  key={area}
+                  className="px-5 py-3 bg-cream rounded-full font-heading font-semibold text-foreground/80 text-sm sm:text-base border border-gray-100"
+                >
+                  {area}
+                </span>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* Cooperative Principles */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              7 Cooperative Principles
+              Cooperative Principles
             </h2>
             <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
-              We follow the internationally recognized cooperative principles that guide cooperatives worldwide
+              AC Coop follows the internationally recognized Cooperative Principles
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {cooperativePrinciples.map((principle, index) => (
-              <div
-                key={principle.title}
-                className="bg-cream p-6 rounded-2xl hover:shadow-lg transition-all duration-300 group"
-              >
-                <div className="flex items-start space-x-3">
-                  <div className="shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-heading font-bold text-sm group-hover:scale-110 transition-transform">
-                    {index + 1}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-heading font-semibold text-foreground mb-2">
-                      {principle.title}
-                    </h3>
-                    <p className="text-foreground/70 text-sm">
-                      {principle.desc}
-                    </p>
+          <div className="flex flex-wrap justify-center gap-6">
+            {cooperativePrinciples.map((principle, index) => {
+              const Icon = principle.icon;
+              return (
+                <div
+                  key={principle.title}
+                  className="bg-white p-6 rounded-2xl hover:shadow-lg transition-all duration-300 group w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+                >
+                  <div className="flex items-start space-x-3">
+                    <div className="shrink-0 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-heading font-bold text-sm group-hover:scale-110 transition-transform">
+                      {index + 1}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-heading font-semibold text-foreground mb-2">
+                        {principle.title}
+                      </h3>
+                      <p className="text-foreground/70 text-sm">
+                        {principle.desc}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -167,10 +211,17 @@ export default function AboutPage() {
               Become a Member
             </Link>
             <Link
-              href="/contact"
-              className="bg-primary-dark hover:bg-primary text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white hover:shadow-2xl hover:scale-105"
+              href="/vendors"
+              className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105"
             >
-              Contact Us
+              Become a Vendor
+            </Link>
+            <Link
+              href="/contact"
+              className="text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-2xl hover:scale-105"
+              style={{ backgroundColor: '#eeb171' }}
+            >
+              Invest / Sponsor
             </Link>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Users, ShoppingCart, Heart, DollarSign, Apple, Beef, Wheat, Pill, Bike, Store, ClipboardList, Briefcase, Home as HomeIcon, Baby, ArrowRight } from 'lucide-react';
-import CountUp from './components/CountUp';
+import { Users, ShoppingCart, Heart, DollarSign, Apple, Beef, Wheat, Pill, Bike, Store, ShoppingBag, Briefcase, Building2, Handshake, ArrowRight, Smartphone, GraduationCap, Hotel, Home as HomeIcon, Sparkles, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -11,25 +10,41 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[85vh] py-16 md:py-20">
             {/* Left: Text Content */}
-            <div className="space-y-6 animate-fadeInUp">
+            <div className="space-y-5 animate-fadeInUp">
               <div className="inline-flex items-center gap-2 bg-white/25 text-white px-4 py-2 rounded-full text-sm font-medium">
                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                 Community-Owned Cooperative
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.1] text-white">
-                Empowering
+                Atlantic City Owned.
                 <br />
-                Atlantic City
+                Atlantic City Built.
                 <br />
-                <span className="text-accent">Together.</span>
+                <span className="text-accent">Atlantic City Powered.</span>
               </h1>
 
-              <p className="text-lg text-white/80 max-w-md leading-relaxed">
-                Fresh food, fair prices, and real social impact — built by and for our community.
+              <p className="text-lg text-white/85 max-w-lg leading-relaxed">
+                <span className="font-semibold text-white">Community wealth requires community ownership.</span>
+                {' '}We&apos;re building a community-owned supermarket, delivery network, and social impact center that:
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+              <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-white/70 text-sm max-w-lg">
+                {[
+                  'Addresses food insecurity',
+                  'Creates local jobs',
+                  'Supports small businesses',
+                  'Revitalizes vacant property',
+                  'Keeps wealth in AC',
+                ].map((item) => (
+                  <span key={item} className="flex items-center gap-1.5">
+                    <span className="w-1 h-1 bg-accent rounded-full shrink-0" />
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-1">
                 <Link
                   href="/membership"
                   className="bg-white text-primary hover:bg-cream px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg w-full sm:w-auto text-center"
@@ -37,59 +52,44 @@ export default function Home() {
                   Become a Member
                 </Link>
                 <Link
-                  href="/marketplace"
-                  className="bg-transparent hover:bg-white/10 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border border-white/30 w-full sm:w-auto text-center"
+                  href="/vendors"
+                  className="bg-white/15 hover:bg-white/25 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 w-full sm:w-auto text-center"
                 >
-                  Explore Marketplace
+                  Become a Vendor
+                </Link>
+                <Link
+                  href="/sponsorship"
+                  className="bg-accent hover:bg-accent/90 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg w-full sm:w-auto text-center"
+                >
+                  Invest / Sponsor
                 </Link>
               </div>
 
-              {/* Stats row */}
-              <div className="flex gap-8 pt-6 border-t border-white/20">
+              {/* Membership Goals */}
+              <div className="flex gap-8 pt-4 border-t border-white/20">
                 <div>
-                  <CountUp end={2500} suffix="+" className="text-2xl font-heading font-bold text-white" />
-                  <p className="text-sm text-white/60">Members</p>
+                  <p className="text-2xl font-heading font-bold text-white">1,000</p>
+                  <p className="text-sm text-white/60">member-owners in 2026</p>
                 </div>
                 <div>
-                  <CountUp end={50} suffix="+" className="text-2xl font-heading font-bold text-white" />
-                  <p className="text-sm text-white/60">Local Vendors</p>
-                </div>
-                <div>
-                  <CountUp end={15} suffix="+" className="text-2xl font-heading font-bold text-white" />
-                  <p className="text-sm text-white/60">Services</p>
+                  <p className="text-2xl font-heading font-bold text-white">2,500</p>
+                  <p className="text-sm text-white/60">member-owners by 2027</p>
                 </div>
               </div>
             </div>
 
-            {/* Right: Image Collage */}
-            <div className="relative hidden lg:block">
-              <div className="relative w-full aspect-square">
-                {/* Main image */}
-                <div className="absolute top-[5%] right-0 w-[75%] aspect-3/4 rounded-3xl overflow-hidden shadow-2xl">
-                  <Image
-                    src="/hero-grocery.jpg"
-                    alt="Woman carrying a grocery basket of vegetables picking up a boxed water"
-                    width={1200}
-                    height={1600}
-                    quality={85}
-                    priority
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                {/* Secondary image */}
-                <div className="absolute bottom-[10%] left-0 w-[55%] aspect-square rounded-2xl overflow-hidden shadow-xl border-4 border-primary">
-                  <Image
-                    src="/hero-produce.jpg"
-                    alt="Fresh produce at the cooperative"
-                    width={800}
-                    height={800}
-                    quality={80}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                {/* Accent shape */}
-                <div className="absolute top-0 left-[10%] w-20 h-20 bg-accent/30 rounded-full -z-10" />
-                <div className="absolute bottom-[5%] right-[10%] w-14 h-14 bg-white/10 rounded-full -z-10" />
+            {/* Right: Boardwalk Basket App Image */}
+            <div className="relative hidden lg:flex items-center justify-center">
+              <div className="relative w-full max-w-lg">
+                <Image
+                  src="/boardwalk-basket.jpg"
+                  alt="Boardwalk Basket - Atlantic City's Own Digital Marketplace app"
+                  width={800}
+                  height={1000}
+                  quality={90}
+                  priority
+                  className="object-contain w-full h-auto rounded-2xl"
+                />
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@ export default function Home() {
             {[
               { title: 'Membership', icon: Users, href: '/membership', desc: 'Join our community' },
               { title: 'Shop', icon: ShoppingCart, href: '/marketplace', desc: 'Fresh local products' },
-              { title: 'Social Services', icon: Heart, href: '/social-impact', desc: 'Get support' },
+              { title: 'Become a Vendor', icon: Store, href: '/vendors', desc: 'Sell with us' },
               { title: 'Invest', icon: DollarSign, href: '/sponsorship', desc: 'Support the co-op' },
             ].map((item) => {
               const Icon = item.icon;
@@ -136,18 +136,18 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-foreground">
-                A Community-Owned<br />
-                <span className="text-primary">Supermarket & Social Hub</span>
+                What Is Atlantic City<br />
+                <span className="text-primary">Community Co-op?</span>
               </h2>
               <p className="text-lg text-foreground/80 leading-relaxed">
-                The Atlantic City Community Cooperative is building a cooperative economy where community members are owners, employees, and beneficiaries. We provide access to fresh food, economic opportunities, and essential services for all Atlantic City residents.
+                AC Community Co-op is a consumer-owned cooperative developing:
               </p>
               <ul className="space-y-3">
                 {[
-                  'Fresh, affordable groceries from local vendors',
-                  'Comprehensive social services & support',
-                  'Job training & career development',
-                  'Democratic member ownership & governance',
+                  'A full-service supermarket',
+                  'A digital marketplace (Boardwalk Basket)',
+                  'A Social Impact & Resource Center',
+                  'Workforce and entrepreneurship pathways',
                 ].map((feature) => (
                   <li key={feature} className="flex items-start">
                     <svg className="w-6 h-6 text-primary mr-3 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -157,6 +157,9 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+              <p className="text-lg font-heading font-semibold text-foreground">
+                We are not just a supermarket — we are building community wealth infrastructure.
+              </p>
               <Link
                 href="/about"
                 className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg"
@@ -168,58 +171,144 @@ export default function Home() {
             <div className="relative">
               <div className="aspect-4/3 rounded-3xl shadow-2xl overflow-hidden">
                 <Image
-                  src="/community-collab.jpg"
-                  alt="Community members collaborating together"
+                  src="/04.png"
+                  alt="7 South Carolina Ave building - future home of ACCOOP"
                   width={800}
                   height={600}
-                  quality={80}
+                  quality={85}
                   className="object-cover w-full h-full"
                 />
               </div>
               <div className="absolute -bottom-6 -right-6 bg-accent text-white p-6 rounded-2xl shadow-xl">
-                <CountUp
-                  end={2500}
-                  suffix="+"
-                  className="text-4xl font-heading font-bold"
-                />
-                <div className="text-sm font-medium">Community Members</div>
+                <div className="text-2xl font-heading font-bold">Opening</div>
+                <div className="text-sm font-medium">Fall 2026</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Marketplace Preview */}
-      <section className="py-20 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+      {/* Marketplace Preview - Boardwalk Basket */}
+      <section className="py-20 bg-cream relative overflow-hidden">
+        {/* Boardwalk Basket logo watermark - bottom right on desktop */}
+        <div className="absolute bottom-8 right-8 pointer-events-none hidden lg:block">
+          <Image
+            src="/boardwalk-basket-logo.png"
+            alt=""
+            width={300}
+            height={300}
+            className="opacity-[0.08] object-contain w-56 h-auto"
+            aria-hidden="true"
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-4">
+            <p className="text-sm font-heading font-semibold text-primary uppercase tracking-wider mb-2">Boardwalk Basket</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-              Our Community Marketplace
+              Atlantic City&apos;s Digital Marketplace
             </h2>
             <p className="text-lg sm:text-xl text-foreground/70 max-w-2xl mx-auto">
-              Shop fresh, local products and support Atlantic City&apos;s economy
+              Atlantic City&apos;s own digital supermarket &amp; social impact hub
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 mb-12">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
             {[
-              { title: 'Grocery & Fresh Produce', icon: Apple, desc: 'Farm-fresh vegetables, fruits, and pantry essentials' },
-              { title: 'Meat, Seafood & Deli', icon: Beef, desc: 'Quality proteins from trusted local suppliers' },
-              { title: 'Bakery & Specialty', icon: Wheat, desc: 'Fresh-baked goods and artisanal products' },
-              { title: 'Health & Pharmacy', icon: Pill, desc: 'Medications and wellness essentials' },
-              { title: 'Home Delivery', icon: Bike, desc: 'EV bikes & cars delivering to your door' },
-              { title: 'Local Vendors', icon: Store, desc: 'Supporting Atlantic City small businesses' },
+              { title: 'Groceries Delivery', icon: ShoppingBag, desc: 'Fresh groceries delivered to your door' },
+              { title: 'Education & Training', icon: GraduationCap, desc: 'Workforce development and skills training' },
+              { title: 'Hotel Booking', icon: Hotel, desc: 'Local hotel reservations and travel' },
+              { title: 'Retail', icon: Store, desc: 'Shop local retail and everyday essentials' },
+              { title: 'Home Services', icon: HomeIcon, desc: 'Repairs, cleaning, and maintenance' },
+              { title: 'Local Vendors', icon: ShoppingCart, desc: 'Supporting Atlantic City small businesses' },
+              { title: 'Pharmacy on Demand', icon: Pill, desc: 'Medications and health essentials delivered' },
+              { title: 'Beauty & Wellness', icon: Sparkles, desc: 'Salons, spas, and self-care services' },
+              { title: 'Social Services', icon: Heart, desc: 'Community support and resources' },
+              { title: 'Automotive Services', icon: Car, desc: 'Car repair, detailing, and maintenance' },
+              { title: 'Professional Services', icon: ClipboardList, desc: 'Legal, financial, and business services' },
+              { title: 'Food Delivery', icon: UtensilsCrossed, desc: 'Local restaurant meals delivered' },
             ].map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.title} className="bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 group">
-                  <div className="w-14 h-14 mb-4 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary transition-all duration-300">
-                    <Icon className="w-7 h-7 text-primary group-hover:text-white transition-colors duration-300" />
+                <div key={item.title} className="bg-white p-5 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 group">
+                  <div className="w-12 h-12 mb-3 bg-primary/10 rounded-xl flex items-center justify-center group-hover:bg-primary transition-all duration-300">
+                    <Icon className="w-6 h-6 text-primary group-hover:text-white transition-colors duration-300" />
                   </div>
-                  <h3 className="font-heading font-semibold text-xl text-foreground mb-2">
+                  <h3 className="font-heading font-semibold text-lg text-foreground mb-1">
                     {item.title}
                   </h3>
-                  <p className="text-foreground/70">{item.desc}</p>
+                  <p className="text-sm text-foreground/70">{item.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-8">
+            <div className="flex items-center gap-4">
+              <Image
+                src="/boardwalk-basket-logo.png"
+                alt="Boardwalk Basket"
+                width={80}
+                height={80}
+                className="w-16 h-16 object-contain"
+              />
+              <div>
+                <p className="font-heading font-bold text-foreground text-lg">Boardwalk Basket</p>
+                <p className="text-sm text-foreground/60">Atlantic City&apos;s Own Delivery Network</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center space-y-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a
+                href="https://www.boardwalkbasket.com/en/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg"
+              >
+                Explore the Market
+              </a>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-2">
+              <div className="flex items-center gap-2 text-foreground/60">
+                <Smartphone className="w-5 h-5" />
+                <span className="text-sm font-medium">Download the App — Coming July 2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Impact Model */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+              Our Impact Model
+            </h2>
+            <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
+              More than a supermarket — we are building a comprehensive model for community transformation.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
+            {[
+              { title: 'Food Access', icon: ShoppingCart, desc: 'Affordable fresh food in a full-service supermarket' },
+              { title: 'Job Creation', icon: Briefcase, desc: 'Local hiring with workforce pathways' },
+              { title: 'Small Business Support', icon: Store, desc: 'Vendor incubation and digital marketplace access' },
+              { title: 'Center for Social Impact', icon: Building2, desc: 'Comprehensive services to empower our community members and create lasting positive change' },
+              { title: 'Community Ownership', icon: Handshake, desc: 'Residents become owners — not just customers' },
+            ].map((service) => {
+              const Icon = service.icon;
+              return (
+                <div key={service.title} className="flex items-start space-x-4 bg-cream p-6 rounded-2xl hover:bg-primary/10 transition-colors duration-300 group">
+                  <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors duration-300 shrink-0">
+                    <Icon className="w-6 h-6 text-primary group-hover:text-white transition-colors duration-300" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-semibold text-lg text-foreground mb-1">{service.title}</h3>
+                    <p className="text-sm text-foreground/70">{service.desc}</p>
+                  </div>
                 </div>
               );
             })}
@@ -227,67 +316,33 @@ export default function Home() {
 
           <div className="text-center">
             <Link
-              href="/marketplace"
+              href="/social-impact"
               className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg"
             >
-              Explore the Marketplace
+              Explore Our Services
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Social Impact Center */}
-      <section className="py-20 bg-white">
+      {/* Partners & Supporters */}
+      <section className="py-12 bg-cream border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1 relative">
-              <div className="aspect-square rounded-3xl shadow-2xl overflow-hidden">
-                <Image
-                  src="/community-hands.jpg"
-                  alt="Hands joining together in community support"
-                  width={800}
-                  height={800}
-                  quality={80}
-                  className="object-cover w-full h-full"
-                />
+          <p className="text-center text-sm font-heading font-semibold text-foreground/50 uppercase tracking-wider mb-8">
+            Our Partners & Supporters
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-10">
+            {[
+              { src: '/logo-300x114-1 (2).png', alt: 'NJEDA' },
+              { src: '/logo.png', alt: 'Atlantic City Community Cooperative' },
+              { src: '/iitnj logo.png', alt: 'Ideal Institute' },
+              { src: '/CG-Transparent.png', alt: 'Common Ground' },
+              { src: '/boardwalk-basket-logo.png', alt: 'Boardwalk Basket' },
+            ].map((partner) => (
+              <div key={partner.alt} className="w-48 h-28 sm:w-60 sm:h-32 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-5">
+                <Image src={partner.src} alt={partner.alt} width={220} height={100} className="max-h-full max-w-full object-contain" />
               </div>
-            </div>
-
-            <div className="order-1 lg:order-2 space-y-6">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-foreground">
-                Social Impact Center
-              </h2>
-              <p className="text-lg text-foreground/80 leading-relaxed">
-                Beyond groceries, we provide comprehensive services to empower our community members and create lasting positive change.
-              </p>
-
-              <div className="space-y-3 sm:space-y-4">
-                {[
-                  { title: 'Individual Empowerment Plans', icon: ClipboardList },
-                  { title: 'Job Training & Career Support', icon: Briefcase },
-                  { title: 'Housing & Re-Entry Services', icon: HomeIcon },
-                  { title: 'Childcare & Family Support', icon: Baby },
-                  { title: 'Financial Assistance & Food Pantry', icon: Heart },
-                ].map((service) => {
-                  const Icon = service.icon;
-                  return (
-                    <div key={service.title} className="flex items-center space-x-4 bg-cream p-4 rounded-xl hover:bg-primary/10 transition-colors duration-300 group">
-                      <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center group-hover:bg-primary transition-colors duration-300 shrink-0">
-                        <Icon className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-300" />
-                      </div>
-                      <span className="font-heading font-medium text-foreground">{service.title}</span>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <Link
-                href="/social-impact"
-                className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg"
-              >
-                Explore Our Services
-              </Link>
-            </div>
+            ))}
           </div>
         </div>
       </section>

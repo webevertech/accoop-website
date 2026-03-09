@@ -26,11 +26,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Atlantic City Community Cooperative | Community-Owned Grocery & Social Hub in Pleasantville, NJ",
+    default: "Atlantic City Community Cooperative | Community-Owned Supermarket & Social Impact Hub",
     template: "%s | Atlantic City Community Cooperative",
   },
   description:
-    "Atlantic City Community Cooperative is a community-owned supermarket and social impact hub in Pleasantville, NJ. Fresh groceries, local vendors, job training, social services, and more for Atlantic City and South Jersey residents.",
+    "Atlantic City Community Cooperative is building a community-owned supermarket, sustainable delivery network, and social impact center in Atlantic City, NJ. Become a member, vendor, or investor today.",
   keywords: [
     "community cooperative",
     "Atlantic City",
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://accoop.com",
     siteName: "Atlantic City Community Cooperative",
-    title: "Atlantic City Community Cooperative | Community-Owned Grocery & Social Hub",
+    title: "Atlantic City Community Cooperative | Community-Owned Supermarket & Social Impact Hub",
     description:
-      "Fresh food, fair prices, and real social impact — built by and for our community in Pleasantville, NJ.",
+      "Atlantic City Community Cooperative is building a community-owned supermarket, sustainable delivery network, and social impact center in Atlantic City, NJ.",
     images: [
       {
         url: "/community-collab.jpg",
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Atlantic City Community Cooperative",
     description:
-      "Community-owned supermarket & social impact hub in Pleasantville, NJ. Fresh groceries, local vendors, and essential services.",
+      "Building a community-owned supermarket, sustainable delivery network, and social impact center in Atlantic City, NJ.",
     images: ["/community-collab.jpg"],
   },
   robots: {

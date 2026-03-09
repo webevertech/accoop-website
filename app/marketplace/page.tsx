@@ -1,49 +1,40 @@
 import Link from 'next/link';
-import { Apple, Beef, Wheat, Pill, Store, Bike, ShoppingCart, Smartphone, PackageCheck } from 'lucide-react';
+import Image from 'next/image';
+import { Apple, Beef, Wheat, Pill, Store, Bike, ShoppingCart, Smartphone, PackageCheck, Zap, Users, Leaf, ShoppingBag, GraduationCap, Hotel, Home as HomeIcon, Sparkles, Heart, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
 
 export const metadata = {
-  title: 'Our Marketplace - Atlantic City Community Cooperative',
-  description: 'Shop fresh, local products from our community supermarket with home delivery options.',
+  title: 'Atlantic City Supermarket | Fresh Produce, Groceries & Local Vendors',
+  description: 'At Boardwalk Basket, shop fresh groceries, pharmacy essentials, bakery, meat, seafood, and local products at Atlantic City Community Coop\'s digital marketplace "Boardwalk Basket".',
 };
 
 export default function MarketplacePage() {
   const departments = [
-    {
-      icon: Apple,
-      title: 'Grocery & Fresh Produce',
-      desc: 'Farm-fresh vegetables, fruits, and organic options sourced from local farms and trusted suppliers.',
-      features: ['Organic options', 'Local produce', 'Seasonal specials'],
-    },
-    {
-      icon: Beef,
-      title: 'Meat, Seafood & Deli',
-      desc: 'Premium quality proteins, fresh seafood, and deli selections prepared by experienced butchers.',
-      features: ['Fresh cuts daily', 'Custom orders', 'Local seafood'],
-    },
-    {
-      icon: Wheat,
-      title: 'Bakery & Specialty',
-      desc: 'Fresh-baked breads, pastries, and artisanal products made daily in our bakery.',
-      features: ['Baked fresh daily', 'Gluten-free options', 'Custom cakes'],
-    },
-    {
-      icon: Pill,
-      title: 'Pharmacy & Health',
-      desc: 'Full-service pharmacy with prescriptions, over-the-counter medications, and wellness products.',
-      features: ['Prescription filling', 'Health consultations', 'Wellness products'],
-    },
-    {
-      icon: Store,
-      title: 'Local Vendor Products',
-      desc: 'Unique products from Atlantic City small businesses and local entrepreneurs.',
-      features: ['Local makers', 'Artisan goods', 'Community crafts'],
-    },
-    {
-      icon: PackageCheck,
-      title: 'Home Goods & More',
-      desc: 'Household essentials, cleaning supplies, and general merchandise for everyday needs.',
-      features: ['Eco-friendly options', 'Bulk items', 'Everyday essentials'],
-    },
+    { icon: ShoppingBag, title: 'Groceries Delivery', desc: 'Fresh groceries delivered to your door' },
+    { icon: GraduationCap, title: 'Education & Training', desc: 'Workforce development and skills training' },
+    { icon: Hotel, title: 'Hotel Booking', desc: 'Local hotel reservations and travel' },
+    { icon: Store, title: 'Retail', desc: 'Shop local retail and everyday essentials' },
+    { icon: HomeIcon, title: 'Home Services', desc: 'Repairs, cleaning, and maintenance' },
+    { icon: ShoppingCart, title: 'Local Vendors', desc: 'Supporting Atlantic City small businesses' },
+    { icon: Pill, title: 'Pharmacy on Demand', desc: 'Medications and health essentials delivered' },
+    { icon: Sparkles, title: 'Beauty & Wellness', desc: 'Salons, spas, and self-care services' },
+    { icon: Heart, title: 'Social Services', desc: 'Community support and resources' },
+    { icon: Car, title: 'Automotive Services', desc: 'Car repair, detailing, and maintenance' },
+    { icon: ClipboardList, title: 'Professional Services', desc: 'Legal, financial, and business services' },
+    { icon: UtensilsCrossed, title: 'Food Delivery', desc: 'Local restaurant meals delivered' },
+  ];
+
+  const orderMethods = [
+    { icon: Store, title: 'Shop at Our Store', desc: 'Visit our full-service supermarket in Atlantic City' },
+    { icon: Smartphone, title: 'Our Mobile App', desc: 'Order groceries on the go with the Boardwalk Basket app' },
+    { icon: Users, title: 'Block Captains Network', desc: 'Community-powered ordering and delivery assistance' },
+    { icon: ShoppingCart, title: 'Online Ordering', desc: 'Future integration for web-based shopping' },
+  ];
+
+  const localSupport = [
+    { icon: Leaf, title: 'Local Farmers', desc: 'Fresh produce sourced directly from regional farms' },
+    { icon: Store, title: 'Small Businesses', desc: 'Shelf space and visibility for neighborhood shops' },
+    { icon: Users, title: 'Minority-Owned Enterprises', desc: 'Dedicated support for underrepresented business owners' },
+    { icon: Beef, title: 'Food Entrepreneurs', desc: 'Launch and grow food brands through our marketplace' },
   ];
 
   return (
@@ -51,66 +42,36 @@ export default function MarketplacePage() {
       {/* Hero Section */}
       <section className="bg-linear-to-br from-primary via-primary-dark to-primary-light text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
+          <div className="max-w-4xl">
             <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
-              Our Marketplace
+              Boardwalk Basket: Atlantic City&apos;s Digital Marketplace
             </h1>
             <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
-              Fresh, affordable groceries and essentials from your community-owned supermarket
+              Shop Fresh. Shop Local. Shop Community-Owned.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Supermarket Overview */}
+      {/* Community-Owned Digital Supermarket */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-            <div>
-              <h2 className="text-4xl font-heading font-bold text-foreground mb-6">
-                A Full-Service Community Supermarket
-              </h2>
-              <p className="text-lg text-foreground/80 leading-relaxed mb-6">
-                More than just a grocery store, our marketplace is designed to serve the complete needs of Atlantic City families while supporting local businesses and farmers.
-              </p>
-              <ul className="space-y-3">
-                {[
-                  'Fresh products delivered daily',
-                  'Competitive prices for members',
-                  'Supporting 50+ local vendors',
-                  'Sustainable & eco-friendly practices',
-                ].map((feature) => (
-                  <li key={feature} className="flex items-start">
-                    <PackageCheck className="w-6 h-6 text-primary mr-3 shrink-0 mt-0.5" />
-                    <span className="text-foreground/80">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="bg-linear-to-br from-primary-light/20 to-primary/20 rounded-3xl p-12">
-              <div className="text-center space-y-4">
-                <div className="w-20 h-20 mx-auto bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                  <ShoppingCart className="w-10 h-10 text-primary" />
-                </div>
-                <h3 className="text-2xl font-heading font-bold text-foreground">
-                  Coming Soon: Online Shopping
-                </h3>
-                <p className="text-foreground/70">
-                  Order groceries through our mobile app and website for convenient pickup or delivery.
-                </p>
-              </div>
-            </div>
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="text-4xl font-heading font-bold text-foreground mb-6">
+              Community-Owned Digital Supermarket in Atlantic City
+            </h2>
+            <p className="text-lg text-foreground/80 leading-relaxed">
+              AC Coop offers a full-service grocery delivery experience including:
+            </p>
           </div>
 
-          {/* Departments Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
             {departments.map((dept) => {
               const Icon = dept.icon;
               return (
                 <div
                   key={dept.title}
-                  className="bg-cream rounded-2xl p-6 hover:shadow-xl transition-all duration-300 group"
+                  className="bg-cream rounded-2xl p-5 hover:shadow-xl transition-all duration-300 group"
                 >
                   <div className="w-14 h-14 mb-4 bg-white rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors duration-300 shadow-md">
                     <Icon className="w-7 h-7 text-primary group-hover:text-white transition-colors duration-300" />
@@ -118,75 +79,120 @@ export default function MarketplacePage() {
                   <h3 className="font-heading font-semibold text-xl text-foreground mb-2">
                     {dept.title}
                   </h3>
-                  <p className="text-foreground/70 mb-4">
+                  <p className="text-foreground/70">
                     {dept.desc}
                   </p>
-                  <ul className="space-y-1">
-                    {dept.features.map((feature) => (
-                      <li key={feature} className="text-sm text-primary font-medium flex items-center">
-                        <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               );
             })}
           </div>
+
+          <p className="text-center text-lg text-foreground/70 font-medium">
+            We prioritize affordability, quality, and local sourcing.
+          </p>
         </div>
       </section>
 
-      {/* Home Delivery */}
+      {/* Sustainable Home Delivery */}
       <section className="py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="bg-white rounded-3xl p-12 shadow-xl text-center">
-                <div className="w-24 h-24 mx-auto mb-6 bg-primary/10 rounded-2xl flex items-center justify-center">
-                  <Bike className="w-12 h-12 text-primary" />
-                </div>
-                <h3 className="text-2xl font-heading font-bold text-foreground mb-4">
-                  Eco-Friendly Delivery
-                </h3>
-                <p className="text-foreground/70 mb-6">
-                  Our Block Captains deliver using electric bikes and vehicles, reducing our carbon footprint while serving the community.
-                </p>
-                <Link
-                  href="/block-captain"
-                  className="inline-block text-primary font-heading font-semibold hover:text-primary-dark transition-colors"
-                >
-                  Learn about Block Captains →
-                </Link>
-              </div>
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
+              Sustainable Home Delivery Services in Atlantic City
+            </h2>
+          </div>
 
-            <div className="order-1 lg:order-2">
-              <h2 className="text-4xl font-heading font-bold text-foreground mb-6">
-                Home Delivery Services
-              </h2>
-              <p className="text-lg text-foreground/80 leading-relaxed mb-6">
-                Can&apos;t make it to the store? No problem. Our innovative delivery system brings fresh groceries right to your door.
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-lg text-foreground/80 leading-relaxed mb-8">
+                Order via:
               </p>
               <div className="space-y-4">
-                {[
-                  { icon: Smartphone, title: 'Order via App or Block Captain', desc: 'Multiple convenient ordering options' },
-                  { icon: Bike, title: 'Eco-Friendly Delivery', desc: 'EV bikes and cars for sustainable service' },
-                  { icon: PackageCheck, title: 'Same-Day Options', desc: 'Fast delivery across Atlantic City' },
-                ].map((item) => {
-                  const Icon = item.icon;
+                {orderMethods.map((method) => {
+                  const Icon = method.icon;
                   return (
-                    <div key={item.title} className="flex items-start space-x-4 bg-white p-4 rounded-xl">
-                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
-                        <Icon className="w-5 h-5 text-primary" />
+                    <div key={method.title} className="flex items-start space-x-4 bg-white p-5 rounded-xl shadow-sm">
+                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                        <Icon className="w-6 h-6 text-primary" />
                       </div>
                       <div>
-                        <h4 className="font-heading font-semibold text-foreground">{item.title}</h4>
-                        <p className="text-sm text-foreground/70">{item.desc}</p>
+                        <h4 className="font-heading font-semibold text-foreground">{method.title}</h4>
+                        <p className="text-sm text-foreground/70">{method.desc}</p>
                       </div>
                     </div>
                   );
                 })}
               </div>
+            </div>
+
+            <div className="bg-white rounded-3xl p-10 shadow-xl text-center">
+              <Image
+                src="/boardwalk-basket-logo.png"
+                alt="Boardwalk Basket"
+                width={160}
+                height={160}
+                className="mx-auto mb-6 w-32 h-32 object-contain"
+              />
+              <h3 className="text-2xl font-heading font-bold text-foreground mb-2">
+                Boardwalk Basket
+              </h3>
+              <p className="text-foreground/70 mb-6">
+                Deliveries powered by electric vehicles and electric bikes across Atlantic City, NJ.
+              </p>
+              <div className="space-y-3">
+                <p className="text-sm text-foreground/50 font-heading font-semibold">
+                  Download the App — Coming July 2026
+                </p>
+                <Link
+                  href="/vendors"
+                  className="block w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-full font-heading font-semibold transition-all duration-300 hover:scale-105"
+                >
+                  Become a Vendor
+                </Link>
+                <Link
+                  href="/block-captain"
+                  className="inline-block text-primary font-heading font-semibold hover:text-primary-dark transition-colors text-sm"
+                >
+                  Learn about Block Captains →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Support Local */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
+                Support Local & Specialty Products
+              </h2>
+              <p className="text-lg text-foreground/80 leading-relaxed mb-8">
+                AC Coop provides digital shelf space and marketing support for local vendors and entrepreneurs.
+              </p>
+              <Link
+                href="/vendors"
+                className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
+              >
+                Become a Vendor
+              </Link>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-5">
+              {localSupport.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.title} className="bg-cream rounded-2xl p-6 hover:shadow-lg transition-all duration-300 group">
+                    <div className="w-12 h-12 mb-4 bg-white rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors duration-300 shadow-sm">
+                      <Icon className="w-6 h-6 text-primary group-hover:text-white transition-colors duration-300" />
+                    </div>
+                    <h3 className="font-heading font-semibold text-foreground mb-1">{item.title}</h3>
+                    <p className="text-sm text-foreground/70">{item.desc}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -199,20 +205,27 @@ export default function MarketplacePage() {
             Ready to Shop with Us?
           </h2>
           <p className="text-xl text-white/90 leading-relaxed">
-            Become a member today and start enjoying fresh, local products at great prices
+            Fresh food, fair prices, and community ownership — all in one place
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/membership"
               className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105"
             >
-              Join as a Member
+              Become a Member
             </Link>
             <Link
               href="/vendors"
-              className="bg-primary-dark hover:bg-primary text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white hover:shadow-2xl hover:scale-105"
+              className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105"
             >
               Become a Vendor
+            </Link>
+            <Link
+              href="/contact"
+              className="text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-2xl hover:scale-105"
+              style={{ backgroundColor: '#eeb171' }}
+            >
+              Invest / Sponsor
             </Link>
           </div>
         </div>

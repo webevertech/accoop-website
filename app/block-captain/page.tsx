@@ -1,18 +1,17 @@
 import Link from 'next/link';
-import { Bike, Users, DollarSign, MapPin, CheckCircle2, Briefcase } from 'lucide-react';
+import { Bike, Users, DollarSign, MapPin, CheckCircle2, Briefcase, ShoppingCart, Heart, Phone } from 'lucide-react';
 
 export const metadata = {
-  title: 'Block Captain Program - Atlantic City Community Cooperative',
-  description: 'Join our Block Captain program and earn income while serving your community.',
+  title: 'Block Captain Program Atlantic City | Community Outreach & Delivery Jobs',
+  description: 'Join the Atlantic City Community Cooperative Block Captain Program. Help deliver groceries, connect neighbors to services, and build community leadership.',
 };
 
 export default function BlockCaptainPage() {
   const responsibilities = [
-    'Help neighbors place grocery orders and coordinate deliveries',
-    'Connect community members to co-op social services',
-    'Lead membership drives in your neighborhood',
-    'Provide feedback on community needs and preferences',
-    'Serve as a liaison between the co-op and residents',
+    'Assist neighbors with grocery orders',
+    'Coordinate home deliveries',
+    'Connect residents to social services',
+    'Lead membership outreach',
   ];
 
   const benefits = [
@@ -29,7 +28,7 @@ export default function BlockCaptainPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
-              Block Captain Program
+              Block Captain Program — Community Leadership in Action
             </h1>
             <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
               Earn income while empowering your neighbors and strengthening our community
@@ -47,11 +46,16 @@ export default function BlockCaptainPage() {
                 Who Are Block Captains?
               </h2>
               <p className="text-lg text-foreground/80 leading-relaxed mb-6">
-                Block Captains are local residents hired to be the face of the co-op in their neighborhoods. They help community members access our supermarket and social services while earning competitive income.
+                Block Captains are local Atlantic City residents hired to:
               </p>
-              <p className="text-lg text-foreground/80 leading-relaxed mb-6">
-                As a Block Captain, you&apos;ll use eco-friendly electric bikes or vehicles to deliver groceries, connect neighbors to resources, and build stronger community bonds.
-              </p>
+              <ul className="space-y-3 mb-8">
+                {responsibilities.map((item) => (
+                  <li key={item} className="flex items-start space-x-3">
+                    <CheckCircle2 className="w-6 h-6 text-primary shrink-0 mt-0.5" />
+                    <span className="text-foreground/80 text-lg">{item}</span>
+                  </li>
+                ))}
+              </ul>
               <div className="flex items-start space-x-3 bg-accent/10 border-l-4 border-accent p-4 rounded-r-xl">
                 <MapPin className="w-6 h-6 text-accent shrink-0 mt-1" />
                 <div>
@@ -88,34 +92,16 @@ export default function BlockCaptainPage() {
         </div>
       </section>
 
-      {/* Responsibilities */}
+      {/* How It Works */}
       <section className="py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-                Your Responsibilities
-              </h2>
-              <p className="text-xl text-foreground/70">
-                What you&apos;ll do as a Block Captain
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              {responsibilities.map((responsibility, index) => (
-                <div
-                  key={index}
-                  className="flex items-start space-x-4 bg-white p-5 rounded-xl shadow-sm hover:shadow-md transition-shadow"
-                >
-                  <div className="shrink-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
-                    <CheckCircle2 className="w-4 h-4 text-white" />
-                  </div>
-                  <p className="text-foreground/80 leading-relaxed flex-1">
-                    {responsibility}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
+              How It Works
+            </h2>
+            <p className="text-xl text-foreground/70 mb-8">
+              Block Captains act as neighborhood ambassadors and delivery coordinators, strengthening both service access and community ownership.
+            </p>
           </div>
         </div>
       </section>
@@ -154,17 +140,17 @@ export default function BlockCaptainPage() {
         </div>
       </section>
 
-      {/* Application Form Placeholder */}
+      {/* Join as a Block Captain */}
       <section id="apply" className="py-20 bg-cream">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
             <h2 className="text-3xl font-heading font-bold text-foreground mb-6 text-center">
-              Apply to Become a Block Captain
+              Join as a Block Captain
             </h2>
             <div className="bg-primary/10 border-2 border-primary/20 rounded-2xl p-8 text-center">
               <Briefcase className="w-12 h-12 text-primary mx-auto mb-4" />
               <p className="text-lg text-foreground/80 mb-4">
-                Ready to make a difference in your community?
+                Apply online to become part of Atlantic City&apos;s cooperative workforce.
               </p>
               <p className="text-foreground/70 mb-6">
                 Our application system is coming soon. For now, please contact us to express your interest.

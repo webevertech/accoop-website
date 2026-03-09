@@ -3,12 +3,18 @@ import { Calendar, Newspaper, Users, TrendingUp } from 'lucide-react';
 import CountUp from '../components/CountUp';
 
 export const metadata = {
-  title: 'News & Events - Atlantic City Community Cooperative',
-  description: 'Stay updated on co-op news, community events, and press releases.',
+  title: 'Atlantic City Community Cooperative News & Events',
+  description: 'Stay updated on Atlantic City Community Cooperative construction progress, vendor partnerships, job fairs, and community events.',
 };
 
 export default function NewsPage() {
   const upcomingEvents = [
+    {
+      date: 'TBA',
+      title: 'Vendor Info Session',
+      desc: 'Learn how to sell your products through Boardwalk Basket and the AC Coop marketplace',
+      category: 'Business',
+    },
     {
       date: 'TBA',
       title: 'Grand Opening Celebration',
@@ -17,16 +23,19 @@ export default function NewsPage() {
     },
     {
       date: 'TBA',
-      title: 'Vendor Expo',
-      desc: 'Meet local vendors and learn about partnership opportunities',
-      category: 'Business',
-    },
-    {
-      date: 'TBA',
       title: 'Member Appreciation Day',
       desc: 'Special discounts and activities for co-op members',
       category: 'Member Event',
     },
+  ];
+
+  const updates = [
+    'Construction milestones',
+    'Membership drives',
+    'Vendor expos',
+    'Job fairs',
+    'Press releases',
+    'Impact reports',
   ];
 
   const news = [
@@ -57,7 +66,7 @@ export default function NewsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
-              News & Events
+              Community Updates & Success Stories
             </h1>
             <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
               Stay connected with the latest co-op updates and community happenings
@@ -108,13 +117,34 @@ export default function NewsPage() {
         </div>
       </section>
 
+      {/* What We Cover */}
+      <section className="py-16 bg-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-heading font-bold text-foreground mb-4">
+              What We Cover
+            </h2>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3">
+            {updates.map((item) => (
+              <span
+                key={item}
+                className="px-5 py-3 bg-white rounded-full font-heading font-semibold text-foreground/80 text-sm sm:text-base border border-gray-100"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Community Updates */}
-      <section className="py-20 bg-cream">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-12">
             <div>
               <h2 className="text-4xl font-heading font-bold text-foreground mb-2">
-                Community Updates
+                Latest News
               </h2>
               <p className="text-xl text-foreground/70">
                 Latest news from the co-op
@@ -127,7 +157,7 @@ export default function NewsPage() {
             {news.map((item, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300"
+                className="bg-cream rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300"
               >
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
                   <div className="flex items-center space-x-4">
@@ -154,15 +184,15 @@ export default function NewsPage() {
         </div>
       </section>
 
-      {/* Success Stories */}
-      <section className="py-20 bg-white">
+      {/* Impact Goals */}
+      <section className="py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              Community Impact
+              Community Impact Goals
             </h2>
             <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
-              Stories of how the co-op is transforming lives
+              What we&apos;re working toward for Atlantic City
             </p>
           </div>
 
@@ -170,10 +200,10 @@ export default function NewsPage() {
             {[
               {
                 icon: Users,
-                number: 2500,
+                number: 1000,
                 suffix: '+',
-                label: 'Community Members',
-                desc: 'Growing family of co-op owners',
+                label: 'Member-Owners by 2026',
+                desc: 'Growing our cooperative family',
               },
               {
                 icon: TrendingUp,

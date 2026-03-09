@@ -1,52 +1,58 @@
 import Link from 'next/link';
-import { Store, TrendingUp, Users, Megaphone, Package, HandshakeIcon } from 'lucide-react';
+import { Store, TrendingUp, Users, Megaphone, Package, HandshakeIcon, Bike, DollarSign, Globe, Smartphone, ShoppingBag, GraduationCap, Hotel, Home as HomeIcon, Pill, Sparkles, Heart, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
 
 export const metadata = {
-  title: 'Vendor & Business Partners - Atlantic City Community Cooperative',
-  description: 'Sell your products in our community marketplace and grow your business.',
+  title: 'Become a Vendor in Atlantic City | Sell at AC COOP Supermarket',
+  description: 'Local businesses can sell products through Atlantic City Community Cooperative\'s digital marketplace platform Boardwalk Basket.',
 };
 
 export default function VendorsPage() {
-  const benefits = [
+  const vendorBenefits = [
     {
       icon: Users,
-      title: 'Access to 2,500+ Members',
-      desc: 'Reach a dedicated customer base actively looking to support local businesses',
+      title: 'Access to Co-op Members & 20M Visitors',
+      desc: 'Reach Atlantic City\'s co-op members and millions of annual visitors',
     },
     {
-      icon: Store,
-      title: 'Prime Marketplace Space',
-      desc: 'Showcase your products in our high-traffic community supermarket',
+      icon: Globe,
+      title: 'Digital Marketplace Exposure',
+      desc: 'Sell through Boardwalk Basket — Atlantic City\'s digital marketplace',
+    },
+    {
+      icon: Bike,
+      title: 'Sustainable Delivery Services',
+      desc: 'Low-cost or no-cost delivery everywhere in Atlantic City',
     },
     {
       icon: Megaphone,
-      title: 'Marketing Support',
-      desc: 'Benefit from co-op marketing efforts and promotional campaigns',
+      title: 'Marketing & Promotional Support',
+      desc: 'Receive $500 digital advertising funding (match funding) to promote your business',
     },
     {
-      icon: TrendingUp,
-      title: 'Business Growth',
-      desc: 'Scale your business with consistent orders and community support',
+      icon: Smartphone,
+      title: 'Free Website & App Onboarding',
+      desc: 'Get set up on our digital platform at no cost',
     },
     {
-      icon: Package,
-      title: 'Logistics Support',
-      desc: 'Access our delivery network to reach more customers',
-    },
-    {
-      icon: HandshakeIcon,
-      title: 'Fair Partnership',
-      desc: 'Transparent terms and equitable profit-sharing arrangements',
+      icon: DollarSign,
+      title: 'Affordable Market Entry',
+      desc: 'Low-cost entry into a high-impact community market',
     },
   ];
 
-  const vendorTypes = [
-    'Local farmers & produce suppliers',
-    'Bakeries & specialty food producers',
-    'Meat & seafood suppliers',
-    'Health & wellness product makers',
-    'Artisan & craft producers',
-    'Small business owners',
+  const serviceProviders = [
+    { name: 'Groceries & Fresh Produce Suppliers', icon: ShoppingBag },
+    { name: 'Education & Training Providers', icon: GraduationCap },
+    { name: 'Hotel & Hospitality Partners', icon: Hotel },
+    { name: 'Retail Vendors', icon: Store },
+    { name: 'Home Service Providers', icon: HomeIcon },
+    { name: 'Local Vendors & Small Businesses', icon: Users },
+    { name: 'Pharmacy & Health Essentials', icon: Pill },
+    { name: 'Beauty & Wellness Professionals', icon: Sparkles },
+    { name: 'Social Service Organizations', icon: Heart },
+    { name: 'Automotive Service Providers', icon: Car },
+    { name: 'Professional Services (Legal, Financial, Business)', icon: ClipboardList },
+    { name: 'Food Delivery & Restaurant Partners', icon: UtensilsCrossed },
   ];
 
   return (
@@ -56,68 +62,29 @@ export default function VendorsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
-              Vendor & Business Partners
+              Become a Vendor at Atlantic City Community Cooperative
             </h1>
             <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
-              Grow your business by partnering with Atlantic City&apos;s community-owned marketplace
+              Access Atlantic City&apos;s delivery network and grow your business through our cooperative marketplace
             </p>
           </div>
         </div>
       </section>
 
-      {/* Become a Vendor */}
+      {/* Why Partner with AC Coop */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-            <div>
-              <h2 className="text-4xl font-heading font-bold text-foreground mb-6">
-                Why Partner With Us?
-              </h2>
-              <p className="text-lg text-foreground/80 leading-relaxed mb-6">
-                The Atlantic City Community Cooperative offers local businesses and producers a unique opportunity to reach engaged customers who prioritize supporting their community.
-              </p>
-              <p className="text-lg text-foreground/80 leading-relaxed mb-6">
-                Unlike traditional retail partnerships, we work collaboratively with our vendors to ensure mutual success. As a cooperative, we believe in fair terms, transparent processes, and building long-term relationships.
-              </p>
-              <div className="bg-accent/10 border-l-4 border-accent p-6 rounded-r-xl">
-                <p className="font-heading font-semibold text-foreground mb-2">
-                  Low-Cost Market Entry
-                </p>
-                <p className="text-foreground/70">
-                  Affordable vendor fees make it easy for small businesses to get started
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-linear-to-br from-primary-light/20 to-primary/20 rounded-3xl p-8">
-              <h3 className="text-2xl font-heading font-bold text-foreground mb-6">
-                Who Can Become a Vendor?
-              </h3>
-              <ul className="space-y-3">
-                {vendorTypes.map((type) => (
-                  <li key={type} className="flex items-start space-x-3 bg-white p-4 rounded-xl">
-                    <div className="shrink-0 w-6 h-6 bg-primary rounded-full flex items-center justify-center mt-0.5">
-                      <Store className="w-3.5 h-3.5 text-white" />
-                    </div>
-                    <span className="text-foreground/80">{type}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Vendor Benefits Grid */}
-          <div className="text-center mb-12">
+          <div className="text-center mb-4">
             <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              Vendor Benefits
+              Why Become a Vendor or Service Provider?
             </h2>
-            <p className="text-xl text-foreground/70">
-              What you get as a co-op vendor partner
+            <p className="text-xl text-foreground/70 max-w-3xl mx-auto mb-12">
+              Receive $500 digital advertising funding (match funding) to promote your business on Boardwalk Basket
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {benefits.map((benefit) => {
+            {vendorBenefits.map((benefit) => {
               const Icon = benefit.icon;
               return (
                 <div
@@ -140,8 +107,46 @@ export default function VendorsPage() {
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* Service Provider Network */}
       <section className="py-20 bg-cream">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div>
+            <div className="text-center mb-8">
+              <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
+                Service Provider Network
+              </h2>
+              <p className="text-lg text-foreground/80">
+                We collaborate with a wide range of local service providers and businesses
+              </p>
+            </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {serviceProviders.map((provider) => {
+                  const Icon = provider.icon;
+                  return (
+                    <div key={provider.name} className="bg-white p-3 rounded-xl flex items-center gap-2.5 hover:shadow-md transition-all duration-300 group">
+                      <div className="shrink-0 w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                        <Icon className="w-4 h-4 text-primary group-hover:text-white transition-colors duration-300" />
+                      </div>
+                      <span className="text-foreground/80 text-sm font-medium leading-tight">{provider.name}</span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mt-8 text-center">
+                <Link
+                  href="/contact"
+                  className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
+                >
+                  Apply to Join Our Network
+                </Link>
+              </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How to Become a Vendor */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -160,7 +165,7 @@ export default function VendorsPage() {
                 { step: '3', title: 'Onboard', desc: 'Sign agreement and complete vendor training' },
                 { step: '4', title: 'Launch', desc: 'Start selling to our community members' },
               ].map((item) => (
-                <div key={item.step} className="bg-white rounded-2xl p-6 text-center">
+                <div key={item.step} className="bg-cream rounded-2xl p-6 text-center">
                   <div className="w-12 h-12 mx-auto mb-4 bg-primary rounded-full flex items-center justify-center text-white font-heading font-bold text-xl">
                     {item.step}
                   </div>
@@ -177,30 +182,35 @@ export default function VendorsPage() {
         </div>
       </section>
 
-      {/* Application Form Placeholder */}
-      <section className="py-20 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-linear-to-br from-primary/5 to-primary-light/10 rounded-3xl shadow-xl p-8 md:p-12 border-2 border-primary/10">
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-6 bg-primary/10 rounded-2xl flex items-center justify-center">
-                <Store className="w-8 h-8 text-primary" />
-              </div>
-              <h2 className="text-3xl font-heading font-bold text-foreground mb-4">
-                Ready to Join Our Marketplace?
-              </h2>
-              <p className="text-lg text-foreground/80 mb-8">
-                Start selling your products to our engaged community of 2,500+ members
-              </p>
-              <Link
-                href="/contact"
-                className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
-              >
-                Apply to Become a Vendor
-              </Link>
-              <p className="text-sm text-foreground/60 mt-4">
-                Questions? Contact our vendor relations team
-              </p>
-            </div>
+      {/* CTA */}
+      <section className="py-20 bg-linear-to-r from-primary to-primary-dark text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold">
+            Ready to Join Our Marketplace?
+          </h2>
+          <p className="text-xl text-white/90 leading-relaxed">
+            Start selling your products to Atlantic City&apos;s engaged community
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contact"
+              className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105"
+            >
+              Apply to Become a Vendor
+            </Link>
+            <Link
+              href="/membership"
+              className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105"
+            >
+              Become a Member
+            </Link>
+            <Link
+              href="/sponsorship"
+              className="text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-2xl hover:scale-105"
+              style={{ backgroundColor: '#eeb171' }}
+            >
+              Invest / Sponsor
+            </Link>
           </div>
         </div>
       </section>
