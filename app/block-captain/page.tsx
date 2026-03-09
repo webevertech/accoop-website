@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Bike, Users, DollarSign, MapPin, CheckCircle2, Briefcase, ShoppingCart, Heart, Phone } from 'lucide-react';
+import VendorForm from '../components/VendorForm';
 
 export const metadata = {
   title: 'Block Captain Program Atlantic City | Community Outreach & Delivery Jobs',
@@ -69,24 +70,8 @@ export default function BlockCaptainPage() {
               </div>
             </div>
 
-            <div className="bg-linear-to-br from-primary-light/20 to-primary/20 rounded-3xl p-12">
-              <div className="bg-white rounded-2xl p-8 shadow-xl">
-                <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-2xl flex items-center justify-center">
-                  <Bike className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-2xl font-heading font-bold text-foreground text-center mb-4">
-                  Join Our Team
-                </h3>
-                <p className="text-foreground/70 text-center mb-6">
-                  We&apos;re looking for enthusiastic community members who want to make a difference
-                </p>
-                <Link
-                  href="#apply"
-                  className="block w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-full font-heading font-semibold text-center transition-all duration-300 hover:scale-105"
-                >
-                  Apply Now
-                </Link>
-              </div>
+            <div className="bg-white rounded-3xl p-6 md:p-8">
+              <VendorForm />
             </div>
           </div>
         </div>
@@ -140,31 +125,6 @@ export default function BlockCaptainPage() {
         </div>
       </section>
 
-      {/* Join as a Block Captain */}
-      <section id="apply" className="py-20 bg-cream">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
-            <h2 className="text-3xl font-heading font-bold text-foreground mb-6 text-center">
-              Join as a Block Captain
-            </h2>
-            <div className="bg-primary/10 border-2 border-primary/20 rounded-2xl p-8 text-center">
-              <Briefcase className="w-12 h-12 text-primary mx-auto mb-4" />
-              <p className="text-lg text-foreground/80 mb-4">
-                Apply online to become part of Atlantic City&apos;s cooperative workforce.
-              </p>
-              <p className="text-foreground/70 mb-6">
-                Our application system is coming soon. For now, please contact us to express your interest.
-              </p>
-              <Link
-                href="/contact"
-                className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
-              >
-                Contact Us to Apply
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

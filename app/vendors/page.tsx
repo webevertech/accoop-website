@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Store, TrendingUp, Users, Megaphone, Package, HandshakeIcon, Bike, DollarSign, Globe, Smartphone, ShoppingBag, GraduationCap, Hotel, Home as HomeIcon, Pill, Sparkles, Heart, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
+import VendorForm from '../components/VendorForm';
 
 export const metadata = {
   title: 'Become a Vendor in Atlantic City | Sell at AC COOP Supermarket',
@@ -133,13 +134,11 @@ export default function VendorsPage() {
                 })}
               </div>
 
-              <div className="mt-8 text-center">
-                <Link
-                  href="/contact"
-                  className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
-                >
-                  Apply to Join Our Network
-                </Link>
+              <div className="mt-12 max-w-2xl mx-auto">
+                <h3 className="text-2xl font-heading font-bold text-foreground mb-6 text-center">
+                  Join Our Network
+                </h3>
+                <VendorForm />
               </div>
           </div>
         </div>
