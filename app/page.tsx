@@ -337,7 +337,6 @@ export default function Home() {
               { src: '/logo.png', alt: 'Atlantic City Community Cooperative' },
               { src: '/iitnj logo.png', alt: 'Ideal Institute' },
               { src: '/CG-Transparent.png', alt: 'Common Ground' },
-              { src: '/boardwalk-basket-logo.png', alt: 'Boardwalk Basket' },
             ].map((partner) => (
               <div key={partner.alt} className="w-48 h-28 sm:w-60 sm:h-32 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-5">
                 <Image src={partner.src} alt={partner.alt} width={220} height={100} className="max-h-full max-w-full object-contain" />
