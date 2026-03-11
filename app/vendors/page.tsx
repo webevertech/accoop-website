@@ -177,6 +177,27 @@ export default function VendorsPage() {
                 </div>
               ))}
             </div>
+
+            {/* Vendor Application Form */}
+            <div className="mt-16 text-center">
+              <h3 className="text-2xl font-heading font-bold text-foreground mb-3">
+                Ready to Get Started? Fill Out the Form Below
+              </h3>
+              <p className="text-foreground/70 mb-8">
+                Complete this application form to begin your vendor onboarding process
+              </p>
+              <div className="p-4 overflow-hidden">
+                <iframe
+                  src="https://links.webevertech.com/widget/form/M9VwTfO8cObWYS6emE6T"
+                  style={{ border: 'none', overflow: 'hidden' }}
+                  className="w-full"
+                  height="1750"
+                  scrolling="no"
+                  title="Vendor Application Form"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
