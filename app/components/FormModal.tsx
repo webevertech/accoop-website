@@ -17,13 +17,21 @@ export default function FormModal() {
   }, []);
 
   useEffect(() => {
+    if (!open) return;
+    if (!document.querySelector('script[src*="form_embed"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://links.webevertech.com/js/form_embed.js';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, [open]);
+
+  useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
-      // Move focus to close button after modal opens
       setTimeout(() => closeButtonRef.current?.focus(), 50);
     } else {
       document.body.style.overflow = '';
-      // Restore focus to element that triggered the modal
       triggerRef.current?.focus();
     }
     return () => { document.body.style.overflow = ''; };
