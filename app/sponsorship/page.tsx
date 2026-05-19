@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import { DollarSign } from 'lucide-react';
+import CTAButton from '../components/CTAButton';
 
 export const metadata = {
-  title: 'Invest in Atlantic City Community Cooperative | Become Impact Sponsor/Investor',
-  description: 'Invest in Atlantic City\'s community-owned supermarket. Become an impact investor, earn dividends, and support local economic revitalization.',
+  title: 'Sponsor Atlantic City Community Cooperative | Community Impact Partnership',
+  description: 'Become a sponsor of Atlantic City\'s community-owned supermarket. Support local economic revitalization, gain brand visibility, and make a lasting community impact.',
+  alternates: { canonical: 'https://accoop.com/sponsorship' },
 };
 
 export default function SponsorshipPage() {
@@ -53,29 +53,8 @@ export default function SponsorshipPage() {
               Invest in the Future of Atlantic City
             </h1>
             <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
-              Support community-owned business growth and earn returns while making a lasting impact
+              Support community-owned business growth while making a lasting impact
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Investment Opportunity - Coming Soon */}
-      <section className="py-12 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-accent/10 border-l-4 border-accent p-6 rounded-r-xl text-center">
-            <DollarSign className="w-10 h-10 text-accent mx-auto mb-3" />
-            <p className="font-heading font-bold text-xl text-foreground mb-2">
-              Investment Opportunity Coming Soon
-            </p>
-            <p className="text-foreground/70">
-              Details on our preferred stock offering will be available shortly. Contact us to express interest.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-block mt-4 bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
-            >
-              Express Interest
-            </Link>
           </div>
         </div>
       </section>
@@ -133,18 +112,12 @@ export default function SponsorshipPage() {
             Join us in building a sustainable, community-owned economy that creates jobs and transforms lives
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105"
-            >
+            <CTAButton className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Contact Investor Relations
-            </Link>
-            <Link
-              href="/membership"
-              className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105"
-            >
+            </CTAButton>
+            <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Become a Member
-            </Link>
+            </CTAButton>
           </div>
         </div>
       </section>

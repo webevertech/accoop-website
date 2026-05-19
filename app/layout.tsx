@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit, Source_Sans_3 } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import FormModal from "./components/FormModal";
+
+const BASE_URL = "https://accoop.com";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -51,9 +55,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Atlantic City Community Cooperative" }],
   creator: "Atlantic City Community Cooperative",
   publisher: "Atlantic City Community Cooperative",
-  metadataBase: new URL("https://accoop.com"),
+  metadataBase: new URL(BASE_URL),
   alternates: {
-    canonical: "/",
+    canonical: BASE_URL,
   },
   openGraph: {
     type: "website",
@@ -100,19 +104,28 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 };
 
-const jsonLd = {
+const organizationLd = {
   "@context": "https://schema.org",
-  "@type": "GroceryStore",
+  "@type": ["GroceryStore", "Organization"],
+  "@id": `${BASE_URL}/#organization`,
   name: "Atlantic City Community Cooperative",
+  alternateName: "ACCOOP",
   description:
-    "A community-owned supermarket and social impact hub providing fresh food, economic opportunities, and essential services.",
-  url: "https://accoop.com",
-  logo: "https://accoop.com/logo.png",
-  image: "https://accoop.com/community-collab.jpg",
+    "A community-owned supermarket and social impact hub providing fresh food, economic opportunities, and essential services to Atlantic City, NJ.",
+  url: BASE_URL,
+  logo: {
+    "@type": "ImageObject",
+    url: `${BASE_URL}/logo.png`,
+    width: 240,
+    height: 96,
+  },
+  image: `${BASE_URL}/community-collab.jpg`,
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Pleasantville",
+    streetAddress: "7 South Carolina Ave",
+    addressLocality: "Atlantic City",
     addressRegion: "NJ",
+    postalCode: "08401",
     addressCountry: "US",
   },
   geo: {
@@ -120,14 +133,35 @@ const jsonLd = {
     latitude: 39.3898,
     longitude: -74.5241,
   },
+  telephone: "+16093188011",
+  email: "info@accoop.com",
   areaServed: [
     { "@type": "City", name: "Atlantic City" },
     { "@type": "City", name: "Pleasantville" },
+    { "@type": "AdministrativeArea", name: "Atlantic County" },
   ],
-  email: "info@accoop.com",
-  sameAs: [],
-  priceRange: "$$",
-  openingHoursSpecification: [],
+  sameAs: [
+    "https://www.facebook.com/profile.php?id=61581595171934",
+  ],
+  foundingDate: "2023",
+  nonprofitStatus: "Cooperative",
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "17:00",
+    },
+  ],
+};
+
+const websiteLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${BASE_URL}/#website`,
+  name: "Atlantic City Community Cooperative",
+  url: BASE_URL,
+  publisher: { "@id": `${BASE_URL}/#organization` },
 };
 
 export default function RootLayout({
@@ -138,17 +172,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <link rel="preconnect" href="https://links.webevertech.com" />
+        <link rel="dns-prefetch" href="https://links.webevertech.com" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }} />
       </head>
       <body className={`${outfit.variable} ${sourceSans.variable} antialiased`}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-200 focus:bg-primary focus:text-white focus:px-4 focus:py-2 focus:rounded-full focus:font-semibold"
+        >
+          Skip to main content
+        </a>
         <Header />
-        <main className="min-h-screen">
+        <main id="main-content" className="min-h-screen">
           {children}
         </main>
         <Footer />
+        <FormModal />
+        <Script src="https://links.webevertech.com/js/form_embed.js" strategy="lazyOnload" />
       </body>
     </html>
   );

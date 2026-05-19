@@ -17,7 +17,7 @@ export default function Footer() {
               height={72}
               className="h-30 w-auto"
             />
-            <p className="text-sm text-white/80 leading-relaxed">
+            <p className="text-sm text-white/95 leading-relaxed">
               A community-owned supermarket & social impact hub empowering Atlantic City residents.
             </p>
           </div>
@@ -27,22 +27,22 @@ export default function Footer() {
             <h3 className="font-heading font-semibold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/about" className="text-sm text-white/80 hover:text-white transition-colors">
+                <Link href="/about" className="text-sm text-white/95 hover:text-white transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/membership" className="text-sm text-white/80 hover:text-white transition-colors">
+                <Link href="/membership" className="text-sm text-white/95 hover:text-white transition-colors">
                   Membership
                 </Link>
               </li>
               <li>
-                <Link href="/marketplace" className="text-sm text-white/80 hover:text-white transition-colors">
+                <Link href="/marketplace" className="text-sm text-white/95 hover:text-white transition-colors">
                   Our Marketplace
                 </Link>
               </li>
               <li>
-                <Link href="/social-impact" className="text-sm text-white/80 hover:text-white transition-colors">
+                <Link href="/social-impact" className="text-sm text-white/95 hover:text-white transition-colors">
                   Social Impact
                 </Link>
               </li>
@@ -54,22 +54,22 @@ export default function Footer() {
             <h3 className="font-heading font-semibold text-lg mb-4">Get Involved</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/membership" className="text-sm text-white/80 hover:text-white transition-colors">
+                <Link href="/membership" className="text-sm text-white/95 hover:text-white transition-colors">
                   Become a Member
                 </Link>
               </li>
               <li>
-                <Link href="/vendors" className="text-sm text-white/80 hover:text-white transition-colors">
+                <Link href="/vendors" className="text-sm text-white/95 hover:text-white transition-colors">
                   Become a Vendor
                 </Link>
               </li>
               <li>
-                <Link href="/block-captain" className="text-sm text-white/80 hover:text-white transition-colors">
+                <Link href="/block-captain" className="text-sm text-white/95 hover:text-white transition-colors">
                   Join as Block Captain
                 </Link>
               </li>
               <li>
-                <Link href="/sponsorship" className="text-sm text-white/80 hover:text-white transition-colors">
+                <Link href="/sponsorship" className="text-sm text-white/95 hover:text-white transition-colors">
                   Sponsor the Co-Op
                 </Link>
               </li>
@@ -79,7 +79,7 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="font-heading font-semibold text-lg mb-4">Contact Us</h3>
-            <ul className="space-y-2 text-sm text-white/80">
+            <ul className="space-y-2 text-sm text-white/95">
               <li className="flex items-start">
                 <svg className="w-5 h-5 mr-2 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -120,7 +120,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-8 pt-8 border-t border-white/20">
-          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-white/80">
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-white/95">
             <p>&copy; {currentYear} Atlantic City Community Cooperative. All rights reserved.</p>
             <div className="flex space-x-4 mt-4 md:mt-0">
               <Link href="#" className="hover:text-white transition-colors">

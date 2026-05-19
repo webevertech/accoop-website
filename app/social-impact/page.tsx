@@ -1,10 +1,12 @@
 import Link from 'next/link';
+import CTAButton from '../components/CTAButton';
 import { ClipboardList, Briefcase, Home as HomeIcon, Baby, Heart, Calendar, Phone, ExternalLink, Zap, Apple, Scale, Brain, ShieldCheck, Users } from 'lucide-react';
 import CountUp from '../components/CountUp';
 
 export const metadata = {
-  title: 'Ideal Center for Social Impact | Employment : Education : Entrepreneurship',
-  description: 'Ideal Center for Social Impact offers access to job training, housing support, childcare services, financial assistance, and food pantry programs through our impact partners at Atlantic City Community Cooperative.',
+  title: 'Social Impact Center | Atlantic City Community Cooperative',
+  description: 'Access job training, housing support, childcare, financial assistance, and food pantry programs at AC COOP\'s Social Impact Center serving Atlantic City and Atlantic County, NJ.',
+  alternates: { canonical: 'https://accoop.com/social-impact' },
 };
 
 export default function SocialImpactPage() {
@@ -120,25 +122,15 @@ export default function SocialImpactPage() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-            <Link
-              href="/membership"
-              className="bg-primary hover:bg-primary-dark text-white px-10 py-4 rounded-full font-heading font-bold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105 text-center min-w-[220px]"
-            >
+            <CTAButton className="bg-primary hover:bg-primary-dark text-white px-10 py-4 rounded-full font-heading font-bold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105 min-w-55 inline-flex items-center justify-center">
               Become a Member
-            </Link>
-            <Link
-              href="/vendors"
-              className="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white px-10 py-4 rounded-full font-heading font-bold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105 text-center min-w-[220px]"
-            >
+            </CTAButton>
+            <CTAButton className="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white px-10 py-4 rounded-full font-heading font-bold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105 min-w-55 inline-flex items-center justify-center">
               Become a Service Provider
-            </Link>
-            <Link
-              href="/sponsorship"
-              className="text-white px-10 py-4 rounded-full font-heading font-bold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-lg hover:scale-105 text-center min-w-[220px]"
-              style={{ backgroundColor: '#eeb171' }}
-            >
-              Invest / Sponsor
-            </Link>
+            </CTAButton>
+            <CTAButton className="text-white px-10 py-4 rounded-full font-heading font-bold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-lg hover:scale-105 min-w-55 inline-flex items-center justify-center" style={{ backgroundColor: '#eeb171' }}>
+              Become A Sponsor
+            </CTAButton>
           </div>
         </div>
       </section>
@@ -185,7 +177,7 @@ export default function SocialImpactPage() {
                   <div className="flex items-center space-x-3 text-foreground/80">
                     <Phone className="w-5 h-5 text-primary shrink-0" />
                     <div>
-                      <div className="text-sm font-medium text-foreground/60">Call us</div>
+                      <div className="text-sm font-medium text-foreground/80">Call us</div>
                       <div className="font-semibold">(609) XXX-XXXX</div>
                     </div>
                   </div>
@@ -264,25 +256,15 @@ export default function SocialImpactPage() {
             Access services, support, and opportunities through community ownership
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/membership"
-              className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105"
-            >
+            <CTAButton className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Become a Member
-            </Link>
-            <Link
-              href="/vendors"
-              className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105"
-            >
+            </CTAButton>
+            <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Become a Service Provider
-            </Link>
-            <Link
-              href="/contact"
-              className="text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-2xl hover:scale-105"
-              style={{ backgroundColor: '#eeb171' }}
-            >
-              Invest / Sponsor
-            </Link>
+            </CTAButton>
+            <CTAButton className="text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center" style={{ backgroundColor: '#eeb171' }}>
+              Become A Sponsor
+            </CTAButton>
           </div>
         </div>
       </section>

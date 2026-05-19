@@ -1,10 +1,11 @@
-import Link from 'next/link';
+import CTAButton from '../components/CTAButton';
 import { Store, TrendingUp, Users, Megaphone, Package, HandshakeIcon, Bike, DollarSign, Globe, Smartphone, ShoppingBag, GraduationCap, Hotel, Home as HomeIcon, Pill, Sparkles, Heart, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
 import VendorForm from '../components/VendorForm';
 
 export const metadata = {
-  title: 'Become a Vendor in Atlantic City | Sell at AC COOP Supermarket',
-  description: 'Local businesses can sell products through Atlantic City Community Cooperative\'s digital marketplace platform Boardwalk Basket.',
+  title: 'Become a Vendor | Atlantic City Community Cooperative',
+  description: 'Sell your products through Boardwalk Basket, Atlantic City Community Cooperative\'s digital marketplace. Reach local shoppers, grow your business, and support community wealth.',
+  alternates: { canonical: 'https://accoop.com/vendors' },
 };
 
 export default function VendorsPage() {
@@ -212,25 +213,15 @@ export default function VendorsPage() {
             Start selling your products to Atlantic City&apos;s engaged community
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105"
-            >
+            <CTAButton className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Apply to Become a Vendor
-            </Link>
-            <Link
-              href="/membership"
-              className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105"
-            >
+            </CTAButton>
+            <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Become a Member
-            </Link>
-            <Link
-              href="/sponsorship"
-              className="text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-2xl hover:scale-105"
-              style={{ backgroundColor: '#eeb171' }}
-            >
-              Invest / Sponsor
-            </Link>
+            </CTAButton>
+            <CTAButton className="text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center" style={{ backgroundColor: '#eeb171' }}>
+              Become A Sponsor
+            </CTAButton>
           </div>
         </div>
       </section>

@@ -169,7 +169,7 @@ export default function NewsPage() {
                         {item.title}
                       </h3>
                       <div className="flex items-center space-x-3 mt-1">
-                        <span className="text-sm text-foreground/60">{item.date}</span>
+                        <span className="text-sm text-foreground/80">{item.date}</span>
                         <span className="text-sm text-primary font-medium">{item.category}</span>
                       </div>
                     </div>

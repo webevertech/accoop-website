@@ -3,9 +3,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -22,7 +24,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
-      <nav className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
         <div className="flex justify-between items-center h-24">
           {/* Logo */}
           <Link href="/" className="shrink-0">
@@ -38,16 +40,20 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="px-3 py-2 text-base font-medium text-foreground hover:text-primary transition-colors duration-200 relative group"
-              >
-                {item.name}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
-              </Link>
-            ))}
+            {navigation.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`px-3 py-2 text-base font-medium transition-colors duration-200 relative group ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'}`}
+                >
+                  {item.name}
+                  <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+                </Link>
+              );
+            })}
           </div>
 
           {/* CTA Button */}
@@ -90,16 +96,20 @@ export default function Header() {
         {isMenuOpen && (
           <div className="lg:hidden pb-4 animate-fadeIn">
             <div className="flex flex-col space-y-2">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="px-4 py-2 text-base font-medium text-foreground hover:bg-cream hover:text-primary rounded-md transition-colors"
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`px-4 py-2 text-base font-medium rounded-md transition-colors ${isActive ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-cream hover:text-primary'}`}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
               <Link
                 href="/membership"
                 onClick={() => setIsMenuOpen(false)}
@@ -114,3 +124,4 @@ export default function Header() {
     </header>
   );
 }
+

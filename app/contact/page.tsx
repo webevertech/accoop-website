@@ -1,9 +1,10 @@
-import Link from 'next/link';
-import { Mail, Phone, MapPin, Clock, Send, HelpCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, HelpCircle } from 'lucide-react';
+import CTAButton from '../components/CTAButton';
 
 export const metadata = {
-  title: 'Contact Us - Atlantic City Community Cooperative',
-  description: 'Get in touch with our team for questions about membership, vendors, or social services.',
+  title: 'Contact Us | Atlantic City Community Cooperative',
+  description: 'Contact AC COOP for questions about membership, vendor partnerships, sponsorship, or social services. Call (609) 318-8011 or email info@accoop.com.',
+  alternates: { canonical: 'https://accoop.com/contact' },
 };
 
 export default function ContactPage() {
@@ -148,25 +149,24 @@ export default function ContactPage() {
               <p className="text-lg text-foreground/80 mb-8">
                 Have a question or want to learn more? Fill out the form and our team will get back to you within 24 hours.
               </p>
-
-              <div className="bg-linear-to-br from-primary/5 to-primary-light/10 rounded-2xl p-8 border-2 border-primary/10">
-                <div className="flex items-start space-x-3 mb-4">
-                  <Send className="w-6 h-6 text-primary shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-heading font-semibold text-foreground mb-2">
-                      Contact Form Coming Soon
-                    </h3>
-                    <p className="text-foreground/70 mb-4">
-                      Our online contact form is under development. In the meantime, please reach out directly via email or phone.
-                    </p>
-                    <a
-                      href="mailto:info@accoop.com"
-                      className="inline-block bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-full font-heading font-semibold text-sm transition-all duration-300 hover:scale-105"
-                    >
-                      Email Us Directly
-                    </a>
-                  </div>
-                </div>
+              <div style={{ width: '100%', height: '870px' }}>
+                <iframe
+                  src="https://links.webevertech.com/widget/form/1mUxFpmyhY1V5BfqFioB"
+                  style={{ width: '100%', height: '100%', border: 'none', borderRadius: '10px' }}
+                  id="contact-inline-1mUxFpmyhY1V5BfqFioB"
+                  data-layout="{'id':'INLINE'}"
+                  data-trigger-type="alwaysShow"
+                  data-trigger-value=""
+                  data-activation-type="alwaysActivated"
+                  data-activation-value=""
+                  data-deactivation-type="neverDeactivate"
+                  data-deactivation-value=""
+                  data-form-name="Main Inquiry Form"
+                  data-height="833"
+                  data-layout-iframe-id="contact-inline-1mUxFpmyhY1V5BfqFioB"
+                  data-form-id="1mUxFpmyhY1V5BfqFioB"
+                  title="Main Inquiry Form"
+                />
               </div>
             </div>
 
@@ -260,18 +260,12 @@ export default function ContactPage() {
             Become part of Atlantic City&apos;s cooperative movement today
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/membership"
-              className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105"
-            >
+            <CTAButton className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Become a Member
-            </Link>
-            <Link
-              href="/vendors"
-              className="bg-primary-dark hover:bg-primary text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white hover:shadow-2xl hover:scale-105"
-            >
+            </CTAButton>
+            <CTAButton className="bg-primary-dark hover:bg-primary text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Become a Vendor
-            </Link>
+            </CTAButton>
           </div>
         </div>
       </section>
