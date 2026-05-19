@@ -190,7 +190,6 @@ export default function RootLayout({
         </main>
         <Footer />
         <FormModal />
-        <Script src="https://links.webevertech.com/js/form_embed.js" strategy="lazyOnload" />
       </body>
     </html>
   );

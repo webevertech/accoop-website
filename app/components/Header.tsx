@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
+import CTAButton from './CTAButton';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -58,12 +59,9 @@ export default function Header() {
 
           {/* CTA Button */}
           <div className="hidden lg:flex items-center space-x-4">
-            <Link
-              href="/membership"
-              className="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105"
-            >
+            <CTAButton className="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center justify-center">
               Join the Co-Op
-            </Link>
+            </CTAButton>
           </div>
 
           {/* Mobile menu button */}
@@ -110,13 +108,11 @@ export default function Header() {
                   </Link>
                 );
               })}
-              <Link
-                href="/membership"
-                onClick={() => setIsMenuOpen(false)}
-                className="mx-4 mt-2 bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-medium text-center transition-colors"
+              <CTAButton
+                className="mx-4 mt-2 bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-medium text-center transition-colors inline-flex items-center justify-center"
               >
                 Join the Co-Op
-              </Link>
+              </CTAButton>
             </div>
           </div>
         )}
