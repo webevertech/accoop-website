@@ -263,7 +263,7 @@ export default function ContactPage() {
             <CTAButton className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Become a Member
             </CTAButton>
-            <CTAButton className="bg-primary-dark hover:bg-primary text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
+            <CTAButton formType="vendor" className="bg-primary-dark hover:bg-primary text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Become a Vendor
             </CTAButton>
           </div>

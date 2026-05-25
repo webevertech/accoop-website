@@ -1,14 +1,31 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
+import type { FormType } from './CTAButton';
+
+const FORMS: Record<FormType, { id: string; name: string; height: number }> = {
+  inquiry: {
+    id: '1mUxFpmyhY1V5BfqFioB',
+    name: 'Main Inquiry Form',
+    height: 833,
+  },
+  vendor: {
+    id: 'pSwAZdIkkquNvtVjpeOd',
+    name: 'AC COOP BOARDWALK BASKET / VENDOR SIGN UP',
+    height: 1689,
+  },
+};
 
 export default function FormModal() {
   const [open, setOpen] = useState(false);
+  const [formType, setFormType] = useState<FormType>('inquiry');
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const handler = () => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ formType?: FormType }>).detail;
+      setFormType(detail?.formType ?? 'inquiry');
       triggerRef.current = document.activeElement as HTMLElement;
       setOpen(true);
     };
@@ -37,7 +54,6 @@ export default function FormModal() {
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  // Trap focus inside modal
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
       setOpen(false);
@@ -57,6 +73,9 @@ export default function FormModal() {
 
   if (!open) return null;
 
+  const form = FORMS[formType];
+  const iframeId = `modal-form-${form.id}`;
+
   return (
     <div
       role="dialog"
@@ -71,20 +90,21 @@ export default function FormModal() {
         style={{ height: 'min(870px, 90vh)' }}
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 id="form-modal-title" className="sr-only">Main Inquiry Form</h2>
+        <h2 id="form-modal-title" className="sr-only">{form.name}</h2>
         <button
           ref={closeButtonRef}
           type="button"
           onClick={() => setOpen(false)}
           className="absolute top-3 right-3 z-10 bg-white/90 hover:bg-white rounded-full p-1.5 shadow-md transition-colors"
-          aria-label="Close inquiry form"
+          aria-label="Close form"
         >
           <X className="w-5 h-5 text-gray-700" aria-hidden="true" />
         </button>
         <iframe
-          src="https://links.webevertech.com/widget/form/1mUxFpmyhY1V5BfqFioB"
+          key={form.id}
+          src={`https://links.webevertech.com/widget/form/${form.id}`}
           style={{ width: '100%', height: '100%', border: 'none', borderRadius: '10px' }}
-          id="modal-form-1mUxFpmyhY1V5BfqFioB"
+          id={iframeId}
           data-layout="{'id':'INLINE'}"
           data-trigger-type="alwaysShow"
           data-trigger-value=""
@@ -92,11 +112,11 @@ export default function FormModal() {
           data-activation-value=""
           data-deactivation-type="neverDeactivate"
           data-deactivation-value=""
-          data-form-name="Main Inquiry Form"
-          data-height="833"
-          data-layout-iframe-id="modal-form-1mUxFpmyhY1V5BfqFioB"
-          data-form-id="1mUxFpmyhY1V5BfqFioB"
-          title="Main Inquiry Form"
+          data-form-name={form.name}
+          data-height={form.height}
+          data-layout-iframe-id={iframeId}
+          data-form-id={form.id}
+          title={form.name}
         />
       </div>
     </div>

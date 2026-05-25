@@ -55,7 +55,7 @@ export default function Home() {
                 <CTAButton className="bg-white text-primary hover:bg-cream px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg w-full sm:w-auto inline-flex items-center justify-center">
                   Become a Member
                 </CTAButton>
-                <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 w-full sm:w-auto inline-flex items-center justify-center">
+                <CTAButton formType="vendor" className="bg-white/15 hover:bg-white/25 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 w-full sm:w-auto inline-flex items-center justify-center">
                   Become a Vendor
                 </CTAButton>
                 <CTAButton className="bg-accent hover:bg-accent/90 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg w-full sm:w-auto inline-flex items-center justify-center">
@@ -355,7 +355,7 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <CTAButton className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl w-full sm:w-auto inline-flex items-center justify-center">
+            <CTAButton formType="vendor" className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl w-full sm:w-auto inline-flex items-center justify-center">
               Become a Vendor
             </CTAButton>
             <CTAButton className="bg-accent hover:bg-accent/90 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl w-full sm:w-auto inline-flex items-center justify-center">

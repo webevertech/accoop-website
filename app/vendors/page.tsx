@@ -1,6 +1,6 @@
+import Script from 'next/script';
 import CTAButton from '../components/CTAButton';
 import { Store, TrendingUp, Users, Megaphone, Package, HandshakeIcon, Bike, DollarSign, Globe, Smartphone, ShoppingBag, GraduationCap, Hotel, Home as HomeIcon, Pill, Sparkles, Heart, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
-import VendorForm from '../components/VendorForm';
 
 export const metadata = {
   title: 'Become a Vendor | Atlantic City Community Cooperative',
@@ -66,9 +66,14 @@ export default function VendorsPage() {
             <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
               Become a Vendor at Atlantic City Community Cooperative
             </h1>
-            <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
+            <p className="text-xl text-white/90 leading-relaxed mb-8 animate-fadeInUp" style={{ animationDelay: '100ms' }}>
               Access Atlantic City&apos;s delivery network and grow your business through our cooperative marketplace
             </p>
+            <div className="animate-fadeInUp" style={{ animationDelay: '200ms' }}>
+              <CTAButton formType="vendor" className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
+                Become a Vendor
+              </CTAButton>
+            </div>
           </div>
         </div>
       </section>
@@ -106,6 +111,12 @@ export default function VendorsPage() {
               );
             })}
           </div>
+
+          <div className="mt-12 text-center">
+            <CTAButton formType="vendor" className="bg-primary text-white hover:bg-primary-dark px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
+              Become a Vendor
+            </CTAButton>
+          </div>
         </div>
       </section>
 
@@ -135,12 +146,6 @@ export default function VendorsPage() {
                 })}
               </div>
 
-              <div className="mt-12 max-w-2xl mx-auto">
-                <h3 className="text-2xl font-heading font-bold text-foreground mb-6 text-center">
-                  Join Our Network
-                </h3>
-                <VendorForm />
-              </div>
           </div>
         </div>
       </section>
@@ -189,14 +194,25 @@ export default function VendorsPage() {
               </p>
               <div className="p-4 overflow-hidden">
                 <iframe
-                  src="https://links.webevertech.com/widget/form/M9VwTfO8cObWYS6emE6T"
-                  style={{ border: 'none', overflow: 'hidden' }}
-                  className="w-full"
-                  height="1750"
-                  scrolling="no"
-                  title="Vendor Application Form"
+                  src="https://links.webevertech.com/widget/form/pSwAZdIkkquNvtVjpeOd"
+                  style={{ width: '100%', border: 'none', borderRadius: '3px' }}
+                  id="inline-pSwAZdIkkquNvtVjpeOd"
+                  height="1689"
+                  data-layout="{'id':'INLINE'}"
+                  data-trigger-type="alwaysShow"
+                  data-trigger-value=""
+                  data-activation-type="alwaysActivated"
+                  data-activation-value=""
+                  data-deactivation-type="neverDeactivate"
+                  data-deactivation-value=""
+                  data-form-name="AC COOP BOARDWALK BASKET / VENDOR SIGN UP"
+                  data-height="1689"
+                  data-layout-iframe-id="inline-pSwAZdIkkquNvtVjpeOd"
+                  data-form-id="pSwAZdIkkquNvtVjpeOd"
+                  title="AC COOP BOARDWALK BASKET / VENDOR SIGN UP"
                   loading="lazy"
                 />
+                <Script src="https://links.webevertech.com/js/form_embed.js" strategy="lazyOnload" />
               </div>
             </div>
           </div>
@@ -213,7 +229,7 @@ export default function VendorsPage() {
             Start selling your products to Atlantic City&apos;s engaged community
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
+            <CTAButton formType="vendor" className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Apply to Become a Vendor
             </CTAButton>
             <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
