@@ -324,8 +324,8 @@ export default function SponsorshipPage() {
 
             <div className="relative h-72 sm:h-96 lg:h-130 rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/10">
               <Image
-                src="/community-collab.jpg"
-                alt="Community members supporting the Atlantic City Community Co-Op"
+                src="/hero-building.webp"
+                alt="7 South Carolina Avenue — future home of the Atlantic City Community Co-Op"
                 fill
                 priority
                 quality={85}
