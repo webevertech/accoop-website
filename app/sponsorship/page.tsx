@@ -239,13 +239,13 @@ const sponsorshipImpact = [
 function HeroButtons() {
   return (
     <div className="flex flex-col sm:flex-row flex-wrap gap-3">
-      <CTAButton className="bg-accent hover:bg-accent/90 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2">
+      <CTAButton formType="sponsor" label="Become a Sponsor" className="bg-accent hover:bg-accent/90 text-foreground px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2">
         Become a Sponsor <ArrowRight className="w-4 h-4" />
       </CTAButton>
-      <CTAButton className="bg-white text-primary hover:bg-cream px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2">
+      <CTAButton formType="sponsor" label="Download Packet" className="bg-white text-primary hover:bg-cream px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2">
         Download Packet <Download className="w-4 h-4" />
       </CTAButton>
-      <CTAButton className="bg-white/10 hover:bg-white/20 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/50 inline-flex items-center justify-center gap-2">
+      <CTAButton formType="sponsor" label="Schedule a Call" className="bg-white/10 hover:bg-white/20 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/50 inline-flex items-center justify-center gap-2">
         Schedule a Call <Phone className="w-4 h-4" />
       </CTAButton>
     </div>
@@ -476,7 +476,7 @@ export default function SponsorshipPage() {
                   <p className="text-2xl font-heading font-bold text-primary mb-3">{tier.price}</p>
                   <p className="text-sm text-foreground/70 mb-2">{tier.desc}</p>
                   <TierDetails support={tier.support} benefits={tier.benefits} />
-                  <CTAButton className="mt-4 w-full bg-primary hover:bg-primary-dark text-white px-5 py-2.5 rounded-full font-heading font-semibold text-sm transition-colors duration-300">
+                  <CTAButton formType="sponsor" className="mt-4 w-full bg-primary hover:bg-primary-dark text-white px-5 py-2.5 rounded-full font-heading font-semibold text-sm transition-colors duration-300">
                     Become a Sponsor
                   </CTAButton>
                 </div>
@@ -528,7 +528,7 @@ export default function SponsorshipPage() {
                   </div>
                 </div>
               </div>
-              <CTAButton className="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-heading font-semibold text-sm transition-colors duration-300 shrink-0 self-start whitespace-nowrap">
+              <CTAButton formType="sponsor" label="Become a Sponsor" className="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-heading font-semibold text-sm transition-colors duration-300 shrink-0 self-start whitespace-nowrap">
                 Learn More
               </CTAButton>
             </div>

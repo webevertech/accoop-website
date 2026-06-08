@@ -24,7 +24,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+    <header className="relative z-30 bg-white/95 backdrop-blur-sm shadow-sm">
       <nav className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
         <div className="flex justify-between items-center h-24">
           {/* Logo */}

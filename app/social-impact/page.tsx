@@ -1,270 +1,312 @@
-import Link from 'next/link';
+import Image from 'next/image';
 import CTAButton from '../components/CTAButton';
-import { ClipboardList, Briefcase, Home as HomeIcon, Baby, Heart, Calendar, Phone, ExternalLink, Zap, Apple, Scale, Brain, ShieldCheck, Users } from 'lucide-react';
 import CountUp from '../components/CountUp';
+import SectionNav from '../components/SectionNav';
+import {
+  ClipboardList,
+  Search,
+  ClipboardCheck,
+  Handshake,
+  TrendingUp,
+  PiggyBank,
+  Construction,
+  GraduationCap,
+  Briefcase,
+  HeartHandshake,
+  Network,
+  Users,
+  ChevronRight,
+  Check,
+} from 'lucide-react';
 
 export const metadata = {
-  title: 'Social Impact Center | Atlantic City Community Cooperative',
-  description: 'Access job training, housing support, childcare, financial assistance, and food pantry programs at AC COOP\'s Social Impact Center serving Atlantic City and Atlantic County, NJ.',
+  title: 'Center for Social Impact | Atlantic City Community Cooperative',
+  description: 'The AC COOP Center for Social Impact, powered by Ideal Institute of Technology, connects members to services, benefits, and partners through one intake and one Individual Empowerment Plan — building a stronger, healthier, and more prosperous Atlantic City.',
   alternates: { canonical: 'https://accoop.com/social-impact' },
 };
 
 export default function SocialImpactPage() {
-  const services = [
-    {
-      icon: ClipboardList,
-      title: 'Individual Empowerment Plans',
-      desc: 'Personalized case management and goal-setting to help members achieve self-sufficiency and economic stability.',
-    },
-    {
-      icon: Briefcase,
-      title: 'Job Training & Career Support',
-      desc: 'Employment readiness programs, skills training, resume building, and job placement assistance.',
-    },
-    {
-      icon: HomeIcon,
-      title: 'Housing & Re-Entry Services',
-      desc: 'Rent assistance, housing search, shelters, subsidized rentals, and re-entry support.',
-    },
-    {
-      icon: Baby,
-      title: 'Childcare & Family Support',
-      desc: 'Child care referrals, expense assistance, parent programs, and family support centers.',
-    },
-    {
-      icon: Heart,
-      title: 'Financial Assistance & Food Pantry',
-      desc: 'Food pantries, home-delivered meals, emergency financial aid, and financial literacy education.',
-    },
-    {
-      icon: Zap,
-      title: 'Utilities Assistance',
-      desc: 'Electric and gas payment assistance, disconnection protection, and weatherization programs.',
-    },
-    {
-      icon: ShieldCheck,
-      title: 'Health Services',
-      desc: 'Community clinics, diabetes management, prenatal and postnatal services, and Medicaid enrollment.',
-    },
-    {
-      icon: Brain,
-      title: 'Mental Health & Crisis Support',
-      desc: 'Crisis hotlines, community counseling agencies, and domestic violence support.',
-    },
-    {
-      icon: Scale,
-      title: 'Legal Aid & Advocacy',
-      desc: 'Legal aid, benefits assistance, immigration services, and victim support programs.',
-    },
-    {
-      icon: Users,
-      title: 'Substance Use & Recovery',
-      desc: 'Treatment program referrals, counseling, support groups, and recovery hotlines.',
-    },
+  const steps = [
+    { icon: ClipboardList, title: 'One Intake', desc: 'You share your needs through a single, simple intake.' },
+    { icon: Search, title: 'Assess & Understand', desc: 'We complete Financial, Barrier, Academic & Job Readiness assessments.' },
+    { icon: ClipboardCheck, title: 'Empowerment Plan', desc: "We create your Individual Empowerment Plan and identify benefits & services you're eligible for." },
+    { icon: Handshake, title: 'Connect', desc: 'We connect you to trusted Impact Partners in our digital network.' },
+    { icon: TrendingUp, title: 'Grow & Thrive', desc: 'You receive ongoing support to achieve stability and build generational wealth.' },
   ];
 
-  const steps = [
-    'Become Coop member / owner',
-    'Complete online intake form',
-    'Schedule case management appointment',
-    'Develop personalized support plan',
-    'Access coordinated services',
+  const supportCards = [
+    { icon: PiggyBank, title: 'Financial Assessment', desc: 'Understand your financial picture and get guidance toward stability.' },
+    { icon: Construction, title: 'Barrier Assessment', desc: 'We identify challenges you face and connect you with resources to overcome them.' },
+    { icon: GraduationCap, title: 'Academic Readiness', desc: 'Access education support, training and pathways to achieve your goals.' },
+    { icon: Briefcase, title: 'Job Readiness', desc: 'Build your skills, find job opportunities and advance your career.' },
+    { icon: HeartHandshake, title: 'Benefits & Services', desc: 'We identify federal, state and local benefits you may be eligible for.' },
+    { icon: Network, title: 'Impact Partner Network', desc: 'We connect you to trusted providers for the services you need.' },
+  ];
+
+  const stats = [
+    { end: 500, suffix: '+', label: 'Members Supported and Growing' },
+    { end: 50, suffix: '+', label: 'Impact Partners in Our Network' },
+    { end: 1000, suffix: '+', label: 'Services & Benefits Identified' },
+    { end: 85, suffix: '%', label: 'Members See Progress Within 6 Months' },
+  ];
+
+  const partnerBenefits = [
+    'Expand your reach and community impact',
+    'Be part of a trusted network making a difference',
+    'Collaborate with AC COOP to strengthen our community',
   ];
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="bg-linear-to-br from-primary via-primary-dark to-primary-light text-white py-20">
+      {/* Hero */}
+      <section id="overview" className="relative bg-primary overflow-hidden scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
-              Empowering Our Community
-            </h1>
-            <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
-              The Ideal Center for Social Impact — Employment, Education, and Entrepreneurship pathways for Atlantic City
-            </p>
+          <div className="grid lg:grid-cols-2 gap-10 items-center min-h-[calc(100dvh-152px)] py-12 md:py-16">
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.1] text-white">
+                Center for<br />Social Impact
+              </h1>
+              <p className="text-xl md:text-2xl font-heading font-semibold text-accent">
+                Powered by Ideal Institute of Technology
+              </p>
+              <div className="space-y-3 max-w-lg">
+                <p className="text-lg font-heading font-semibold text-white">One intake. Every opportunity.</p>
+                <p className="text-base text-white/85 leading-relaxed">
+                  Connecting AC COOP members to the services, benefits, and partners that build a stronger, healthier, and more prosperous Atlantic City.
+                </p>
+              </div>
+              <CTAButton className="bg-accent hover:bg-accent/90 text-foreground px-8 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center">
+                Get Started Today
+              </CTAButton>
+            </div>
+            <div className="relative">
+              <div className="aspect-4/3 rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+                <Image
+                  src="/front-view-happy-young-family-looking-each-other.jpg"
+                  alt="A happy young family supported by the Center for Social Impact"
+                  width={800}
+                  height={600}
+                  quality={85}
+                  priority
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* What We Offer */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              What We Offer
-            </h2>
-            <p className="text-xl text-foreground/70 max-w-3xl mx-auto">
-              The Ideal Center for Social Impact provides:
-            </p>
-          </div>
+      {/* In-page section navigation */}
+      <SectionNav />
 
-          <div className="flex flex-wrap justify-center gap-5">
-            {services.map((service) => {
-              const Icon = service.icon;
+      {/* Our Mission band */}
+      <section className="bg-primary-dark py-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+            <div className="shrink-0 w-16 h-16 rounded-2xl border-2 border-accent/60 flex items-center justify-center">
+              <Users className="w-8 h-8 text-accent" aria-hidden="true" />
+            </div>
+            <div>
+              <h2 className="text-xl font-heading font-bold text-white mb-1">Our Mission</h2>
+              <p className="text-white/85 leading-relaxed">
+                AC COOP is committed to supporting our prime members (those receiving public assistance and in need of support) so they can join the true middle class of America and enjoy financial freedom.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section id="how-it-works" className="py-20 bg-white scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">How It Works</h2>
+            <div className="w-16 h-1 bg-accent rounded-full mx-auto mt-4" />
+          </div>
+          <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4">
+            {steps.map((step, i) => {
+              const Icon = step.icon;
+              return (
+                <li key={step.title} className="relative flex flex-col items-center text-center">
+                  <div className="w-20 h-20 rounded-full bg-cream border border-gray-100 shadow-sm flex items-center justify-center mb-4">
+                    <Icon className="w-9 h-9 text-primary" aria-hidden="true" />
+                  </div>
+                  <h3 className="font-heading font-semibold text-foreground mb-2">
+                    {i + 1}. {step.title}
+                  </h3>
+                  <p className="text-sm text-foreground/70 leading-relaxed max-w-[16rem]">{step.desc}</p>
+                  {i < steps.length - 1 && (
+                    <ChevronRight
+                      className="hidden lg:block absolute top-7 -right-2 w-6 h-6 text-accent"
+                      aria-hidden="true"
+                    />
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
+      {/* Comprehensive Support */}
+      <section id="support" className="py-20 bg-cream scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
+              Comprehensive Support for Your Success
+            </h2>
+            <div className="w-16 h-1 bg-accent rounded-full mx-auto mt-4" />
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {supportCards.map((card) => {
+              const Icon = card.icon;
               return (
                 <div
-                  key={service.title}
-                  className="bg-cream rounded-2xl p-5 hover:shadow-xl transition-all duration-300 group w-full sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)]"
+                  key={card.title}
+                  className="bg-white rounded-2xl p-7 shadow-sm border border-gray-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-center"
                 >
-                  <div className="w-14 h-14 mb-4 bg-white rounded-xl flex items-center justify-center group-hover:bg-primary transition-colors duration-300 shadow-md">
-                    <Icon className="w-7 h-7 text-primary group-hover:text-white transition-colors duration-300" />
+                  <div className="w-14 h-14 mx-auto mb-4 bg-primary/10 rounded-2xl flex items-center justify-center">
+                    <Icon className="w-7 h-7 text-primary" aria-hidden="true" />
                   </div>
-                  <h3 className="font-heading font-semibold text-xl text-foreground mb-3">
-                    {service.title}
-                  </h3>
-                  <p className="text-foreground/70 leading-relaxed">
-                    {service.desc}
-                  </p>
+                  <h3 className="font-heading font-semibold text-lg text-foreground mb-2">{card.title}</h3>
+                  <p className="text-sm text-foreground/70 leading-relaxed">{card.desc}</p>
                 </div>
               );
             })}
           </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-            <CTAButton className="bg-primary hover:bg-primary-dark text-white px-10 py-4 rounded-full font-heading font-bold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105 min-w-55 inline-flex items-center justify-center">
-              Become a Member
-            </CTAButton>
-            <CTAButton className="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white px-10 py-4 rounded-full font-heading font-bold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105 min-w-55 inline-flex items-center justify-center">
-              Become a Service Provider
-            </CTAButton>
-            <CTAButton className="text-white px-10 py-4 rounded-full font-heading font-bold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-lg hover:scale-105 min-w-55 inline-flex items-center justify-center" style={{ backgroundColor: '#eeb171' }}>
-              Become A Sponsor
-            </CTAButton>
-          </div>
         </div>
       </section>
 
-      {/* How to Access Services */}
-      <section className="py-20 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl font-heading font-bold text-foreground mb-6">
-                How to Access Services
-              </h2>
-              <p className="text-lg text-foreground/80 leading-relaxed mb-8">
-                Getting support is simple. Follow these steps to access our comprehensive services.
-              </p>
-
-              <div className="space-y-4">
-                {steps.map((step, index) => (
-                  <div key={step} className="flex items-center gap-5 bg-white p-5 rounded-xl shadow-sm">
-                    <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white font-heading font-bold shrink-0">
-                      {index + 1}
-                    </div>
-                    <p className="text-foreground/80 font-medium">{step}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-white rounded-3xl shadow-xl p-8">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-2xl flex items-center justify-center">
-                  <Calendar className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-2xl font-heading font-bold text-foreground mb-2">
-                  Schedule an Appointment
-                </h3>
-                <p className="text-foreground/70">
-                  Book a time to meet with our case management team
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <div className="bg-cream p-4 rounded-xl">
-                  <div className="flex items-center space-x-3 text-foreground/80">
-                    <Phone className="w-5 h-5 text-primary shrink-0" />
-                    <div>
-                      <div className="text-sm font-medium text-foreground/80">Call us</div>
-                      <div className="font-semibold">(609) XXX-XXXX</div>
-                    </div>
-                  </div>
-                </div>
-
-                <Link
-                  href="/contact"
-                  className="block w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-full font-heading font-semibold text-center transition-all duration-300 hover:scale-105"
-                >
-                  Contact Us Today
-                </Link>
-
-                <p className="text-sm text-foreground/70 text-center">
-                  Walk-ins welcome during business hours
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Impact Stats */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              Making a Real Difference
+      {/* Powered by Ideal Institute of Technology */}
+      <section id="ideal-institute" className="bg-primary scroll-mt-20">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2">
+          <div className="px-4 sm:px-6 lg:px-8 py-16 lg:py-20 flex flex-col justify-center">
+            <p className="text-sm font-heading font-semibold text-accent uppercase tracking-wider mb-2">Powered by</p>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-5">
+              Ideal Institute of Technology
             </h2>
-            <p className="text-xl text-foreground/70">
-              Our impact in the Atlantic City community
+            <p className="text-white/85 leading-relaxed max-w-lg mb-8">
+              Through innovation and technology, Ideal Institute of Technology powers the AC COOP Center for Social Impact — creating smarter connections, better outcomes, and a stronger Atlantic City.
             </p>
+            <div className="bg-white/95 rounded-2xl p-4 inline-flex items-center w-fit shadow-lg">
+              <Image
+                src="/iitnj logo.png"
+                alt="Ideal Institute of Technology"
+                width={220}
+                height={80}
+                className="h-12 w-auto object-contain"
+              />
+            </div>
           </div>
+          <div className="relative min-h-65 lg:min-h-full">
+            <Image
+              src="/building-2.webp"
+              alt="Modern Ideal Institute of Technology campus building"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-bottom"
+            />
+          </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { number: 500, suffix: '+', label: 'Families Served Annually' },
-              { number: 75, suffix: '%', label: 'Job Placement Rate' },
-              { number: 1000, suffix: '+', label: 'Hours of Training Provided' },
-            ].map((stat) => (
-              <div key={stat.label} className="bg-linear-to-br from-primary/10 to-primary/5 rounded-2xl p-8 text-center">
+      {/* Impact by the Numbers */}
+      <section id="impact" className="py-20 bg-white scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">Impact by the Numbers</h2>
+            <div className="w-16 h-1 bg-accent rounded-full mx-auto mt-4" />
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+            {stats.map((s) => (
+              <div key={s.label} className="bg-cream rounded-2xl p-6 text-center border border-gray-100">
                 <CountUp
-                  end={stat.number}
-                  suffix={stat.suffix}
-                  className="text-5xl font-heading font-bold text-primary mb-2"
+                  end={s.end}
+                  suffix={s.suffix}
+                  className="text-3xl md:text-4xl font-heading font-bold text-primary mb-2"
                 />
-                <div className="text-foreground/70 font-medium">
-                  {stat.label}
-                </div>
+                <p className="text-sm text-foreground/70 leading-snug">{s.label}</p>
               </div>
             ))}
+            <div className="bg-primary rounded-2xl p-6 text-center flex flex-col justify-center">
+              <p className="text-xl md:text-2xl font-heading font-bold text-white leading-tight mb-2">Stronger Together</p>
+              <p className="text-sm text-white/80 leading-snug">Building Financial Freedom for Atlantic City</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Impact Partners */}
-      <section className="py-12 bg-cream border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              Impact Partners
+      {/* You're Not Alone CTA */}
+      <section id="get-started" className="bg-cream scroll-mt-20">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 items-center">
+          <div className="relative min-h-70 lg:min-h-105">
+            <Image
+              src="/si-advising.jpg"
+              alt="An AC COOP navigator listening to and guiding a community member"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+          <div className="px-4 sm:px-6 lg:px-12 py-14 lg:py-20">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+              You&apos;re Not Alone. We&apos;re Here for You.
             </h2>
-            <p className="text-foreground/70 mb-8">
-              Partner logos coming soon — pending approval
+            <p className="text-lg text-foreground/70 leading-relaxed mb-8 max-w-lg">
+              Take the first step toward a brighter future. Our team is ready to listen, guide and connect you to what you need.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <CTAButton className="bg-primary hover:bg-primary-dark text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2">
+                Start Your Intake <ChevronRight className="w-4 h-4" aria-hidden="true" />
+              </CTAButton>
+              <CTAButton className="bg-white text-primary border-2 border-primary hover:bg-primary/5 px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 inline-flex items-center justify-center">
+                Learn More About Services
+              </CTAButton>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-linear-to-r from-primary to-primary-dark text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold">
-            Join Our Community
-          </h2>
-          <p className="text-xl text-white/90 leading-relaxed">
-            Access services, support, and opportunities through community ownership
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CTAButton className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
-              Become a Member
-            </CTAButton>
-            <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
-              Become a Service Provider
-            </CTAButton>
-            <CTAButton className="text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-[#eeb171] hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center" style={{ backgroundColor: '#eeb171' }}>
-              Become A Sponsor
-            </CTAButton>
+      {/* Become a Services Provider / Partner */}
+      <section id="partner" className="py-20 bg-white scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+                Become a Services Provider / Partner
+              </h2>
+              <p className="text-lg text-foreground/70 leading-relaxed mb-3">
+                Do you provide products or services that help Atlantic City residents on public assistance?
+              </p>
+              <p className="text-foreground/70 leading-relaxed mb-6">
+                Join our Impact Partner Digital Network and help us create opportunities that change lives.
+              </p>
+              <ul className="space-y-3 mb-8">
+                {partnerBenefits.map((b) => (
+                  <li key={b} className="flex items-start gap-3">
+                    <span className="shrink-0 w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center mt-0.5">
+                      <Check className="w-3.5 h-3.5 text-accent" aria-hidden="true" />
+                    </span>
+                    <span className="text-foreground/80">{b}</span>
+                  </li>
+                ))}
+              </ul>
+              <CTAButton className="bg-primary hover:bg-primary-dark text-white px-8 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2">
+                Become a Partner <ChevronRight className="w-4 h-4" aria-hidden="true" />
+              </CTAButton>
+            </div>
+            <div className="relative order-first lg:order-last">
+              <div className="aspect-4/3 rounded-3xl overflow-hidden shadow-xl">
+                <Image
+                  src="/si-partner.jpg"
+                  alt="An AC COOP partnership agreement sealed with a handshake"
+                  width={800}
+                  height={600}
+                  quality={85}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>

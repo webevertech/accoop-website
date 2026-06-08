@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-// Reuses the existing GHL "Main Inquiry Form" (same form used by the site-wide modal).
-const FORM_ID = '1mUxFpmyhY1V5BfqFioB';
-const FORM_NAME = 'Main Inquiry Form';
-const FORM_HEIGHT = 833;
+// Dedicated GHL Sponsorship Form (same form used by the site-wide sponsor modal CTAs).
+const FORM_ID = 'i7kycPHiqfbnDGtn0FbG';
+const FORM_NAME = 'Sponsorship Form';
+const FORM_HEIGHT = 751;
 
 export default function SponsorInterestForm() {
   const wrapperRef = useRef<HTMLDivElement>(null);

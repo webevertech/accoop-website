@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Users, ShoppingCart, Heart, DollarSign, Pill, Store, ShoppingBag, Briefcase, Building2, Handshake, ArrowRight, Smartphone, GraduationCap, Hotel, Home as HomeIcon, Sparkles, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
+import { Users, ShoppingCart, Heart, DollarSign, Pill, Store, ShoppingBag, Briefcase, Building2, Handshake, ArrowRight, Smartphone, GraduationCap, Hotel, Home as HomeIcon, Sparkles, Car, ClipboardList, UtensilsCrossed, Stethoscope } from 'lucide-react';
 import CTAButton from './components/CTAButton';
 
 export const metadata = {
@@ -18,7 +18,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[85vh] py-16 md:py-20">
             {/* Left: Text Content */}
             <div className="space-y-5">
-              <div className="inline-flex items-center gap-2 bg-white/25 text-white px-4 py-2 rounded-full text-sm font-medium">
+              <div className="inline-flex items-center gap-2 bg-white text-primary px-4 py-2 rounded-full text-sm font-semibold">
                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
                 Community-Owned Cooperative
               </div>
@@ -28,7 +28,7 @@ export default function Home() {
                 <br />
                 Atlantic City Built.
                 <br />
-                <span className="text-accent">Atlantic City Powered.</span>
+                <span className="text-[#f8cfa0]">Atlantic City Powered.</span>
               </h1>
 
               <p className="text-lg text-white/85 max-w-lg leading-relaxed">
@@ -55,10 +55,10 @@ export default function Home() {
                 <CTAButton className="bg-white text-primary hover:bg-cream px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg w-full sm:w-auto inline-flex items-center justify-center">
                   Become a Member
                 </CTAButton>
-                <CTAButton formType="vendor" className="bg-white/15 hover:bg-white/25 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 w-full sm:w-auto inline-flex items-center justify-center">
+                <CTAButton formType="vendor" className="bg-transparent hover:bg-white/15 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/70 w-full sm:w-auto inline-flex items-center justify-center">
                   Become a Vendor
                 </CTAButton>
-                <CTAButton className="bg-accent hover:bg-accent/90 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg w-full sm:w-auto inline-flex items-center justify-center">
+                <CTAButton formType="sponsor" className="bg-accent hover:bg-accent/90 text-foreground px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg w-full sm:w-auto inline-flex items-center justify-center">
                   Become A Sponsor
                 </CTAButton>
               </div>
@@ -95,7 +95,8 @@ export default function Home() {
       </section>
 
       {/* Quick Links Section */}
-      <section className="relative -mt-10 z-10 pb-8">
+      <section className="relative -mt-10 z-10 pb-8" aria-label="Quick links">
+        <h2 className="sr-only">Explore the Co-Op</h2>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {[
@@ -138,13 +139,13 @@ export default function Home() {
                 <span className="text-primary">Community Co-op?</span>
               </h2>
               <p className="text-lg text-foreground/80 leading-relaxed">
-                AC Community Co-op is a consumer-owned cooperative developing:
+                Atlantic City Community Cooperative is more than a grocery store. It is a people-powered movement where Atlantic City residents are coming together to own the problem, build the solution, and change the narrative about their city.
               </p>
               <ul className="space-y-3">
                 {[
-                  'A full-service supermarket',
-                  'A digital marketplace (Boardwalk Basket)',
-                  'A Social Impact & Resource Center',
+                  'A full-service digital supermarket',
+                  'A digital marketplace, "Boardwalk Basket" — a delivery platform built just for Atlantic City',
+                  'A Social Impact & Resource Center connecting services to community',
                   'Workforce and entrepreneurship pathways',
                 ].map((feature) => (
                   <li key={feature} className="flex items-start">
@@ -169,7 +170,7 @@ export default function Home() {
             <div className="relative">
               <div className="aspect-4/3 rounded-3xl shadow-2xl overflow-hidden">
                 <Image
-                  src="/04.png"
+                  src="/04.webp"
                   alt="7 South Carolina Ave building - future home of ACCOOP"
                   width={800}
                   height={600}
@@ -177,7 +178,7 @@ export default function Home() {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-accent text-white p-6 rounded-2xl shadow-xl">
+              <div className="absolute -bottom-6 -right-6 bg-accent text-foreground p-6 rounded-2xl shadow-xl">
                 <div className="text-2xl font-heading font-bold">Opening</div>
                 <div className="text-sm font-medium">Fall 2026</div>
               </div>
@@ -295,6 +296,7 @@ export default function Home() {
               { title: 'Job Creation', icon: Briefcase, desc: 'Local hiring with workforce pathways' },
               { title: 'Small Business Support', icon: Store, desc: 'Vendor incubation and digital marketplace access' },
               { title: 'Center for Social Impact', icon: Building2, desc: 'Comprehensive services to empower our community members and create lasting positive change' },
+              { title: 'Health Concierge Network', icon: Stethoscope, desc: 'Connecting members to healthcare providers, wellness resources, and preventive care' },
               { title: 'Community Ownership', icon: Handshake, desc: 'Residents become owners — not just customers' },
             ].map((service) => {
               const Icon = service.icon;
@@ -326,13 +328,12 @@ export default function Home() {
       {/* Partners & Supporters */}
       <section className="py-12 bg-cream border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm font-heading font-semibold text-foreground/50 uppercase tracking-wider mb-8">
+          <p className="text-center text-sm font-heading font-semibold text-foreground/70 uppercase tracking-wider mb-8">
             Our Partners & Supporters
           </p>
           <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-10">
             {[
               { src: '/logo-300x114-1 (2).png', alt: 'NJEDA' },
-              { src: '/logo.png', alt: 'Atlantic City Community Cooperative' },
               { src: '/iitnj logo.png', alt: 'Ideal Institute' },
               { src: '/CG-Transparent.png', alt: 'Common Ground' },
             ].map((partner) => (
@@ -358,7 +359,7 @@ export default function Home() {
             <CTAButton formType="vendor" className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl w-full sm:w-auto inline-flex items-center justify-center">
               Become a Vendor
             </CTAButton>
-            <CTAButton className="bg-accent hover:bg-accent/90 text-white px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl w-full sm:w-auto inline-flex items-center justify-center">
+            <CTAButton formType="sponsor" className="bg-accent hover:bg-accent/90 text-foreground px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl w-full sm:w-auto inline-flex items-center justify-center">
               Become A Sponsor
             </CTAButton>
           </div>
