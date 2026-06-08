@@ -188,16 +188,32 @@ function SectionHeading({ children, sub }: { children: React.ReactNode; sub?: st
 export default function SocialImpactTabs() {
   const [active, setActive] = useState('overview');
   const [stuck, setStuck] = useState(false);
-  const sentinelRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
+  // The nav is `sticky top-0` — when its top reaches 0 it's pinned, so show the logo.
   useEffect(() => {
-    const el = sentinelRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(([e]) => setStuck(!e.isIntersecting), { threshold: 0 });
-    observer.observe(el);
-    return () => observer.disconnect();
+    const nav = navRef.current;
+    if (!nav) return;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      setStuck(nav.getBoundingClientRect().top <= 0);
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
   }, []);
 
   const selectTab = (id: string) => {
@@ -233,10 +249,9 @@ export default function SocialImpactTabs() {
 
   return (
     <>
-      <div ref={sentinelRef} aria-hidden="true" className="h-px w-full" />
-
       {/* Secondary navbar = tab switcher */}
       <nav
+        ref={navRef}
         aria-label="Center for Social Impact sections"
         className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-y border-gray-200 shadow-sm"
       >
