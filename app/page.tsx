@@ -331,13 +331,15 @@ export default function Home() {
           <p className="text-center text-sm font-heading font-semibold text-foreground/70 uppercase tracking-wider mb-8">
             Our Partners & Supporters
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-10">
+          <div className="grid grid-cols-5 gap-2 sm:gap-4 lg:gap-6 max-w-5xl mx-auto items-stretch">
             {[
               { src: '/logo-300x114-1 (2).png', alt: 'NJEDA' },
               { src: '/iitnj logo.png', alt: 'Ideal Institute' },
               { src: '/CG-Transparent.png', alt: 'Common Ground' },
+              { src: '/Seal_of_Atlantic_City,_New_Jersey.jpg', alt: 'City of Atlantic City' },
+              { src: '/CRDA_State_logo.png', alt: 'Casino Reinvestment Development Authority (CRDA)' },
             ].map((partner) => (
-              <div key={partner.alt} className="w-48 h-28 sm:w-60 sm:h-32 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-5">
+              <div key={partner.alt} className="h-20 sm:h-28 lg:h-32 bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center p-2 sm:p-4">
                 <Image src={partner.src} alt={partner.alt} width={220} height={100} className="max-h-full max-w-full object-contain" />
               </div>
             ))}

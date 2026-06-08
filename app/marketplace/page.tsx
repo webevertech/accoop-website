@@ -42,15 +42,27 @@ export default function MarketplacePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-linear-to-br from-primary via-primary-dark to-primary-light text-white py-20">
+      <section className="bg-linear-to-br from-primary via-primary-dark to-primary-light text-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl">
-            <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
-              Boardwalk Basket: Atlantic City&apos;s Digital Marketplace
-            </h1>
-            <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
-              Shop Fresh. Shop Local. Shop Community-Owned.
-            </p>
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
+                Boardwalk Basket: Atlantic City&apos;s Digital Marketplace
+              </h1>
+              <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
+                Shop Fresh. Shop Local. Shop Community-Owned.
+              </p>
+            </div>
+            <div className="flex justify-center lg:justify-end animate-fadeInUp" style={{ animationDelay: '150ms' }}>
+              <Image
+                src="/boardwalk-basket-logo.png"
+                alt="Boardwalk Basket"
+                width={460}
+                height={460}
+                priority
+                className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 object-contain drop-shadow-2xl"
+              />
+            </div>
           </div>
         </div>
       </section>

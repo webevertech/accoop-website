@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import CTAButton from '../components/CTAButton';
 import { Check, Users, HeartHandshake, Crown, Building2, Sparkles } from 'lucide-react';
 
@@ -107,34 +108,34 @@ export default function MembershipPage() {
   return (
     <>
       {/* 1. Hero */}
-      <section className="bg-linear-to-br from-primary via-primary-dark to-primary-light text-white py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-          <h1 className="text-4xl md:text-6xl font-heading font-bold">
-            Join Atlantic City&apos;s Community-Owned Movement
-          </h1>
-          <p className="text-xl text-white/90 font-heading font-medium">
-            Fresh food. Local delivery network. Social impact. Local jobs. Small business growth. Community ownership.
-          </p>
-          <p className="text-lg text-white/80 leading-relaxed">
-            Atlantic City Community Cooperative is building a community-centered supermarket, Boardwalk Basket delivery platform, local vendor marketplace, and social impact network designed to help Atlantic City residents, workers, businesses, sponsors, and supporters participate in a new model of local ownership and public benefit.
-          </p>
-          <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-2">
-            <CTAButton className="bg-white text-primary hover:bg-cream px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center">
-              Join Free
-            </CTAButton>
-            <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
-              Get Support
-            </CTAButton>
-            <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
-              Own the Movement
-            </CTAButton>
-            <CTAButton className="bg-accent hover:bg-accent/90 text-foreground px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center">
-              Invest in Atlantic City
-            </CTAButton>
+      <section className="bg-linear-to-br from-primary via-primary-dark to-primary-light text-white py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.1]">
+                Join Atlantic City&apos;s Community-Owned Movement
+              </h1>
+              <p className="text-xl text-white/90 font-heading font-medium">
+                Fresh food. Local delivery network. Social impact. Local jobs. Small business growth. Community ownership.
+              </p>
+              <p className="text-lg text-white/80 leading-relaxed">
+                Atlantic City Community Cooperative is building a community-centered supermarket, Boardwalk Basket delivery platform, local vendor marketplace, and social impact network designed to help Atlantic City residents, workers, businesses, sponsors, and supporters participate in a new model of local ownership and public benefit.
+              </p>
+            </div>
+            <div className="relative">
+              <div className="aspect-4/3 rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+                <Image
+                  src="/community-unity.jpg"
+                  alt="Community members joining hands together in unity"
+                  width={800}
+                  height={600}
+                  quality={85}
+                  priority
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </div>
           </div>
-          <p className="text-sm text-white/70 leading-relaxed border-t border-white/20 pt-5">
-            Atlantic City Community Cooperative Inc. is a New Jersey public benefit corporation created to generate public benefit while building food access, local economic opportunity, and community wealth.
-          </p>
         </div>
       </section>
 

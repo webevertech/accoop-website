@@ -1,4 +1,5 @@
 import Script from 'next/script';
+import Image from 'next/image';
 import CTAButton from '../components/CTAButton';
 import { Store, TrendingUp, Users, Megaphone, Package, HandshakeIcon, Bike, DollarSign, Globe, Smartphone, ShoppingBag, GraduationCap, Hotel, Home as HomeIcon, Pill, Sparkles, Heart, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
 
@@ -62,17 +63,29 @@ export default function VendorsPage() {
       {/* Hero Section */}
       <section className="bg-linear-to-br from-primary via-primary-dark to-primary-light text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
-              Become a Vendor at Atlantic City Community Cooperative
-            </h1>
-            <p className="text-xl text-white/90 leading-relaxed mb-8 animate-fadeInUp" style={{ animationDelay: '100ms' }}>
-              Access Atlantic City&apos;s delivery network and grow your business through our cooperative marketplace
-            </p>
-            <div className="animate-fadeInUp" style={{ animationDelay: '200ms' }}>
-              <CTAButton formType="vendor" className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
-                Become a Vendor
-              </CTAButton>
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h1 className="text-5xl md:text-6xl font-heading font-bold mb-6 animate-fadeInUp">
+                Become a Vendor at Atlantic City Community Cooperative
+              </h1>
+              <p className="text-xl text-white/90 leading-relaxed mb-8 animate-fadeInUp" style={{ animationDelay: '100ms' }}>
+                Access Atlantic City&apos;s delivery network and grow your business through our cooperative marketplace
+              </p>
+              <div className="animate-fadeInUp" style={{ animationDelay: '200ms' }}>
+                <CTAButton formType="vendor" className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
+                  Become a Vendor
+                </CTAButton>
+              </div>
+            </div>
+            <div className="flex justify-center lg:justify-end animate-fadeInUp" style={{ animationDelay: '150ms' }}>
+              <Image
+                src="/boardwalk-basket-logo.png"
+                alt="Boardwalk Basket"
+                width={460}
+                height={460}
+                priority
+                className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 object-contain drop-shadow-2xl"
+              />
             </div>
           </div>
         </div>

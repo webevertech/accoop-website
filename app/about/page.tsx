@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import CTAButton from '../components/CTAButton';
 import {
   Target,
@@ -59,31 +60,46 @@ export default function AboutPage() {
   return (
     <>
       {/* 1. Top Hero */}
-      <section className="bg-linear-to-br from-primary via-primary-dark to-primary-light text-white py-20">
+      <section className="bg-linear-to-br from-primary via-primary-dark to-primary-light text-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-6">
-            <h1 className="text-4xl md:text-6xl font-heading font-bold animate-fadeInUp">
-              About Atlantic City Community Cooperative
-            </h1>
-            <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
-              A community-owned supermarket, service hub, and national movement beginning in Atlantic City.
-            </p>
-            <p className="text-lg text-white/80 leading-relaxed">
-              Atlantic City Community Cooperative is more than a grocery store. It is a people-powered movement where Atlantic City residents are coming together to own the problem, build the solution, and change the narrative about their city.
-            </p>
-            <p className="text-lg text-white/80 leading-relaxed">
-              We are creating a community-owned supermarket, Boardwalk Basket digital marketplace, home delivery network, and social impact hub where residents, local businesses, vendors, sponsors, and investors can work together to build a stronger Atlantic City.
-            </p>
-            <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-2">
-              <CTAButton className="bg-white text-primary hover:bg-cream px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center">
-                Pre-Register Now
-              </CTAButton>
-              <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
-                Become a Member
-              </CTAButton>
-              <CTAButton className="bg-accent hover:bg-accent/90 text-foreground px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center">
-                Partner With Us
-              </CTAButton>
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold animate-fadeInUp">
+                About Atlantic City Community Cooperative
+              </h1>
+              <p className="text-xl text-white/90 leading-relaxed animate-fadeInUp" style={{ animationDelay: '100ms' }}>
+                A community-owned supermarket, service hub, and national movement beginning in Atlantic City.
+              </p>
+              <p className="text-lg text-white/80 leading-relaxed">
+                Atlantic City Community Cooperative is more than a grocery store. It is a people-powered movement where Atlantic City residents are coming together to own the problem, build the solution, and change the narrative about their city.
+              </p>
+              <p className="text-lg text-white/80 leading-relaxed">
+                We are creating a community-owned supermarket, Boardwalk Basket digital marketplace, home delivery network, and social impact hub where residents, local businesses, vendors, sponsors, and investors can work together to build a stronger Atlantic City.
+              </p>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-2">
+                <CTAButton className="bg-white text-primary hover:bg-cream px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center">
+                  Pre-Register Now
+                </CTAButton>
+                <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
+                  Become a Member
+                </CTAButton>
+                <CTAButton className="bg-accent hover:bg-accent/90 text-foreground px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center">
+                  Partner With Us
+                </CTAButton>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="bg-white rounded-3xl shadow-2xl p-4 sm:p-6">
+                <Image
+                  src="/AC-CO-OP-flyer-1-pg.jpg"
+                  alt="Atlantic City Community Cooperative impact model — grocery and food, social services, food pantry, community kitchen, indoor farming, home delivery network, workforce development, training, and employment at 7 South Carolina Ave"
+                  width={1000}
+                  height={1080}
+                  quality={85}
+                  priority
+                  className="w-full h-auto rounded-xl"
+                />
+              </div>
             </div>
           </div>
         </div>

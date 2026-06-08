@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import CTAButton from '../components/CTAButton';
 import {
   Users,
@@ -133,28 +134,45 @@ export default function BlockCaptainPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-linear-to-br from-primary via-primary-dark to-primary-light text-white py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-          <p className="text-sm font-heading font-semibold text-accent uppercase tracking-wider">Become a Block Captain</p>
-          <h1 className="text-4xl md:text-5xl font-heading font-bold leading-tight">
-            Lead Your Block. Serve Your Community. Get Paid to Build Atlantic City&apos;s Future.
-          </h1>
-          <p className="text-xl text-white/90 leading-relaxed">
-            Atlantic City Community Cooperative is recruiting youth and young adults ages 18–30 to become paid Block Captains — trusted neighborhood leaders who help residents join the Co-op, use Boardwalk Basket, access support services, and bring community ownership to every block of Atlantic City.
-          </p>
-          <p className="text-base text-white/80 leading-relaxed">
-            This is more than a job. It is a leadership opportunity, a paid work experience, and a chance to represent your neighborhood with pride. Atlantic City has 48 community outreach blocks. We are starting with 12 Block Captains who will each serve approximately four blocks.
-          </p>
-          <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-2">
-            <CTAButton className="bg-white text-primary hover:bg-cream px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center">
-              Apply to Become a Block Captain
-            </CTAButton>
-            <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
-              Support the Block Captain Program
-            </CTAButton>
-            <a href="https://www.boardwalkbasket.com/en/" target="_blank" rel="noopener noreferrer" className="bg-white/15 hover:bg-white/25 text-white px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
-              Learn About Boardwalk Basket
-            </a>
+      <section className="bg-linear-to-br from-primary via-primary-dark to-primary-light text-white py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div className="space-y-6">
+              <p className="text-sm font-heading font-semibold text-accent uppercase tracking-wider">Become a Block Captain</p>
+              <h1 className="text-4xl md:text-5xl font-heading font-bold leading-tight">
+                Lead Your Block. Serve Your Community. Get Paid to Build Atlantic City&apos;s Future.
+              </h1>
+              <p className="text-xl text-white/90 leading-relaxed">
+                Atlantic City Community Cooperative is recruiting youth and young adults ages 18–30 to become paid Block Captains — trusted neighborhood leaders who help residents join the Co-op, use Boardwalk Basket, access support services, and bring community ownership to every block of Atlantic City.
+              </p>
+              <p className="text-base text-white/80 leading-relaxed">
+                This is more than a job. It is a leadership opportunity, a paid work experience, and a chance to represent your neighborhood with pride. Atlantic City has 48 community outreach blocks. We are starting with 12 Block Captains who will each serve approximately four blocks.
+              </p>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 pt-2">
+                <CTAButton className="bg-white text-primary hover:bg-cream px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center">
+                  Apply to Become a Block Captain
+                </CTAButton>
+                <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
+                  Support the Block Captain Program
+                </CTAButton>
+                <a href="https://www.boardwalkbasket.com/en/" target="_blank" rel="noopener noreferrer" className="bg-white/15 hover:bg-white/25 text-white px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
+                  Learn About Boardwalk Basket
+                </a>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="aspect-4/3 rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+                <Image
+                  src="/boy.webp"
+                  alt="A young Atlantic City Block Captain making deliveries with Boardwalk Basket"
+                  width={800}
+                  height={600}
+                  quality={80}
+                  priority
+                  className="object-cover w-full h-full"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
