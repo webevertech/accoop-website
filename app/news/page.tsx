@@ -3,8 +3,9 @@ import { Calendar, Newspaper, Users, TrendingUp } from 'lucide-react';
 import CountUp from '../components/CountUp';
 
 export const metadata = {
-  title: 'Atlantic City Community Cooperative News & Events',
+  title: 'News & Events | Atlantic City Community Cooperative',
   description: 'Stay updated on Atlantic City Community Cooperative construction progress, vendor partnerships, job fairs, and community events.',
+  alternates: { canonical: 'https://accoop.com/news' },
 };
 
 export default function NewsPage() {

@@ -1,7 +1,8 @@
 import Image from 'next/image';
+import { ClipboardCheck } from 'lucide-react';
 import CTAButton from '../components/CTAButton';
-import SocialImpactTabs from '../components/SocialImpactTabs';
-import { Users } from 'lucide-react';
+import CenterForSocialImpact from './CenterForSocialImpact';
+import EmpowermentJourney from './EmpowermentJourney';
 
 export const metadata = {
   title: 'Center for Social Impact | Atlantic City Community Cooperative',
@@ -35,46 +36,24 @@ export default function SocialImpactPage() {
                   Connecting AC COOP members to the services, benefits, and partners that build a stronger, healthier, and more prosperous Atlantic City.
                 </p>
               </div>
-              <CTAButton className="bg-accent hover:bg-accent/90 text-foreground px-8 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center">
-                Get Started Today
-              </CTAButton>
-            </div>
-            <div className="relative">
-              <div className="aspect-4/3 rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/10">
-                <Image
-                  src="/embraced-african-american-family-talking-kitchen.jpg"
-                  alt="A family embracing in their kitchen, supported by the Center for Social Impact"
-                  width={800}
-                  height={600}
-                  quality={85}
-                  priority
-                  className="object-cover w-full h-full"
-                />
+              <div className="flex flex-wrap gap-3">
+                <CTAButton label="Complete Social Impact Intake" className="bg-white text-primary hover:bg-cream px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2">
+                  <ClipboardCheck className="w-5 h-5" aria-hidden="true" /> Complete Social Impact Intake
+                </CTAButton>
+                <CTAButton formType="vendor" label="Become a Service Provider" className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/50 inline-flex items-center justify-center">
+                  Become a Service Provider
+                </CTAButton>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Mission band */}
-      <section className="bg-primary-dark py-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
-            <div className="shrink-0 w-16 h-16 rounded-2xl border-2 border-accent/60 flex items-center justify-center">
-              <Users className="w-8 h-8 text-accent" aria-hidden="true" />
-            </div>
-            <div>
-              <h2 className="text-xl font-heading font-bold text-white mb-1">Our Mission</h2>
-              <p className="text-white/85 leading-relaxed">
-                AC COOP is committed to supporting our prime members (those receiving public assistance and in need of support) so they can join the true middle class of America and enjoy financial freedom.
-              </p>
+            <div className="relative">
+              <EmpowermentJourney />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Tabbed micro-site — navigate the full Center content via the secondary navbar */}
-      <SocialImpactTabs />
+      {/* Center for Social Impact — full design ported from the standalone source */}
+      <CenterForSocialImpact />
     </>
   );
 }
