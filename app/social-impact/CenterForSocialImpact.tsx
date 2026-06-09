@@ -374,8 +374,8 @@ export default function CenterForSocialImpact() {
                   ))}
                 </div>
                 <div className="mb-6">
-                  <div className="flex items-center justify-between text-[13px] text-white/70 mb-1.5"><span>Overall progress</span><b className="text-white">62%</b></div>
-                  <div className="h-2 rounded-full bg-white/15 overflow-hidden"><div className="h-full rounded-full bg-primary-light" style={{ width: '62%' }} /></div>
+                  <div className="flex items-center justify-between text-[13px] text-white/90 mb-1.5"><span>Overall progress</span><b className="text-white">62%</b></div>
+                  <div className="h-2 rounded-full bg-white/20 overflow-hidden"><div className="h-full rounded-full bg-white" style={{ width: '62%' }} /></div>
                 </div>
                 <div className="space-y-2.5">
                   {[
