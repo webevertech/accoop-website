@@ -579,7 +579,7 @@ export default function JoinCoopForm() {
             </select>
           </div>
           <div>
-            <Label htmlFor="isPublicAssessment">Is Public Assessment?</Label>
+            <Label htmlFor="isPublicAssessment">Is Public Assistant?</Label>
             <select
               id="isPublicAssessment"
               className={inputClass()}
