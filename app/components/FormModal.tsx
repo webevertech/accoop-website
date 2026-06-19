@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import type { FormType } from './CTAButton';
+import JoinCoopForm from './JoinCoopForm';
 
 const FORMS: Record<FormType, { id: string; name: string; heading: string; height: number }> = {
   inquiry: {
@@ -46,14 +47,14 @@ export default function FormModal() {
   }, []);
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || formType === 'inquiry') return; // native form needs no embed script
     if (!document.querySelector('script[src*="form_embed"]')) {
       const script = document.createElement('script');
       script.src = 'https://links.webevertech.com/js/form_embed.js';
       script.async = true;
       document.body.appendChild(script);
     }
-  }, [open]);
+  }, [open, formType]);
 
   useEffect(() => {
     if (open) {
@@ -64,7 +65,7 @@ export default function FormModal() {
       triggerRef.current?.focus();
     }
     return () => { document.body.style.overflow = ''; };
-  }, [open]);
+  }, [open, formType]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -117,34 +118,40 @@ export default function FormModal() {
             <X className="w-5 h-5 text-gray-700" aria-hidden="true" />
           </button>
         </div>
-        <div className="relative flex-1 min-h-0 overflow-y-auto">
-          {!loaded && (
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-white">
-              <span className="w-9 h-9 border-[3px] border-primary border-t-transparent rounded-full animate-spin" aria-hidden="true" />
-              <span className="text-sm text-foreground/50">Loading form…</span>
-            </div>
+        <div className="relative flex-1 min-h-0 overflow-y-auto bg-background">
+          {formType === 'inquiry' ? (
+            <JoinCoopForm />
+          ) : (
+            <>
+              {!loaded && (
+                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-white">
+                  <span className="w-9 h-9 border-[3px] border-primary border-t-transparent rounded-full animate-spin" aria-hidden="true" />
+                  <span className="text-sm text-foreground/50">Loading form…</span>
+                </div>
+              )}
+              <div className="pb-12">
+                <iframe
+                  key={form.id}
+                  src={`https://links.webevertech.com/widget/form/${form.id}`}
+                  onLoad={() => setLoaded(true)}
+                  style={{ width: '100%', height: `${form.height}px`, border: 'none', display: 'block' }}
+                  id={iframeId}
+                  data-layout="{'id':'INLINE'}"
+                  data-trigger-type="alwaysShow"
+                  data-trigger-value=""
+                  data-activation-type="alwaysActivated"
+                  data-activation-value=""
+                  data-deactivation-type="neverDeactivate"
+                  data-deactivation-value=""
+                  data-form-name={form.name}
+                  data-height={form.height}
+                  data-layout-iframe-id={iframeId}
+                  data-form-id={form.id}
+                  title={form.name}
+                />
+              </div>
+            </>
           )}
-          <div className="pb-12">
-            <iframe
-              key={form.id}
-              src={`https://links.webevertech.com/widget/form/${form.id}`}
-              onLoad={() => setLoaded(true)}
-              style={{ width: '100%', height: `${form.height}px`, border: 'none', display: 'block' }}
-              id={iframeId}
-              data-layout="{'id':'INLINE'}"
-              data-trigger-type="alwaysShow"
-              data-trigger-value=""
-              data-activation-type="alwaysActivated"
-              data-activation-value=""
-              data-deactivation-type="neverDeactivate"
-              data-deactivation-value=""
-              data-form-name={form.name}
-              data-height={form.height}
-              data-layout-iframe-id={iframeId}
-              data-form-id={form.id}
-              title={form.name}
-            />
-          </div>
         </div>
       </div>
     </div>
