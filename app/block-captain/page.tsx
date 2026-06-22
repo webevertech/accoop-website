@@ -163,8 +163,8 @@ export default function BlockCaptainPage() {
             <div className="relative">
               <div className="aspect-4/3 rounded-3xl overflow-hidden shadow-2xl ring-1 ring-white/10">
                 <Image
-                  src="/boy.webp"
-                  alt="A young Atlantic City Block Captain making deliveries with Boardwalk Basket"
+                  src="/man-carrying-groceries.webp"
+                  alt="An Atlantic City Block Captain carrying a box of groceries for delivery with Boardwalk Basket"
                   width={800}
                   height={600}
                   quality={80}
