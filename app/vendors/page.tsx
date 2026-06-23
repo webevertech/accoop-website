@@ -1,7 +1,7 @@
 import Script from 'next/script';
 import Image from 'next/image';
 import CTAButton from '../components/CTAButton';
-import { Store, TrendingUp, Users, Megaphone, Package, HandshakeIcon, Bike, DollarSign, Globe, Smartphone, ShoppingBag, GraduationCap, Hotel, Home as HomeIcon, Pill, Sparkles, Heart, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
+import { Store, Users, Megaphone, Bike, DollarSign, Globe, Smartphone, ShoppingBag, GraduationCap, Hotel, Home as HomeIcon, Pill, Sparkles, Heart, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
 
 export const metadata = {
   title: 'Become a Vendor | Atlantic City Community Cooperative',
