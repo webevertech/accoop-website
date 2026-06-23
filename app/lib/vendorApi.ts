@@ -7,8 +7,10 @@
  * The request is sent as multipart/form-data because the form includes file uploads
  * (organization logo + banner image).
  *
- * Endpoint: https://socialimpact.accoop.com/api/partner/register
- * Overridable via NEXT_PUBLIC_VENDOR_API_URL in .env.
+ * Endpoint: POST {NEXT_PUBLIC_ONECONNECT_API_BASE}/api/partners/register
+ * Base URL: configured via NEXT_PUBLIC_ONECONNECT_API_BASE in .env.local or .env
+ * (shares the same OneConnect backend as registrationApi). Falls back to the
+ * production URL if not set.
  */
 
 /** Form-shaped payload. Mapped to the API field names inside submitVendor. */
@@ -42,30 +44,30 @@ export interface SubmitResult {
   fieldErrors?: Record<string, string>;
 }
 
-const DEFAULT_VENDOR_API_URL = 'https://socialimpact.accoop.com/api/partner/register';
+const DEFAULT_API_BASE = 'https://socialimpact.accoop.com';
 
-/** Target endpoint for the vendor submission — env override wins, otherwise the default. */
-const VENDOR_API_URL = (process.env.NEXT_PUBLIC_VENDOR_API_URL || DEFAULT_VENDOR_API_URL).replace(/\/$/, '');
+/** Resolved base URL — env override wins, otherwise the production default. */
+const API_BASE = (process.env.NEXT_PUBLIC_ONECONNECT_API_BASE || DEFAULT_API_BASE).replace(/\/$/, '');
 
-/**
- * Maps API (snake_case) error keys back to FORM field names for inline highlighting.
- * ⚠️ Adjust these keys to match the real API response once the endpoint is known.
- */
+/** Target endpoint for the partner / vendor registration submission. */
+const VENDOR_API_URL = `${API_BASE}/api/partners/register`;
+
+/** Maps API (snake_case) error keys back to FORM field names for inline highlighting. */
 const API_TO_FORM_FIELD: Record<string, string> = {
   first_name: 'firstName',
   last_name: 'lastName',
   other_name: 'otherName',
   phone: 'phone',
   email: 'email',
-  organization_name: 'organizationName',
-  organization_street_address: 'organizationStreetAddress',
+  org_name: 'organizationName',
+  street_address: 'organizationStreetAddress',
   country_id: 'country',
   state_id: 'state',
   city_id: 'city',
   zip_code: 'zip',
   county_id: 'county',
   display_address: 'displayAddress',
-  website: 'website',
+  website_url: 'website',
   logo: 'logo',
   banner: 'banner',
 };
@@ -78,15 +80,15 @@ export async function submitVendor(payload: VendorPayload): Promise<SubmitResult
   body.append('other_name', payload.otherName);
   body.append('phone', payload.phone);
   body.append('email', payload.email);
-  body.append('organization_name', payload.organizationName);
-  body.append('organization_street_address', payload.organizationStreetAddress);
+  body.append('org_name', payload.organizationName);
+  body.append('street_address', payload.organizationStreetAddress);
   body.append('country_id', payload.country);
   body.append('state_id', payload.state);
   body.append('city_id', payload.city);
   body.append('zip_code', payload.zip);
   body.append('county_id', payload.county);
   body.append('display_address', payload.displayAddress);
-  body.append('website', payload.website);
+  body.append('website_url', payload.website);
   if (payload.recaptchaToken) body.append('g-recaptcha-response', payload.recaptchaToken);
   if (payload.logo) body.append('logo', payload.logo);
   if (payload.banner) body.append('banner', payload.banner);
