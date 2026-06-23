@@ -37,14 +37,15 @@ export default function SocialImpactPage() {
                   Connecting AC COOP members to the services, benefits, and partners that build a stronger, healthier, and more prosperous Atlantic City.
                 </p>
               </div>
-              <div className="flex flex-wrap gap-3">
-                <CTAButton label="Complete Social Impact Intake" className="bg-white text-primary hover:bg-cream px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2">
-                  <ClipboardCheck className="w-5 h-5" aria-hidden="true" /> Complete Social Impact Intake
+              <div className="flex flex-nowrap items-stretch gap-2 sm:gap-3">
+                <CTAButton label="Complete Social Impact Intake" className="flex-1 min-w-0 bg-white text-primary hover:bg-cream px-4 sm:px-5 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2 text-sm sm:text-base whitespace-nowrap">
+                  <ClipboardCheck className="w-5 h-5 shrink-0" aria-hidden="true" />
+                  <span className="truncate">Complete Social Impact Intake</span>
                 </CTAButton>
-                <CTAButton formType="vendor" label="Become a Service Provider" className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/50 inline-flex items-center justify-center">
-                  Become a Service Provider
+                <CTAButton formType="vendor" label="Become a Service Provider" className="flex-1 min-w-0 bg-white/10 hover:bg-white/20 text-white px-4 sm:px-5 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/50 inline-flex items-center justify-center text-sm sm:text-base whitespace-nowrap">
+                  <span className="truncate">Become a Service Provider</span>
                 </CTAButton>
-                <LoginButton className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/50 inline-flex items-center justify-center">
+                <LoginButton className="shrink-0 bg-white/10 hover:bg-white/20 text-white px-5 sm:px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/50 inline-flex items-center justify-center text-sm sm:text-base">
                   Login
                 </LoginButton>
               </div>
