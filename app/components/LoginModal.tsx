@@ -25,7 +25,6 @@ export default function LoginModal() {
   const [remember, setRemember] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
 
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
@@ -35,7 +34,6 @@ export default function LoginModal() {
       const detail = (e as CustomEvent<{ role?: LoginRole }>).detail;
       setRole(detail?.role ?? 'coop');
       setError(null);
-      setNotice(null);
       triggerRef.current = document.activeElement as HTMLElement;
       setOpen(true);
     };
@@ -76,7 +74,6 @@ export default function LoginModal() {
   const switchRole = (next: LoginRole) => {
     setRole(next);
     setError(null);
-    setNotice(null);
   };
 
   const openRegister = () => {
@@ -89,7 +86,6 @@ export default function LoginModal() {
   const handleSubmit = async (ev: React.FormEvent) => {
     ev.preventDefault();
     setError(null);
-    setNotice(null);
 
     if (!email.trim() || !EMAIL_RE.test(email)) {
       setError('Enter a valid email address.');
@@ -105,10 +101,14 @@ export default function LoginModal() {
     setSubmitting(false);
 
     if (result.ok) {
+      if (result.redirectUrl) {
+        window.location.href = result.redirectUrl;
+        return;
+      }
       setOpen(false);
       return;
     }
-    setNotice(result.message ?? 'Unable to sign in right now. Please try again.');
+    setError(result.message ?? 'Unable to sign in right now. Please try again.');
   };
 
   if (!open) return null;
@@ -229,11 +229,6 @@ export default function LoginModal() {
           {error && (
             <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
               {error}
-            </p>
-          )}
-          {notice && (
-            <p role="status" className="rounded-lg bg-primary/10 px-3 py-2 text-sm text-primary">
-              {notice}
             </p>
           )}
 
