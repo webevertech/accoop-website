@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import CTAButton from '../components/CTAButton';
 import Image from 'next/image';
-import { Apple, Beef, Wheat, Pill, Store, Bike, ShoppingCart, Smartphone, PackageCheck, Zap, Users, Leaf, ShoppingBag, GraduationCap, Hotel, Home as HomeIcon, Sparkles, Heart, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
+import { Beef, Pill, Store, ShoppingCart, Smartphone, Users, Leaf, ShoppingBag, GraduationCap, Hotel, Home as HomeIcon, Sparkles, Heart, Car, ClipboardList, UtensilsCrossed } from 'lucide-react';
 
 export const metadata = {
   title: 'Boardwalk Basket Marketplace | Fresh Groceries & Local Products',

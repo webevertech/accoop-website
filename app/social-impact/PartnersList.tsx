@@ -77,7 +77,6 @@ export default function PartnersList() {
 
   useEffect(() => {
     let active = true;
-    setLoading(true);
     getPartners()
       .then((res) => {
         if (!active) return;
