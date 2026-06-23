@@ -46,6 +46,8 @@ export interface RegistrationPayload {
   veteranStatus: string;
   isPublicAssessment: string;
   password: string;
+  /** Google reCAPTCHA v3 token; the backend must verify it via siteverify. */
+  recaptchaToken: string;
 }
 
 export interface SubmitResult {
@@ -114,6 +116,12 @@ export async function getCities(countyId: string): Promise<Option[]> {
   return toIdOptions(await fetchData(`/api/location/cities?county_id=${encodeURIComponent(countyId)}`));
 }
 
+/** Cities for a state. This backend keys cities by state (not county). */
+export async function getCitiesByState(stateId: string): Promise<Option[]> {
+  if (!stateId) return [];
+  return toIdOptions(await fetchData(`/api/location/cities?state_id=${encodeURIComponent(stateId)}`));
+}
+
 /** Zip codes use the `zip_code` field; the option value IS the code (what register expects). */
 export async function getZips(cityId: string): Promise<Option[]> {
   if (!cityId) return [];
@@ -178,6 +186,7 @@ export async function submitRegistration(payload: RegistrationPayload): Promise<
     is_public_assessment: payload.isPublicAssessment,
     password: payload.password,
     password_confirmation: payload.password,
+    'g-recaptcha-response': payload.recaptchaToken,
   };
 
   let res: Response;
