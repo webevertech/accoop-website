@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FormModal from "./components/FormModal";
+import LoginModal from "./components/LoginModal";
 
 const BASE_URL = "https://accoop.com";
 
@@ -190,6 +191,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <FormModal />
+        <LoginModal />
       </body>
     </html>
   );

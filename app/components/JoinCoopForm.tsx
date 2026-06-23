@@ -6,7 +6,7 @@ import {
   getCountries,
   getStates,
   getCounties,
-  getCities,
+  getCitiesByState,
   getZips,
   submitRegistration,
   GENDER_OPTIONS,
@@ -15,6 +15,13 @@ import {
   type Option,
   type RegistrationPayload,
 } from '../lib/registrationApi';
+import SearchableSelect from './SearchableSelect';
+import { executeRecaptcha, loadRecaptcha } from '../lib/recaptcha';
+
+const PUBLIC_ASSISTANCE_OPTIONS: Option[] = [
+  { value: 'yes', label: 'Yes' },
+  { value: 'no', label: 'No' },
+];
 
 type FormState = {
   email: string;
@@ -118,12 +125,26 @@ export default function JoinCoopForm() {
   const [cities, setCities] = useState<Option[]>([]);
   const [zips, setZips] = useState<Option[]>([]);
 
+  // Load countries and preselect United States (then load its states).
   useEffect(() => {
     let active = true;
-    getCountries().then((opts) => active && setCountries(opts));
+    getCountries().then((opts) => {
+      if (!active) return;
+      setCountries(opts);
+      const us = opts.find((o) => /united states/i.test(o.label));
+      if (us) {
+        setForm((f) => ({ ...f, country: us.value }));
+        getStates(us.value).then((s) => active && setStates(s));
+      }
+    });
     return () => {
       active = false;
     };
+  }, []);
+
+  // Preload reCAPTCHA so the token is ready (and the badge shows) before submit.
+  useEffect(() => {
+    loadRecaptcha();
   }, []);
 
   const set = <K extends keyof FormState>(key: K, value: FormState[K]) => {
@@ -142,19 +163,17 @@ export default function JoinCoopForm() {
     if (value) setStates(await getStates(value));
   };
 
+  // City and County both hang off State on this backend.
   const onStateChange = async (value: string) => {
-    setForm((f) => ({ ...f, state: value, county: '', city: '', zip: '' }));
+    setForm((f) => ({ ...f, state: value, city: '', zip: '', county: '' }));
+    setCities([]);
+    setZips([]);
     setCounties([]);
-    setCities([]);
-    setZips([]);
-    if (value) setCounties(await getCounties(value));
-  };
-
-  const onCountyChange = async (value: string) => {
-    setForm((f) => ({ ...f, county: value, city: '', zip: '' }));
-    setCities([]);
-    setZips([]);
-    if (value) setCities(await getCities(value));
+    if (value) {
+      const [c, co] = await Promise.all([getCitiesByState(value), getCounties(value)]);
+      setCities(c);
+      setCounties(co);
+    }
   };
 
   const onCityChange = async (value: string) => {
@@ -230,9 +249,11 @@ export default function JoinCoopForm() {
       veteranStatus: form.veteranStatus,
       isPublicAssessment: form.isPublicAssessment,
       password: form.password,
+      recaptchaToken: '',
     };
 
     setSubmitting(true);
+    payload.recaptchaToken = (await executeRecaptcha('coop_register')) ?? '';
     const result = await submitRegistration(payload);
     setSubmitting(false);
 
@@ -425,87 +446,67 @@ export default function JoinCoopForm() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <div>
             <Label htmlFor="country" required>Country</Label>
-            <select
+            <SearchableSelect
               id="country"
-              className={inputClass(!!errors.country)}
-              data-invalid={!!errors.country}
+              options={countries}
               value={form.country}
-              onChange={(e) => onCountryChange(e.target.value)}
-            >
-              <option value="">Select country</option>
-              {countries.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
+              onChange={onCountryChange}
+              placeholder="Select country"
+              hasError={!!errors.country}
+            />
             <FieldError msg={errors.country} />
           </div>
           <div>
             <Label htmlFor="state" required>State</Label>
-            <select
+            <SearchableSelect
               id="state"
-              disabled={!form.country}
-              className={`${inputClass(!!errors.state)} disabled:cursor-not-allowed disabled:bg-gray-50`}
-              data-invalid={!!errors.state}
+              options={states}
               value={form.state}
-              onChange={(e) => onStateChange(e.target.value)}
-            >
-              <option value="">Select state</option>
-              {states.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
+              onChange={onStateChange}
+              placeholder="Select state"
+              disabled={!form.country}
+              hasError={!!errors.state}
+            />
             <FieldError msg={errors.state} />
           </div>
           <div>
-            <Label htmlFor="county" required>County</Label>
-            <select
-              id="county"
-              disabled={!form.state}
-              className={`${inputClass(!!errors.county)} disabled:cursor-not-allowed disabled:bg-gray-50`}
-              data-invalid={!!errors.county}
-              value={form.county}
-              onChange={(e) => onCountyChange(e.target.value)}
-            >
-              <option value="">Select county</option>
-              {counties.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
-            <FieldError msg={errors.county} />
-          </div>
-          <div>
             <Label htmlFor="city" required>City</Label>
-            <select
+            <SearchableSelect
               id="city"
-              disabled={!form.county}
-              className={`${inputClass(!!errors.city)} disabled:cursor-not-allowed disabled:bg-gray-50`}
-              data-invalid={!!errors.city}
+              options={cities}
               value={form.city}
-              onChange={(e) => onCityChange(e.target.value)}
-            >
-              <option value="">Select city</option>
-              {cities.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
+              onChange={onCityChange}
+              placeholder="Select city"
+              disabled={!form.state}
+              hasError={!!errors.city}
+            />
             <FieldError msg={errors.city} />
           </div>
           <div>
             <Label htmlFor="zip" required>Zip Code</Label>
-            <select
+            <SearchableSelect
               id="zip"
-              disabled={!form.city}
-              className={`${inputClass(!!errors.zip)} disabled:cursor-not-allowed disabled:bg-gray-50`}
-              data-invalid={!!errors.zip}
+              options={zips}
               value={form.zip}
-              onChange={(e) => set('zip', e.target.value)}
-            >
-              <option value="">Select zip code</option>
-              {zips.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
+              onChange={(v) => set('zip', v)}
+              placeholder="Select zip code"
+              disabled={!form.city}
+              hasError={!!errors.zip}
+            />
             <FieldError msg={errors.zip} />
+          </div>
+          <div>
+            <Label htmlFor="county" required>County</Label>
+            <SearchableSelect
+              id="county"
+              options={counties}
+              value={form.county}
+              onChange={(v) => set('county', v)}
+              placeholder="Select county"
+              disabled={!form.state}
+              hasError={!!errors.county}
+            />
+            <FieldError msg={errors.county} />
           </div>
         </div>
       </Section>
@@ -528,18 +529,14 @@ export default function JoinCoopForm() {
           </div>
           <div>
             <Label htmlFor="gender" required>Gender</Label>
-            <select
+            <SearchableSelect
               id="gender"
-              className={inputClass(!!errors.gender)}
-              data-invalid={!!errors.gender}
+              options={GENDER_OPTIONS}
               value={form.gender}
-              onChange={(e) => set('gender', e.target.value)}
-            >
-              <option value="">Select Gender</option>
-              {GENDER_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
+              onChange={(v) => set('gender', v)}
+              placeholder="Select Gender"
+              hasError={!!errors.gender}
+            />
             <FieldError msg={errors.gender} />
           </div>
         </div>
@@ -550,46 +547,35 @@ export default function JoinCoopForm() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <Label htmlFor="preferredLanguage" required>Preferred Language</Label>
-            <select
+            <SearchableSelect
               id="preferredLanguage"
-              className={inputClass(!!errors.preferredLanguage)}
-              data-invalid={!!errors.preferredLanguage}
+              options={LANGUAGE_OPTIONS}
               value={form.preferredLanguage}
-              onChange={(e) => set('preferredLanguage', e.target.value)}
-            >
-              <option value="">Select Language</option>
-              {LANGUAGE_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
+              onChange={(v) => set('preferredLanguage', v)}
+              placeholder="Select Language"
+              hasError={!!errors.preferredLanguage}
+            />
             <FieldError msg={errors.preferredLanguage} />
           </div>
           <div>
             <Label htmlFor="veteranStatus">Veteran Status</Label>
-            <select
+            <SearchableSelect
               id="veteranStatus"
-              className={inputClass()}
+              options={VETERAN_OPTIONS}
               value={form.veteranStatus}
-              onChange={(e) => set('veteranStatus', e.target.value)}
-            >
-              <option value="">Select Status</option>
-              {VETERAN_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>{o.label}</option>
-              ))}
-            </select>
+              onChange={(v) => set('veteranStatus', v)}
+              placeholder="Select Status"
+            />
           </div>
           <div>
             <Label htmlFor="isPublicAssessment">Is Public Assistant?</Label>
-            <select
+            <SearchableSelect
               id="isPublicAssessment"
-              className={inputClass()}
+              options={PUBLIC_ASSISTANCE_OPTIONS}
               value={form.isPublicAssessment}
-              onChange={(e) => set('isPublicAssessment', e.target.value)}
-            >
-              <option value="">Select an option</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </select>
+              onChange={(v) => set('isPublicAssessment', v)}
+              placeholder="Select an option"
+            />
           </div>
         </div>
       </Section>

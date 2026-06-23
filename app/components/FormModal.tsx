@@ -3,6 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import type { FormType } from './CTAButton';
 import JoinCoopForm from './JoinCoopForm';
+import VendorForm from './VendorForm';
+
+/** Form types rendered by a native React component (no GHL iframe). */
+const NATIVE_FORMS: ReadonlySet<FormType> = new Set<FormType>(['inquiry', 'vendor']);
 
 const FORMS: Record<FormType, { id: string; name: string; heading: string; height: number }> = {
   inquiry: {
@@ -47,7 +51,7 @@ export default function FormModal() {
   }, []);
 
   useEffect(() => {
-    if (!open || formType === 'inquiry') return; // native form needs no embed script
+    if (!open || NATIVE_FORMS.has(formType)) return; // native forms need no embed script
     if (!document.querySelector('script[src*="form_embed"]')) {
       const script = document.createElement('script');
       script.src = 'https://links.webevertech.com/js/form_embed.js';
@@ -121,6 +125,8 @@ export default function FormModal() {
         <div className="relative flex-1 min-h-0 overflow-y-auto bg-background">
           {formType === 'inquiry' ? (
             <JoinCoopForm />
+          ) : formType === 'vendor' ? (
+            <VendorForm />
           ) : (
             <>
               {!loaded && (

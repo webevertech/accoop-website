@@ -9,6 +9,7 @@ import {
   Phone, Heart, Clock, LineChart, DollarSign, Star, Building2,
   type LucideIcon,
 } from 'lucide-react';
+import PartnersList from './PartnersList';
 
 /* ---------------- data (from the design source) ---------------- */
 const NAV = [
@@ -93,13 +94,6 @@ const PLAN = [
 ];
 const stTag: Record<string, string> = { done: 'Done', now: 'In progress', next: 'Upcoming' };
 
-const TIERS = [
-  { n: 'Tier 1', t: 'Listed Resource Partner', d: 'For organizations that want to be included in the Co-op service directory.', feat: false, items: ['Listed in partner directory', 'Program / service description', 'Eligibility criteria', 'Contact information', 'Referral instructions'], cta: 'Get Listed' },
-  { n: 'Tier 2', t: 'Referral Partner', d: 'For organizations ready to accept referrals from Co-op navigators.', feat: true, items: ['Digital referral participation', 'Service category listing', 'Referral contact person', 'Follow-up coordination', 'Quarterly partner check-ins'], cta: 'Accept Referrals' },
-  { n: 'Tier 3', t: 'Strategic Impact Partner', d: 'For formal collaboration, shared outcomes, and priority member support.', feat: false, items: ['MOU / partner agreement', 'Closed-loop referral process', 'Joint workshops & service clinics', 'Shared impact metrics', 'Co-branded outreach'], cta: 'Collaborate' },
-  { n: 'Tier 4', t: 'Preferred Member Provider', d: 'For businesses offering discounted, sponsored, or priority services to members.', feat: false, items: ['Preferred provider listing', 'Member benefit description', 'Discount / special-access terms', 'Member referral pathway', 'Sponsor Prime Member services'], cta: 'Offer Benefits' },
-];
-
 const IDEAL_FLOW: { icon: LucideIcon; step: string; desc: string }[] = [
   { icon: GraduationCap, step: 'Learn', desc: 'Digital literacy & training' },
   { icon: Building2, step: 'Train', desc: 'Apprenticeships & credentials' },
@@ -108,12 +102,6 @@ const IDEAL_FLOW: { icon: LucideIcon; step: string; desc: string }[] = [
   { icon: Star, step: 'Own', desc: 'Business & co-op ownership' },
 ];
 const IDEAL_PATHS = ['Digital literacy', 'Career readiness', 'Job training', 'Paid work-based learning', 'Apprenticeships', 'Entrepreneurship training', 'Small business support', 'Youth leadership', 'Community navigator training', 'Block captain training'];
-
-const PARTNER_BENEFITS = [
-  { t: 'Better, qualified referrals', d: 'Our intake and assessment process identifies member needs before referrals are made, so you connect with residents who already qualify.' },
-  { t: 'Closed-loop network', d: 'Navigators support members with documentation, reminders, and follow-up — and every referral is tracked to a result.' },
-  { t: 'Demonstrate impact', d: 'Participate in shared impact reporting, community service days, and funder-facing outcome stories rooted in local ownership.' },
-];
 
 const FINALE = ['Assess the member', 'Build the plan', 'Connect the provider', 'Track the result', 'Grow the income', 'Build ownership'];
 
@@ -563,32 +551,7 @@ export default function CenterForSocialImpact() {
       {/* ===== Become a Partner ===== */}
       <section id="partner" className="py-16 md:py-20 bg-cream scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-3xl mb-12">
-            <Eyebrow>Become a Service Provider / Impact Partner</Eyebrow>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">Reach the residents who need your services most.</h2>
-            <p className="text-lg text-foreground/70 leading-relaxed">Join the Impact Partner Digital Network — a coordinated referral system that reduces fragmentation, improves follow-up, and strengthens measurable community impact.</p>
-          </Reveal>
-          <div className="grid sm:grid-cols-3 gap-6 mb-12">
-            {PARTNER_BENEFITS.map((b, i) => (
-              <Reveal key={b.t} delay={i * 60}><div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 h-full"><h3 className="font-heading font-semibold text-foreground mb-2">{b.t}</h3><p className="text-sm text-foreground/70 leading-relaxed">{b.d}</p></div></Reveal>
-            ))}
-          </div>
-          <Reveal className="text-center mb-8"><Eyebrow>Partner Levels</Eyebrow><h3 className="text-2xl md:text-3xl font-heading font-bold text-foreground">Ways to partner</h3></Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {TIERS.map((t, i) => (
-              <Reveal key={t.n} delay={i * 60}>
-                <article className={`rounded-3xl p-6 h-full flex flex-col border ${t.feat ? 'bg-primary text-white border-primary shadow-lg' : 'bg-white border-gray-100 shadow-sm'}`}>
-                  <span className={`text-xs font-heading font-bold uppercase tracking-wider ${t.feat ? 'text-accent' : 'text-primary'}`}>{t.n}</span>
-                  <h3 className="font-heading font-bold text-lg mt-1 mb-1">{t.t}</h3>
-                  <p className={`text-sm mb-4 ${t.feat ? 'text-white/80' : 'text-foreground/60'}`}>{t.d}</p>
-                  <ul className="space-y-2 mb-5 grow">
-                    {t.items.map((x) => (<li key={x} className={`flex items-start gap-2 text-sm ${t.feat ? 'text-white/90' : 'text-foreground/75'}`}><Check className={`w-4 h-4 shrink-0 mt-0.5 ${t.feat ? 'text-accent' : 'text-primary'}`} aria-hidden="true" />{x}</li>))}
-                  </ul>
-                  <button type="button" onClick={openVendorForm} className={`w-full px-4 py-2.5 rounded-full font-heading font-semibold text-sm transition-colors cursor-pointer ${t.feat ? 'bg-white text-primary hover:bg-cream' : 'bg-primary text-white hover:bg-primary-dark'}`}>{t.cta}</button>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal><PartnersList /></Reveal>
         </div>
       </section>
 

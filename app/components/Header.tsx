@@ -57,8 +57,8 @@ export default function Header() {
             })}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:flex items-center space-x-4">
+          {/* CTA Buttons */}
+          <div className="hidden lg:flex items-center space-x-3">
             <CTAButton className="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center justify-center">
               Join the Co-Op
             </CTAButton>
