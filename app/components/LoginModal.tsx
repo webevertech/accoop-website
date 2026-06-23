@@ -102,10 +102,14 @@ export default function LoginModal() {
 
     if (result.ok) {
       if (result.redirectUrl) {
-        window.location.href = result.redirectUrl;
+        // Carry the auth token to the OneConnect360 site so the session is
+        // recognised there (token in this site's storage doesn't cross domains).
+        const target = new URL(result.redirectUrl, window.location.origin);
+        if (result.token) target.searchParams.set('token', result.token);
+        window.location.href = target.toString();
         return;
       }
-      setOpen(false);
+      setError('Oops! Something went wrong. Please try again.');
       return;
     }
     setError(result.message ?? 'Unable to sign in right now. Please try again.');

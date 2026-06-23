@@ -286,7 +286,7 @@ export default function VendorForm() {
         <CheckCircle2 className="h-14 w-14 text-primary" aria-hidden="true" />
         <h3 className="font-heading text-xl font-semibold text-foreground">Thank you!</h3>
         <p className="max-w-sm text-sm text-foreground/60">
-          We&apos;ve received your application to become a service provider and will be in touch soon.
+          We&apos;ve sent you an email to set your password. Please check your inbox and set your password.
         </p>
       </div>
     );
