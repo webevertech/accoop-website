@@ -22,6 +22,7 @@ login API, which will be supplied later.
   - Co-Op role → Join-the-Co-Op inquiry form (`openFormModal` → `inquiry`)
   - Partner role → Vendor/Partner form (`openFormModal` → `vendor`)
   - Opening the register form closes the login modal.
+  
 
 ## Architecture
 
