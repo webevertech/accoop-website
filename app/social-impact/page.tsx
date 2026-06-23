@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { ClipboardCheck } from 'lucide-react';
 import CTAButton from '../components/CTAButton';
+import LoginButton from '../components/LoginButton';
 import CenterForSocialImpact from './CenterForSocialImpact';
 import EmpowermentJourney from './EmpowermentJourney';
 
@@ -43,6 +44,9 @@ export default function SocialImpactPage() {
                 <CTAButton formType="vendor" label="Become a Service Provider" className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/50 inline-flex items-center justify-center">
                   Become a Service Provider
                 </CTAButton>
+                <LoginButton className="bg-white/10 hover:bg-white/20 text-white px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/50 inline-flex items-center justify-center">
+                  Login
+                </LoginButton>
               </div>
             </div>
             <div className="relative">
