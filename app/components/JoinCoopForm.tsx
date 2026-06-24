@@ -267,8 +267,10 @@ export default function JoinCoopForm() {
       setErrors((prev) => ({ ...prev, ...result.fieldErrors }));
       const firstKey = Object.keys(result.fieldErrors)[0];
       document.getElementById(firstKey)?.focus();
+      setSubmitError(null);
+    } else {
+      setSubmitError(result.message ?? 'Something went wrong. Please try again.');
     }
-    setSubmitError(result.message ?? 'Something went wrong. Please try again.');
   };
 
   if (success) {

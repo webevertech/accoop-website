@@ -157,7 +157,7 @@ const API_TO_FORM_FIELD: Record<string, string> = {
   gender: 'gender',
   language_code: 'preferredLanguage',
   veteran_status: 'veteranStatus',
-  is_public_assessment: 'isPublicAssessment',
+  public_assistance: 'isPublicAssessment',
   password: 'password',
 };
 
@@ -180,7 +180,7 @@ export async function submitRegistration(payload: RegistrationPayload): Promise<
     gender: payload.gender,
     language_code: payload.preferredLanguage,
     veteran_status: payload.veteranStatus,
-    is_public_assessment: payload.isPublicAssessment,
+    public_assistance: payload.isPublicAssessment,
     password: payload.password,
     password_confirmation: payload.password,
     'g-recaptcha-response': payload.recaptchaToken,
