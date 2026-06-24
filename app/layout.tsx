@@ -5,7 +5,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FormModal from "./components/FormModal";
 import LoginModal from "./components/LoginModal";
-import EnvDebug from "./components/EnvDebug";
 
 const BASE_URL = "https://accoop.com";
 
@@ -175,6 +174,8 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://links.webevertech.com" />
         <link rel="dns-prefetch" href="https://links.webevertech.com" />
+        {/* TODO: remove after debugging env var */}
+        <script dangerouslySetInnerHTML={{ __html: `console.log('[ENV] NEXT_PUBLIC_ONECONNECT_API_BASE:', '${process.env.NEXT_PUBLIC_ONECONNECT_API_BASE ?? "undefined"}')` }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }} />
       </head>
@@ -192,7 +193,6 @@ export default function RootLayout({
         <Footer />
         <FormModal />
         <LoginModal />
-        <EnvDebug />
       </body>
     </html>
   );
