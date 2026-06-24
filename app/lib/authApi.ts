@@ -6,7 +6,7 @@
  * fetch directly.
  *
  * Base URL: configured via NEXT_PUBLIC_ONECONNECT_API_BASE in .env.local or .env
- * (same convention as registrationApi). Falls back to the production URL if not set.
+ * (same convention as registrationApi).
  *
  * Endpoints (POST, JSON `{ email, password }`):
  *   /api/customer/login    (Co-Op)
@@ -32,10 +32,7 @@ export interface LoginResult {
   redirectUrl?: string;
 }
 
-const DEFAULT_API_BASE = 'https://oneconnect360.theteamwork.in';
-
-/** Resolved base URL — env override wins, otherwise the production default. */
-const API_BASE = (process.env.NEXT_PUBLIC_ONECONNECT_API_BASE || DEFAULT_API_BASE).replace(/\/$/, '');
+const API_BASE = (process.env.NEXT_PUBLIC_ONECONNECT_API_BASE || '').replace(/\/$/, '');
 
 const LOGIN_PATH: Record<LoginRole, string> = {
   coop: '/api/customer/login',

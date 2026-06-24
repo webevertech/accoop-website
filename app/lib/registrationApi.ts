@@ -5,7 +5,7 @@
  * component never calls fetch directly.
  *
  * Base URL: configured via NEXT_PUBLIC_ONECONNECT_API_BASE in .env.local or .env
- * See .env.example for configuration details. Falls back to production URL if not set.
+ * See .env.example for configuration details.
  *
  * Verified endpoints (GET, JSON `{ "data": [...] }`):
  *   /api/location/countries
@@ -58,10 +58,7 @@ export interface SubmitResult {
   fieldErrors?: Record<string, string>;
 }
 
-const DEFAULT_API_BASE = 'https://oneconnect360.theteamwork.in';
-
-/** Resolved base URL — env override wins, otherwise the production default. */
-const API_BASE = (process.env.NEXT_PUBLIC_ONECONNECT_API_BASE || DEFAULT_API_BASE).replace(/\/$/, '');
+const API_BASE = (process.env.NEXT_PUBLIC_ONECONNECT_API_BASE || '').replace(/\/$/, '');
 
 /* ------------------------------------------------------------------ *
  * Location lookups

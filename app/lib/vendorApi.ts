@@ -9,8 +9,7 @@
  *
  * Endpoint: POST {NEXT_PUBLIC_ONECONNECT_API_BASE}/api/partners/register
  * Base URL: configured via NEXT_PUBLIC_ONECONNECT_API_BASE in .env.local or .env
- * (shares the same OneConnect backend as registrationApi). Falls back to the
- * production URL if not set.
+ * (shares the same OneConnect backend as registrationApi).
  */
 
 /** Form-shaped payload. Mapped to the API field names inside submitVendor. */
@@ -44,10 +43,7 @@ export interface SubmitResult {
   fieldErrors?: Record<string, string>;
 }
 
-const DEFAULT_API_BASE = 'https://socialimpact.accoop.com';
-
-/** Resolved base URL — env override wins, otherwise the production default. */
-const API_BASE = (process.env.NEXT_PUBLIC_ONECONNECT_API_BASE || DEFAULT_API_BASE).replace(/\/$/, '');
+const API_BASE = (process.env.NEXT_PUBLIC_ONECONNECT_API_BASE || '').replace(/\/$/, '');
 
 /** Target endpoint for the partner / vendor registration submission. */
 const VENDOR_API_URL = `${API_BASE}/api/partners/register`;
