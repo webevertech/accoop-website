@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FormModal from "./components/FormModal";
 import LoginModal from "./components/LoginModal";
+import EnvDebug from "./components/EnvDebug";
 
 const BASE_URL = "https://accoop.com";
 
@@ -191,6 +192,7 @@ export default function RootLayout({
         <Footer />
         <FormModal />
         <LoginModal />
+        <EnvDebug />
       </body>
     </html>
   );
