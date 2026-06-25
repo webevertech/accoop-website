@@ -69,9 +69,9 @@ export const metadata: Metadata = {
       "Atlantic City Community Cooperative is building a community-owned supermarket, sustainable delivery network, and social impact center in Atlantic City, NJ.",
     images: [
       {
-        url: "/community-collab.jpg",
-        width: 800,
-        height: 600,
+        url: "/04.webp",
+        width: 1200,
+        height: 675,
         alt: "Atlantic City Community Cooperative - Community members collaborating",
       },
     ],
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     title: "Atlantic City Community Cooperative",
     description:
       "Building a community-owned supermarket, sustainable delivery network, and social impact center in Atlantic City, NJ.",
-    images: ["/community-collab.jpg"],
+    images: ["/04.webp"],
   },
   robots: {
     index: true,
