@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { MapPin, Check, CalendarDays } from 'lucide-react';
 import { getPartners, type Partner } from '../lib/partnersApi';
 
@@ -131,7 +132,9 @@ export default function PartnersList() {
       {!loading && !error && partners.length > 0 && (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {partners.map((p) => (
-            <PartnerCard key={p.id} p={p} />
+            <Link key={p.id} href={`/partners/${p.id}`} className="block h-full">
+              <PartnerCard p={p} />
+            </Link>
           ))}
         </div>
       )}

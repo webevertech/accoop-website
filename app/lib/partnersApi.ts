@@ -40,6 +40,68 @@ export interface PartnersResult {
   message?: string;
 }
 
+export interface PartnerProgram {
+  id: number
+  program_name: string
+  service: string | null
+  program_summary: string | null
+  mission_statement: string | null
+  geographic_coverage: string | null
+  referral_requirements: string[] | null
+  eligibility_criteria: string[] | null
+  contact_person_name: string | null
+  contact_person_number: string | null
+}
+
+export interface PartnerDetail {
+  id: number
+  name: string
+  website_url: string | null
+  contact_number: string | null
+  additional_notes: string | null
+  mission_statement: string | null
+  population_served: string | null
+  office_hours: string | null
+  display_address: string | null
+  logo_url: string | null
+  banner_url: string | null
+  social_media: {
+    twitter: string | null
+    facebook: string | null
+    instagram: string | null
+  }
+  language: string | null
+  service_tags: PartnerServiceTag[]
+  programs: PartnerProgram[]
+  created_at: string
+}
+
+export interface PartnerDetailResult {
+  ok: boolean
+  partner?: PartnerDetail
+  message?: string
+}
+
+/** GET a single partner by ID via our same-origin proxy. */
+export async function getPartner(id: string | number): Promise<PartnerDetailResult> {
+  let res: Response
+  try {
+    res = await fetch(`/api/partners/${id}`, { headers: { Accept: 'application/json' } })
+  } catch {
+    return { ok: false, message: 'Network error — please check your connection.' }
+  }
+
+  if (res.status === 404) return { ok: false, message: 'Partner not found.' }
+  if (!res.ok) return { ok: false, message: `Could not load partner (${res.status}).` }
+
+  try {
+    const json = await res.json()
+    return { ok: true, partner: json?.data as PartnerDetail }
+  } catch {
+    return { ok: false, message: 'Unexpected response from the server.' }
+  }
+}
+
 /** GET the partner directory via our same-origin proxy. Optional page (1-based). */
 export async function getPartners(page = 1): Promise<PartnersResult> {
   const url = `/api/partners${page > 1 ? `?page=${encodeURIComponent(page)}` : ''}`;

@@ -17,7 +17,7 @@ export default function SocialImpactPage() {
       {/* Hero */}
       <section className="relative bg-primary overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-10 items-center py-16 md:py-20">
+          <div className="grid md:grid-cols-2 gap-10 items-center py-12 sm:py-16 md:py-20">
             <div className="space-y-6">
               <h1>
                 <Image
@@ -26,10 +26,10 @@ export default function SocialImpactPage() {
                   width={735}
                   height={326}
                   priority
-                  className="w-full max-w-md h-auto"
+                  className="w-full max-w-xs sm:max-w-sm md:max-w-md h-auto"
                 />
               </h1>
-              <div className="space-y-3 max-w-lg">
+              <div className="space-y-3">
                 <p className="text-lg font-heading font-semibold text-white">
                   One Intake. One Empowerment Plan. One Pathway to Financial Freedom.
                 </p>
@@ -37,15 +37,15 @@ export default function SocialImpactPage() {
                   Connecting AC COOP members to the services, benefits, and partners that build a stronger, healthier, and more prosperous Atlantic City.
                 </p>
               </div>
-              <div className="flex flex-nowrap items-stretch gap-2 sm:gap-3">
-                <CTAButton label="Complete Social Impact Intake" className="flex-1 min-w-0 bg-white text-primary hover:bg-cream px-4 sm:px-5 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg inline-flex items-center justify-center gap-2 text-sm sm:text-base whitespace-nowrap">
+              <div className="flex flex-col sm:flex-row gap-3 pt-1">
+                <CTAButton label="Complete Social Impact Intake" className="bg-white text-primary hover:bg-cream px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg w-full sm:flex-1 inline-flex items-center justify-center gap-2">
                   <ClipboardCheck className="w-5 h-5 shrink-0" aria-hidden="true" />
-                  <span className="truncate">Complete Social Impact Intake</span>
+                  Complete Social Impact Intake
                 </CTAButton>
-                <CTAButton formType="vendor" label="Become a Service Provider" className="flex-1 min-w-0 bg-white/10 hover:bg-white/20 text-white px-4 sm:px-5 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/50 inline-flex items-center justify-center text-sm sm:text-base whitespace-nowrap">
-                  <span className="truncate">Become a Service Provider</span>
+                <CTAButton formType="vendor" label="Become a Service Provider" className="bg-transparent hover:bg-white/15 text-white px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/70 w-full sm:flex-1 inline-flex items-center justify-center">
+                  Become a Service Provider
                 </CTAButton>
-                <LoginButton className="shrink-0 bg-white/10 hover:bg-white/20 text-white px-5 sm:px-6 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 border-2 border-white/50 inline-flex items-center justify-center text-sm sm:text-base">
+                <LoginButton className="bg-accent hover:bg-accent/90 text-foreground px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg w-full sm:flex-1 inline-flex items-center justify-center">
                   Login
                 </LoginButton>
               </div>
