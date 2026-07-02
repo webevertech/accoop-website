@@ -1,18 +1,28 @@
 /**
- * Google reCAPTCHA v3 helper.
+ * Google reCAPTCHA v2 ("I'm not a robot" checkbox) helper.
  *
- * Loads the reCAPTCHA script once and exposes executeRecaptcha() to mint a token
- * on form submit. The token is sent to the backend, which must verify it with the
- * secret key via https://www.google.com/recaptcha/api/siteverify.
+ * Loads the reCAPTCHA script once. The visible checkbox is rendered by the
+ * <RecaptchaCheckbox> component, which calls grecaptcha.render() and hands the
+ * solved token back to the form. The token is sent to the backend, which must
+ * verify it with the secret key via https://www.google.com/recaptcha/api/siteverify.
  *
  * Site key: configured via NEXT_PUBLIC_RECAPTCHA_SITE_KEY in .env.
- *   ⚠️ Until that env var is set, reCAPTCHA is disabled (executeRecaptcha returns null)
+ *   ⚠️ Until that env var is set, reCAPTCHA is disabled (no checkbox renders)
  *   so local development still works.
  */
 
 interface Grecaptcha {
-  ready: (cb: () => void) => void;
-  execute: (siteKey: string, opts: { action: string }) => Promise<string>;
+  render: (
+    container: HTMLElement,
+    params: {
+      sitekey: string;
+      callback: (token: string) => void;
+      'expired-callback'?: () => void;
+      'error-callback'?: () => void;
+    },
+  ) => number;
+  reset: (widgetId?: number) => void;
+  getResponse: (widgetId?: number) => string;
 }
 
 declare global {
@@ -23,23 +33,24 @@ declare global {
 
 const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '';
 
-/** True when a site key is configured (controls whether the badge/token is used). */
+/** The configured site key (empty string when unset). */
+export const RECAPTCHA_SITE_KEY = SITE_KEY;
+
+/** True when a site key is configured (controls whether the checkbox renders). */
 export const RECAPTCHA_ENABLED = !!SITE_KEY;
 
 let scriptPromise: Promise<void> | null = null;
 
-/** Inject the reCAPTCHA v3 script once. Resolves when window.grecaptcha is ready. */
+/** Inject the reCAPTCHA v2 script once. Resolves when the API is available. */
 export function loadRecaptcha(): Promise<void> {
   if (typeof window === 'undefined' || !SITE_KEY) return Promise.resolve();
+  if (window.grecaptcha?.render) return Promise.resolve();
   if (scriptPromise) return scriptPromise;
 
   scriptPromise = new Promise<void>((resolve, reject) => {
-    if (window.grecaptcha) {
-      resolve();
-      return;
-    }
     const script = document.createElement('script');
-    script.src = `https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`;
+    // v2: load api.js WITHOUT ?render= — that param is v3-only and 400s a v2 key.
+    script.src = 'https://www.google.com/recaptcha/api.js';
     script.async = true;
     script.defer = true;
     script.onload = () => resolve();
@@ -47,28 +58,4 @@ export function loadRecaptcha(): Promise<void> {
     document.head.appendChild(script);
   });
   return scriptPromise;
-}
-
-/**
- * Execute reCAPTCHA v3 for the given action and return the token.
- * Returns null when reCAPTCHA is not configured or fails to load.
- */
-export async function executeRecaptcha(action: string): Promise<string | null> {
-  if (!SITE_KEY) return null;
-  try {
-    await loadRecaptcha();
-  } catch {
-    return null;
-  }
-  const grecaptcha = window.grecaptcha;
-  if (!grecaptcha) return null;
-
-  return new Promise<string | null>((resolve) => {
-    grecaptcha.ready(() => {
-      grecaptcha
-        .execute(SITE_KEY, { action })
-        .then((token) => resolve(token))
-        .catch(() => resolve(null));
-    });
-  });
 }
