@@ -20,6 +20,8 @@ export interface LoginCredentials {
   password: string;
   /** When true, persist the auth token across sessions (localStorage vs sessionStorage). */
   remember: boolean;
+  /** Google reCAPTCHA token */
+  recaptchaToken?: string;
 }
 
 export interface LoginResult {
@@ -59,7 +61,11 @@ export async function login(role: LoginRole, credentials: LoginCredentials): Pro
     res = await fetch(`${API_BASE}${LOGIN_PATH[role]}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ email: credentials.email, password: credentials.password }),
+      body: JSON.stringify({
+        email: credentials.email,
+        password: credentials.password,
+        'g-recaptcha-response': credentials.recaptchaToken,
+      }),
     });
   } catch {
     return { ok: false, message: 'Network error — please check your connection and try again.' };

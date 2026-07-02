@@ -12,7 +12,8 @@ import {
   type Option,
 } from '../lib/registrationApi';
 import SearchableSelect from './SearchableSelect';
-import { executeRecaptcha, loadRecaptcha } from '../lib/recaptcha';
+import RecaptchaCheckbox from './RecaptchaCheckbox';
+import { RECAPTCHA_ENABLED } from '../lib/recaptcha';
 
 type FormState = {
   firstName: string;
@@ -138,6 +139,7 @@ export default function VendorForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState('');
 
   // Cascading location options
   const [countries, setCountries] = useState<Option[]>([]);
@@ -161,11 +163,6 @@ export default function VendorForm() {
     return () => {
       active = false;
     };
-  }, []);
-
-  // Preload reCAPTCHA so the token is ready (and the badge shows) before submit.
-  useEffect(() => {
-    loadRecaptcha();
   }, []);
 
   const set = <K extends keyof FormState>(key: K, value: FormState[K]) => {
@@ -242,6 +239,11 @@ export default function VendorForm() {
       return;
     }
 
+    if (RECAPTCHA_ENABLED && !recaptchaToken) {
+      setSubmitError('Please complete the reCAPTCHA before submitting.');
+      return;
+    }
+
     const payload: VendorPayload = {
       firstName: form.firstName.trim(),
       lastName: form.lastName.trim(),
@@ -259,11 +261,10 @@ export default function VendorForm() {
       website: form.website.trim(),
       logo: form.logo,
       banner: form.banner,
-      recaptchaToken: '',
+      recaptchaToken: recaptchaToken,
     };
 
     setSubmitting(true);
-    payload.recaptchaToken = (await executeRecaptcha('partner_register')) ?? '';
     const result = await submitVendor(payload);
     setSubmitting(false);
 
@@ -499,6 +500,10 @@ export default function VendorForm() {
 
       {/* Submit */}
       <div className="rounded-xl border border-gray-200 bg-white p-5">
+        <div className="mb-4">
+          <RecaptchaCheckbox onChange={setRecaptchaToken} />
+        </div>
+
         {submitError && (
           <p role="alert" className="mb-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
             {submitError}

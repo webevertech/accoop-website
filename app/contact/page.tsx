@@ -1,5 +1,6 @@
 import { Mail, Phone, MapPin, Clock, HelpCircle } from 'lucide-react';
 import CTAButton from '../components/CTAButton';
+import ContactForm from '../components/ContactForm';
 
 export const metadata = {
   title: 'Contact Us | Atlantic City Community Cooperative',
@@ -149,25 +150,7 @@ export default function ContactPage() {
               <p className="text-lg text-foreground/80 mb-8">
                 Have a question or want to learn more? Fill out the form and our team will get back to you within 24 hours.
               </p>
-              <div style={{ width: '100%', height: '870px' }}>
-                <iframe
-                  src="https://links.webevertech.com/widget/form/1mUxFpmyhY1V5BfqFioB"
-                  style={{ width: '100%', height: '100%', border: 'none', borderRadius: '10px' }}
-                  id="contact-inline-1mUxFpmyhY1V5BfqFioB"
-                  data-layout="{'id':'INLINE'}"
-                  data-trigger-type="alwaysShow"
-                  data-trigger-value=""
-                  data-activation-type="alwaysActivated"
-                  data-activation-value=""
-                  data-deactivation-type="neverDeactivate"
-                  data-deactivation-value=""
-                  data-form-name="Main Inquiry Form"
-                  data-height="833"
-                  data-layout-iframe-id="contact-inline-1mUxFpmyhY1V5BfqFioB"
-                  data-form-id="1mUxFpmyhY1V5BfqFioB"
-                  title="Main Inquiry Form"
-                />
-              </div>
+              <ContactForm />
             </div>
 
             {/* Departments */}

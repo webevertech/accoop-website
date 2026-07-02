@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { X, Eye, EyeOff } from 'lucide-react';
 import { login, type LoginRole } from '../lib/authApi';
 import type { FormType } from './CTAButton';
+import RecaptchaCheckbox from './RecaptchaCheckbox';
+import { RECAPTCHA_ENABLED } from '../lib/recaptcha';
 
 /** Register form opened by "Register here" for each role. */
 const REGISTER_FORM: Record<LoginRole, FormType> = {
@@ -25,6 +27,8 @@ export default function LoginModal() {
   const [remember, setRemember] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState('');
+  const [recaptchaKey, setRecaptchaKey] = useState(0);
 
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
@@ -34,6 +38,8 @@ export default function LoginModal() {
       const detail = (e as CustomEvent<{ role?: LoginRole }>).detail;
       setRole(detail?.role ?? 'coop');
       setError(null);
+      setRecaptchaToken('');
+      setRecaptchaKey((k) => k + 1);
       triggerRef.current = document.activeElement as HTMLElement;
       setOpen(true);
     };
@@ -74,6 +80,8 @@ export default function LoginModal() {
   const switchRole = (next: LoginRole) => {
     setRole(next);
     setError(null);
+    setRecaptchaToken('');
+    setRecaptchaKey((k) => k + 1);
   };
 
   const openRegister = () => {
@@ -96,8 +104,13 @@ export default function LoginModal() {
       return;
     }
 
+    if (RECAPTCHA_ENABLED && !recaptchaToken) {
+      setError('Please complete the reCAPTCHA before logging in.');
+      return;
+    }
+
     setSubmitting(true);
-    const result = await login(role, { email: email.trim(), password, remember });
+    const result = await login(role, { email: email.trim(), password, remember, recaptchaToken });
     setSubmitting(false);
 
     if (result.ok) {
@@ -110,9 +123,13 @@ export default function LoginModal() {
         return;
       }
       setError('Oops! Something went wrong. Please try again.');
+      setRecaptchaToken('');
+      setRecaptchaKey((k) => k + 1);
       return;
     }
     setError(result.message ?? 'Unable to sign in right now. Please try again.');
+    setRecaptchaToken('');
+    setRecaptchaKey((k) => k + 1);
   };
 
   if (!open) return null;
@@ -229,6 +246,8 @@ export default function LoginModal() {
             />
             Remember me
           </label>
+
+          <RecaptchaCheckbox key={recaptchaKey} onChange={setRecaptchaToken} />
 
           {error && (
             <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">

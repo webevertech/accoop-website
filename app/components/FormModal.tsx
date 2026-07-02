@@ -4,9 +4,10 @@ import { X } from 'lucide-react';
 import type { FormType } from './CTAButton';
 import JoinCoopForm from './JoinCoopForm';
 import VendorForm from './VendorForm';
+import SponsorForm from './SponsorForm';
 
 /** Form types rendered by a native React component (no GHL iframe). */
-const NATIVE_FORMS: ReadonlySet<FormType> = new Set<FormType>(['inquiry', 'vendor']);
+const NATIVE_FORMS: ReadonlySet<FormType> = new Set<FormType>(['inquiry', 'vendor', 'sponsor']);
 
 const FORMS: Record<FormType, { id: string; name: string; heading: string; height: number }> = {
   inquiry: {
@@ -127,6 +128,8 @@ export default function FormModal() {
             <JoinCoopForm />
           ) : formType === 'vendor' ? (
             <VendorForm />
+          ) : formType === 'sponsor' ? (
+            <SponsorForm />
           ) : (
             <>
               {!loaded && (

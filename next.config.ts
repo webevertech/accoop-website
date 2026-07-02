@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true, // Disable image optimization for Hostinger compatibility
     formats: ["image/avif", "image/webp"],
+    qualities: [75, 85, 90], // Whitelist every quality value used by <Image>
   },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
