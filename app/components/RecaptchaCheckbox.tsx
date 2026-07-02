@@ -14,7 +14,9 @@ export default function RecaptchaCheckbox({ onChange }: { onChange: (token: stri
   const widgetId = useRef<number | null>(null);
   // Keep the latest callback without re-running the render effect.
   const onChangeRef = useRef(onChange);
-  onChangeRef.current = onChange;
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
 
   useEffect(() => {
     if (!RECAPTCHA_SITE_KEY) return;
