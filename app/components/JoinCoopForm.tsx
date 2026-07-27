@@ -17,8 +17,7 @@ import {
 } from '../lib/registrationApi';
 import SearchableSelect from './SearchableSelect';
 import DatePicker from './DatePicker';
-import RecaptchaCheckbox from './RecaptchaCheckbox';
-import { RECAPTCHA_ENABLED } from '../lib/recaptcha';
+import { RECAPTCHA_ENABLED, getRecaptchaToken } from '../lib/recaptcha';
 
 const PUBLIC_ASSISTANCE_OPTIONS: Option[] = [
   { value: 'yes', label: 'Yes' },
@@ -123,8 +122,6 @@ export default function JoinCoopForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState('');
-  const [recaptchaKey, setRecaptchaKey] = useState(0);
 
   // Blocks future dates and bounds Date of Birth to a realistic 120-year range.
   const dobMax = toDateInputValue(new Date());
@@ -238,9 +235,14 @@ export default function JoinCoopForm() {
       return;
     }
 
-    if (RECAPTCHA_ENABLED && !recaptchaToken) {
-      setSubmitError('Please complete the reCAPTCHA before submitting.');
-      return;
+    let recaptchaToken = '';
+    if (RECAPTCHA_ENABLED) {
+      try {
+        recaptchaToken = await getRecaptchaToken('coop_register');
+      } catch {
+        setSubmitError('Unable to verify you are human. Please refresh and try again.');
+        return;
+      }
     }
 
     const payload: RegistrationPayload = {
@@ -274,14 +276,6 @@ export default function JoinCoopForm() {
       setSuccess(true);
       return;
     }
-
-    // The reCAPTCHA token is single-use — Google consumes it on this attempt
-    // even when the overall submission fails for an unrelated reason (e.g. a
-    // field validation error). Reset it so the widget must be re-solved
-    // before the next attempt, instead of resending a token Google will
-    // reject as a duplicate.
-    setRecaptchaToken('');
-    setRecaptchaKey((k) => k + 1);
 
     // Surface server-side validation against the matching fields.
     if (result.fieldErrors) {
@@ -628,10 +622,6 @@ export default function JoinCoopForm() {
             I agree to the <span className="font-medium text-primary">terms and conditions</span>.
           </span>
         </label>
-
-        <div className="mt-4">
-          <RecaptchaCheckbox key={recaptchaKey} onChange={setRecaptchaToken} />
-        </div>
 
         {submitError && (
           <p role="alert" className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">

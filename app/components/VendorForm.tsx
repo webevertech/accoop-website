@@ -12,8 +12,7 @@ import {
   type Option,
 } from '../lib/registrationApi';
 import SearchableSelect from './SearchableSelect';
-import RecaptchaCheckbox from './RecaptchaCheckbox';
-import { RECAPTCHA_ENABLED } from '../lib/recaptcha';
+import { RECAPTCHA_ENABLED, getRecaptchaToken } from '../lib/recaptcha';
 
 type FormState = {
   firstName: string;
@@ -139,8 +138,6 @@ export default function VendorForm() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [recaptchaToken, setRecaptchaToken] = useState('');
-  const [recaptchaKey, setRecaptchaKey] = useState(0);
 
   // Cascading location options
   const [countries, setCountries] = useState<Option[]>([]);
@@ -240,9 +237,14 @@ export default function VendorForm() {
       return;
     }
 
-    if (RECAPTCHA_ENABLED && !recaptchaToken) {
-      setSubmitError('Please complete the reCAPTCHA before submitting.');
-      return;
+    let recaptchaToken = '';
+    if (RECAPTCHA_ENABLED) {
+      try {
+        recaptchaToken = await getRecaptchaToken('vendor_register');
+      } catch {
+        setSubmitError('Unable to verify you are human. Please refresh and try again.');
+        return;
+      }
     }
 
     const payload: VendorPayload = {
@@ -273,14 +275,6 @@ export default function VendorForm() {
       setSuccess(true);
       return;
     }
-
-    // The reCAPTCHA token is single-use — Google consumes it on this attempt
-    // even when the overall submission fails for an unrelated reason (e.g. a
-    // field validation error). Reset it so the widget must be re-solved
-    // before the next attempt, instead of resending a token Google will
-    // reject as a duplicate.
-    setRecaptchaToken('');
-    setRecaptchaKey((k) => k + 1);
 
     if (result.fieldErrors) {
       setErrors((prev) => ({ ...prev, ...result.fieldErrors }));
@@ -521,10 +515,6 @@ export default function VendorForm() {
 
       {/* Submit */}
       <div className="rounded-xl border border-gray-200 bg-white p-5">
-        <div className="mb-4">
-          <RecaptchaCheckbox key={recaptchaKey} onChange={setRecaptchaToken} />
-        </div>
-
         {submitError && (
           <p role="alert" className="mb-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
             {submitError}
