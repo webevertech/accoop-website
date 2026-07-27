@@ -16,6 +16,7 @@ import {
   type RegistrationPayload,
 } from '../lib/registrationApi';
 import SearchableSelect from './SearchableSelect';
+import DatePicker from './DatePicker';
 import RecaptchaCheckbox from './RecaptchaCheckbox';
 import { RECAPTCHA_ENABLED } from '../lib/recaptcha';
 
@@ -79,6 +80,10 @@ type Errors = Partial<Record<keyof FormState, string>>;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[\d\s()+-]{7,}$/;
 
+function toDateInputValue(d: Date) {
+  return d.toISOString().slice(0, 10);
+}
+
 /* ---------- presentational helpers ---------- */
 
 const fieldBase =
@@ -120,6 +125,10 @@ export default function JoinCoopForm() {
   const [success, setSuccess] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState('');
   const [recaptchaKey, setRecaptchaKey] = useState(0);
+
+  // Blocks future dates and bounds Date of Birth to a realistic 120-year range.
+  const dobMax = toDateInputValue(new Date());
+  const dobMin = toDateInputValue(new Date(new Date().getFullYear() - 120, 0, 1));
 
   // Cascading location options
   const [countries, setCountries] = useState<Option[]>([]);
@@ -210,6 +219,8 @@ export default function JoinCoopForm() {
     if (!form.zip) e.zip = 'Zip code is required.';
 
     if (!form.dateOfBirth) e.dateOfBirth = 'Date of birth is required.';
+    else if (form.dateOfBirth > dobMax) e.dateOfBirth = 'Date of birth cannot be in the future.';
+    else if (form.dateOfBirth < dobMin) e.dateOfBirth = 'Enter a valid date of birth.';
     if (!form.gender) e.gender = 'Gender is required.';
 
     if (!form.preferredLanguage) e.preferredLanguage = 'Preferred language is required.';
@@ -540,14 +551,14 @@ export default function JoinCoopForm() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <Label htmlFor="dateOfBirth" required>Date of Birth</Label>
-            <input
+            <DatePicker
               id="dateOfBirth"
-              type="date"
-              autoComplete="bday"
-              className={inputClass(!!errors.dateOfBirth)}
-              data-invalid={!!errors.dateOfBirth}
               value={form.dateOfBirth}
-              onChange={(e) => set('dateOfBirth', e.target.value)}
+              onChange={(v) => set('dateOfBirth', v)}
+              min={dobMin}
+              max={dobMax}
+              placeholder="Select date of birth"
+              hasError={!!errors.dateOfBirth}
             />
             <FieldError msg={errors.dateOfBirth} />
           </div>

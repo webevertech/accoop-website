@@ -1,8 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import { submitSponsor, type SponsorPayload } from '../lib/sponsorApi';
+import { getCountries, getStates, getCitiesByState, getZips, type Option } from '../lib/registrationApi';
+import SearchableSelect from './SearchableSelect';
 import RecaptchaCheckbox from './RecaptchaCheckbox';
 import { RECAPTCHA_ENABLED } from '../lib/recaptcha';
 
@@ -42,9 +44,56 @@ export default function SponsorForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
+  // Cascading location options — same source/behavior as the "Become a Member" form.
+  const [countries, setCountries] = useState<Option[]>([]);
+  const [states, setStates] = useState<Option[]>([]);
+  const [cities, setCities] = useState<Option[]>([]);
+  const [zips, setZips] = useState<Option[]>([]);
+
+  // Load countries and preselect United States (then load its states).
+  useEffect(() => {
+    let active = true;
+    getCountries().then((opts) => {
+      if (!active) return;
+      setCountries(opts);
+      const us = opts.find((o) => /united states/i.test(o.label));
+      if (us) {
+        setForm((f) => ({ ...f, country: us.value }));
+        getStates(us.value).then((s) => active && setStates(s));
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const set = (key: keyof FormState, val: string) => {
     setForm((prev) => ({ ...prev, [key]: val }));
     setErrors((prev) => ({ ...prev, [key]: undefined }));
+  };
+
+  const onCountryChange = async (value: string) => {
+    setForm((f) => ({ ...f, country: value, state: '', city: '', postalCode: '' }));
+    setErrors((prev) => ({ ...prev, country: undefined }));
+    setStates([]);
+    setCities([]);
+    setZips([]);
+    if (value) setStates(await getStates(value));
+  };
+
+  const onStateChange = async (value: string) => {
+    setForm((f) => ({ ...f, state: value, city: '', postalCode: '' }));
+    setErrors((prev) => ({ ...prev, state: undefined }));
+    setCities([]);
+    setZips([]);
+    if (value) setCities(await getCitiesByState(value));
+  };
+
+  const onCityChange = async (value: string) => {
+    setForm((f) => ({ ...f, city: value, postalCode: '' }));
+    setErrors((prev) => ({ ...prev, city: undefined }));
+    setZips([]);
+    if (value) setZips(await getZips(value));
   };
 
   const validate = (): Errors => {
@@ -54,6 +103,11 @@ export default function SponsorForm() {
 
     if (!form.email.trim()) e.email = 'Email address is required.';
     else if (!EMAIL_RE.test(form.email)) e.email = 'Enter a valid email address.';
+
+    if (!form.country) e.country = 'Country is required.';
+    if (!form.state) e.state = 'State is required.';
+    if (!form.city) e.city = 'City is required.';
+    if (!form.postalCode) e.postalCode = 'Zip code is required.';
 
     return e;
   };
@@ -79,10 +133,10 @@ export default function SponsorForm() {
       phone: form.phone.trim(),
       email: form.email.trim(),
       streetAddress: form.streetAddress.trim(),
-      city: form.city.trim(),
-      state: form.state.trim(),
-      country: form.country.trim(),
-      postalCode: form.postalCode.trim(),
+      city: cities.find((o) => o.value === form.city)?.label ?? '',
+      state: states.find((o) => o.value === form.state)?.label ?? '',
+      country: countries.find((o) => o.value === form.country)?.label ?? '',
+      postalCode: form.postalCode,
       recaptchaToken,
     };
 
@@ -197,65 +251,68 @@ export default function SponsorForm() {
           {errors.streetAddress && <p className="mt-1 text-xs text-red-600">{errors.streetAddress}</p>}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="city" className="mb-1.5 block text-sm font-medium text-foreground/80">
-              City
-            </label>
-            <input
-              id="city"
-              type="text"
-              className={inputClass(!!errors.city)}
-              data-invalid={!!errors.city}
-              value={form.city}
-              onChange={(e) => set('city', e.target.value)}
-            />
-            {errors.city && <p className="mt-1 text-xs text-red-600">{errors.city}</p>}
-          </div>
-
-          <div>
-            <label htmlFor="state" className="mb-1.5 block text-sm font-medium text-foreground/80">
-              State
-            </label>
-            <input
-              id="state"
-              type="text"
-              className={inputClass(!!errors.state)}
-              data-invalid={!!errors.state}
-              value={form.state}
-              onChange={(e) => set('state', e.target.value)}
-            />
-            {errors.state && <p className="mt-1 text-xs text-red-600">{errors.state}</p>}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <label htmlFor="country" className="mb-1.5 block text-sm font-medium text-foreground/80">
-              Country
+              Country <span className="text-red-500">*</span>
             </label>
-            <input
+            <SearchableSelect
               id="country"
-              type="text"
-              className={inputClass(!!errors.country)}
-              data-invalid={!!errors.country}
+              options={countries}
               value={form.country}
-              onChange={(e) => set('country', e.target.value)}
+              onChange={onCountryChange}
+              placeholder="Select country"
+              hasError={!!errors.country}
             />
             {errors.country && <p className="mt-1 text-xs text-red-600">{errors.country}</p>}
           </div>
 
           <div>
-            <label htmlFor="postalCode" className="mb-1.5 block text-sm font-medium text-foreground/80">
-              Postal / ZIP Code
+            <label htmlFor="state" className="mb-1.5 block text-sm font-medium text-foreground/80">
+              State <span className="text-red-500">*</span>
             </label>
-            <input
+            <SearchableSelect
+              id="state"
+              options={states}
+              value={form.state}
+              onChange={onStateChange}
+              placeholder="Select state"
+              disabled={!form.country}
+              hasError={!!errors.state}
+            />
+            {errors.state && <p className="mt-1 text-xs text-red-600">{errors.state}</p>}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="city" className="mb-1.5 block text-sm font-medium text-foreground/80">
+              City <span className="text-red-500">*</span>
+            </label>
+            <SearchableSelect
+              id="city"
+              options={cities}
+              value={form.city}
+              onChange={onCityChange}
+              placeholder="Select city"
+              disabled={!form.state}
+              hasError={!!errors.city}
+            />
+            {errors.city && <p className="mt-1 text-xs text-red-600">{errors.city}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="postalCode" className="mb-1.5 block text-sm font-medium text-foreground/80">
+              Postal / ZIP Code <span className="text-red-500">*</span>
+            </label>
+            <SearchableSelect
               id="postalCode"
-              type="text"
-              className={inputClass(!!errors.postalCode)}
-              data-invalid={!!errors.postalCode}
+              options={zips}
               value={form.postalCode}
-              onChange={(e) => set('postalCode', e.target.value)}
+              onChange={(v) => set('postalCode', v)}
+              placeholder="Select zip code"
+              disabled={!form.city}
+              hasError={!!errors.postalCode}
             />
             {errors.postalCode && <p className="mt-1 text-xs text-red-600">{errors.postalCode}</p>}
           </div>

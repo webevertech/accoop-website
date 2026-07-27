@@ -14,13 +14,16 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Dev server is commonly opened via 127.0.0.1 as well as localhost;
+  // Turbopack blocks dev/HMR requests from origins not in this list.
+  allowedDevOrigins: ["localhost", "127.0.0.1"],
   images: {
     unoptimized: true, // Disable image optimization for Hostinger compatibility
     formats: ["image/avif", "image/webp"],
     qualities: [75, 85, 90], // Whitelist every quality value used by <Image>
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [{ source: "/((?!_next/).*)", headers: securityHeaders }];
   },
 };
 
