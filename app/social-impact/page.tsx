@@ -46,7 +46,7 @@ export default function SocialImpactPage() {
                   Become a Service Provider
                 </CTAButton>
                 <LoginButton className="bg-accent hover:bg-accent/90 text-foreground px-7 py-3.5 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg w-full sm:flex-1 inline-flex items-center justify-center">
-                  Login
+                  Sign In
                 </LoginButton>
               </div>
             </div>

@@ -52,6 +52,12 @@ export default function FormModal() {
   }, []);
 
   useEffect(() => {
+    const closeHandler = () => setOpen(false);
+    window.addEventListener('closeFormModal', closeHandler);
+    return () => window.removeEventListener('closeFormModal', closeHandler);
+  }, []);
+
+  useEffect(() => {
     if (!open || NATIVE_FORMS.has(formType)) return; // native forms need no embed script
     if (!document.querySelector('script[src*="form_embed"]')) {
       const script = document.createElement('script');
