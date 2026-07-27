@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 import { submitInquiry, type InquiryPayload } from '../lib/inquiryApi';
-import RecaptchaCheckbox from './RecaptchaCheckbox';
-import { RECAPTCHA_ENABLED } from '../lib/recaptcha';
+import { RECAPTCHA_ENABLED, getRecaptchaToken } from '../lib/recaptcha';
 
 type FormState = {
   fullName: string;
@@ -45,7 +44,6 @@ const MEMBERSHIP_OPTIONS = [
 export default function ContactForm() {
   const [form, setForm] = useState<FormState>(INITIAL);
   const [errors, setErrors] = useState<Errors>({});
-  const [recaptchaToken, setRecaptchaToken] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -77,9 +75,14 @@ export default function ContactForm() {
       return;
     }
 
-    if (RECAPTCHA_ENABLED && !recaptchaToken) {
-      setSubmitError('Please complete the reCAPTCHA before submitting.');
-      return;
+    let recaptchaToken = '';
+    if (RECAPTCHA_ENABLED) {
+      try {
+        recaptchaToken = await getRecaptchaToken('contact');
+      } catch {
+        setSubmitError('Unable to verify you are human. Please refresh and try again.');
+        return;
+      }
     }
 
     const payload: InquiryPayload = {
@@ -285,10 +288,6 @@ export default function ContactForm() {
 
       {/* Submit / Captcha */}
       <div className="mt-4 pt-4 border-t border-gray-100">
-        <div className="mb-4">
-          <RecaptchaCheckbox onChange={setRecaptchaToken} />
-        </div>
-
         {submitError && (
           <p role="alert" className="mb-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">
             {submitError}
