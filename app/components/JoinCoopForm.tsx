@@ -16,6 +16,7 @@ import {
   type RegistrationPayload,
 } from '../lib/registrationApi';
 import SearchableSelect from './SearchableSelect';
+import DatePicker from './DatePicker';
 import RecaptchaCheckbox from './RecaptchaCheckbox';
 import { RECAPTCHA_ENABLED } from '../lib/recaptcha';
 
@@ -79,6 +80,10 @@ type Errors = Partial<Record<keyof FormState, string>>;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[\d\s()+-]{7,}$/;
 
+function toDateInputValue(d: Date) {
+  return d.toISOString().slice(0, 10);
+}
+
 /* ---------- presentational helpers ---------- */
 
 const fieldBase =
@@ -119,6 +124,11 @@ export default function JoinCoopForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState('');
+  const [recaptchaKey, setRecaptchaKey] = useState(0);
+
+  // Blocks future dates and bounds Date of Birth to a realistic 120-year range.
+  const dobMax = toDateInputValue(new Date());
+  const dobMin = toDateInputValue(new Date(new Date().getFullYear() - 120, 0, 1));
 
   // Cascading location options
   const [countries, setCountries] = useState<Option[]>([]);
@@ -209,6 +219,8 @@ export default function JoinCoopForm() {
     if (!form.zip) e.zip = 'Zip code is required.';
 
     if (!form.dateOfBirth) e.dateOfBirth = 'Date of birth is required.';
+    else if (form.dateOfBirth > dobMax) e.dateOfBirth = 'Date of birth cannot be in the future.';
+    else if (form.dateOfBirth < dobMin) e.dateOfBirth = 'Enter a valid date of birth.';
     if (!form.gender) e.gender = 'Gender is required.';
 
     if (!form.preferredLanguage) e.preferredLanguage = 'Preferred language is required.';
@@ -263,6 +275,14 @@ export default function JoinCoopForm() {
       return;
     }
 
+    // The reCAPTCHA token is single-use — Google consumes it on this attempt
+    // even when the overall submission fails for an unrelated reason (e.g. a
+    // field validation error). Reset it so the widget must be re-solved
+    // before the next attempt, instead of resending a token Google will
+    // reject as a duplicate.
+    setRecaptchaToken('');
+    setRecaptchaKey((k) => k + 1);
+
     // Surface server-side validation against the matching fields.
     if (result.fieldErrors) {
       setErrors((prev) => ({ ...prev, ...result.fieldErrors }));
@@ -287,8 +307,20 @@ export default function JoinCoopForm() {
     );
   }
 
+  const switchToSignIn = () => {
+    window.dispatchEvent(new CustomEvent('closeFormModal'));
+    window.dispatchEvent(new CustomEvent('openLoginModal', { detail: { role: 'coop' } }));
+  };
+
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5 p-5">
+      <p className="text-center text-sm text-foreground/70">
+        Already registered?{' '}
+        <button type="button" onClick={switchToSignIn} className="font-semibold text-primary hover:underline">
+          Sign in here
+        </button>
+      </p>
+
       {/* Account Information */}
       <Section title="Account Information" subtitle="Use an email address that you can access easily.">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -519,14 +551,14 @@ export default function JoinCoopForm() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
             <Label htmlFor="dateOfBirth" required>Date of Birth</Label>
-            <input
+            <DatePicker
               id="dateOfBirth"
-              type="date"
-              autoComplete="bday"
-              className={inputClass(!!errors.dateOfBirth)}
-              data-invalid={!!errors.dateOfBirth}
               value={form.dateOfBirth}
-              onChange={(e) => set('dateOfBirth', e.target.value)}
+              onChange={(v) => set('dateOfBirth', v)}
+              min={dobMin}
+              max={dobMax}
+              placeholder="Select date of birth"
+              hasError={!!errors.dateOfBirth}
             />
             <FieldError msg={errors.dateOfBirth} />
           </div>
@@ -598,7 +630,7 @@ export default function JoinCoopForm() {
         </label>
 
         <div className="mt-4">
-          <RecaptchaCheckbox onChange={setRecaptchaToken} />
+          <RecaptchaCheckbox key={recaptchaKey} onChange={setRecaptchaToken} />
         </div>
 
         {submitError && (

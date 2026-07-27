@@ -140,6 +140,7 @@ export default function VendorForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState('');
+  const [recaptchaKey, setRecaptchaKey] = useState(0);
 
   // Cascading location options
   const [countries, setCountries] = useState<Option[]>([]);
@@ -273,6 +274,14 @@ export default function VendorForm() {
       return;
     }
 
+    // The reCAPTCHA token is single-use — Google consumes it on this attempt
+    // even when the overall submission fails for an unrelated reason (e.g. a
+    // field validation error). Reset it so the widget must be re-solved
+    // before the next attempt, instead of resending a token Google will
+    // reject as a duplicate.
+    setRecaptchaToken('');
+    setRecaptchaKey((k) => k + 1);
+
     if (result.fieldErrors) {
       setErrors((prev) => ({ ...prev, ...result.fieldErrors }));
       const firstKey = Object.keys(result.fieldErrors)[0];
@@ -293,8 +302,20 @@ export default function VendorForm() {
     );
   }
 
+  const switchToSignIn = () => {
+    window.dispatchEvent(new CustomEvent('closeFormModal'));
+    window.dispatchEvent(new CustomEvent('openLoginModal', { detail: { role: 'partner' } }));
+  };
+
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5 p-5">
+      <p className="text-center text-sm text-foreground/70">
+        Already registered?{' '}
+        <button type="button" onClick={switchToSignIn} className="font-semibold text-primary hover:underline">
+          Sign in here
+        </button>
+      </p>
+
       {/* Your Details */}
       <Section title="Your Details">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -501,7 +522,7 @@ export default function VendorForm() {
       {/* Submit */}
       <div className="rounded-xl border border-gray-200 bg-white p-5">
         <div className="mb-4">
-          <RecaptchaCheckbox onChange={setRecaptchaToken} />
+          <RecaptchaCheckbox key={recaptchaKey} onChange={setRecaptchaToken} />
         </div>
 
         {submitError && (

@@ -186,7 +186,7 @@ export default function LoginModal() {
                     active ? 'bg-primary text-white shadow-sm' : 'text-foreground/70 hover:text-foreground'
                   }`}
                 >
-                  {r === 'coop' ? 'Login As Co-Op' : 'Login As Partner'}
+                  {r === 'coop' ? 'Login As Co-Op' : 'Login As Vendor'}
                 </button>
               );
             })}
