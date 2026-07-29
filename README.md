@@ -205,7 +205,7 @@ npx tsc --noEmit
 
 ### Deployment Issues
 
-See [HOSTINGER-DEPLOYMENT.md](HOSTINGER-DEPLOYMENT.md) troubleshooting section.
+See  [HOSTINGER-DEPLOYMENT.md](HOSTINGER-DEPLOYMENT.md) troubleshooting section.
 
 ---
 
