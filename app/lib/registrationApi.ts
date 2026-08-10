@@ -186,6 +186,7 @@ export async function submitRegistration(payload: RegistrationPayload): Promise<
     public_assistance: payload.isPublicAssessment,
     password: payload.password,
     password_confirmation: payload.password,
+    source: 'acoop',
     membership_type: payload.membershipType,
     'g-recaptcha-response': payload.recaptchaToken,
   };
