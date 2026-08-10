@@ -367,7 +367,13 @@ export default function MembershipPage() {
               <div key={level.name} className="bg-cream rounded-2xl p-6 border-t-4 border-primary">
                 <p className="text-2xl font-heading font-bold text-primary mb-1">{level.amount}</p>
                 <h4 className="font-heading font-semibold text-foreground mb-2">{level.name}</h4>
-                <p className="text-sm text-foreground/70 leading-relaxed">{level.desc}</p>
+                <p className="text-sm text-foreground/70 leading-relaxed">
+                  {level.desc.split('Atlantic City SMILE Participation').flatMap((part, i, arr) =>
+                    i < arr.length - 1
+                      ? [part, <strong key={i} className="font-semibold text-foreground">Atlantic City SMILE Participation</strong>]
+                      : [part]
+                  )}
+                </p>
               </div>
             ))}
           </div>
