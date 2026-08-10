@@ -12,7 +12,7 @@ export const metadata = {
 export default function MembershipPage() {
   const pathways: { icon: typeof Users; title: string; sub: string; desc: string; cta: string; type: MembershipType }[] = [
     { icon: Users, title: 'Patron Member', sub: 'Join Free', desc: 'Start as a free supporter and stay connected to AC COOP launch, events, updates, and community campaigns.', cta: 'Join Free', type: 'patron' },
-    { icon: HeartHandshake, title: 'VIP Member', sub: 'Apply for VIP Membership', desc: 'For qualifying Atlantic City residents who need food access, delivery support, wellness resources, and social impact services.', cta: 'Apply for Support', type: 'premium' },
+    { icon: HeartHandshake, title: 'VIP Member', sub: 'Apply for VIP Membership', desc: 'For qualifying Atlantic City residents who need food access, delivery support, wellness resources, and social impact services.', cta: 'Apply for VIP Membership', type: 'premium' },
     { icon: Crown, title: 'Community Owner Member', sub: 'Class A Community Stock', desc: 'For eligible Atlantic City residents, workers, small businesses, and community stakeholders who want to help own and guide the movement.', cta: 'Become an Owner', type: 'owner' },
     { icon: Building2, title: 'Corporate and Non-Profit Organization Member', sub: 'Support Atlantic City', desc: 'For businesses, institutions, nonprofits, healthcare providers, foundations, and civic partners that want to support community ownership and Atlantic City small business growth.', cta: 'Become a Sponsor', type: 'sponsor' },
   ];
