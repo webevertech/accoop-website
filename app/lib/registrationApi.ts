@@ -46,6 +46,8 @@ export interface RegistrationPayload {
   veteranStatus: string;
   isPublicAssessment: string;
   password: string;
+  /** Human-readable membership pathway label, e.g. "Patron Member". */
+  membershipType: string;
   /** Google reCAPTCHA v3 token; the backend must verify it via siteverify. */
   recaptchaToken: string;
 }
@@ -159,6 +161,7 @@ const API_TO_FORM_FIELD: Record<string, string> = {
   veteran_status: 'veteranStatus',
   public_assistance: 'isPublicAssessment',
   password: 'password',
+  membership_type: 'membershipType',
 };
 
 export async function submitRegistration(payload: RegistrationPayload): Promise<SubmitResult> {
@@ -183,6 +186,7 @@ export async function submitRegistration(payload: RegistrationPayload): Promise<
     public_assistance: payload.isPublicAssessment,
     password: payload.password,
     password_confirmation: payload.password,
+    membership_type: payload.membershipType,
     'g-recaptcha-response': payload.recaptchaToken,
   };
 
@@ -247,3 +251,17 @@ export const VETERAN_OPTIONS: Option[] = [
   { value: 'no', label: 'No' },
   { value: 'prefer-not-to-say', label: 'Prefer not to say' },
 ];
+
+/** The 4 membership pathways shown on /membership — shared by every native intake form. */
+export type MembershipType = 'patron' | 'premium' | 'owner' | 'sponsor';
+
+export const MEMBERSHIP_TYPE_OPTIONS: { value: MembershipType; label: string }[] = [
+  { value: 'patron', label: 'Patron Member' },
+  { value: 'premium', label: 'Premium Access Member' },
+  { value: 'owner', label: 'Community Owner Member / Class A Community Stock' },
+  { value: 'sponsor', label: 'Corporate / Sponsor Member' },
+];
+
+export function membershipTypeLabel(type: MembershipType): string {
+  return MEMBERSHIP_TYPE_OPTIONS.find((o) => o.value === type)?.label ?? type;
+}

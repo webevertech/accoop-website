@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { CheckCircle2 } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { CheckCircle2, UploadCloud } from 'lucide-react';
 import {
   getCountries,
   getStates,
@@ -12,9 +12,13 @@ import {
   GENDER_OPTIONS,
   LANGUAGE_OPTIONS,
   VETERAN_OPTIONS,
+  MEMBERSHIP_TYPE_OPTIONS,
+  membershipTypeLabel,
   type Option,
   type RegistrationPayload,
+  type MembershipType,
 } from '../lib/registrationApi';
+import { submitVendor, type VendorPayload } from '../lib/vendorApi';
 import SearchableSelect from './SearchableSelect';
 import DatePicker from './DatePicker';
 import { RECAPTCHA_ENABLED, getRecaptchaToken } from '../lib/recaptcha';
@@ -76,8 +80,51 @@ const INITIAL: FormState = {
 
 type Errors = Partial<Record<keyof FormState, string>>;
 
+/** Fields shown instead of the standard fields when "Corporate / Sponsor Member" is selected — mirrors VendorForm. */
+type VendorFormState = {
+  firstName: string;
+  lastName: string;
+  otherName: string;
+  phone: string;
+  email: string;
+  organizationName: string;
+  organizationStreetAddress: string;
+  country: string;
+  state: string;
+  city: string;
+  zip: string;
+  county: string;
+  displayAddress: string;
+  website: string;
+  logo: File | null;
+  banner: File | null;
+};
+
+const INITIAL_VENDOR: VendorFormState = {
+  firstName: '',
+  lastName: '',
+  otherName: '',
+  phone: '',
+  email: '',
+  organizationName: '',
+  organizationStreetAddress: '',
+  country: '',
+  state: '',
+  city: '',
+  zip: '',
+  county: '',
+  displayAddress: '',
+  website: '',
+  logo: null,
+  banner: null,
+};
+
+type VendorErrors = Partial<Record<keyof VendorFormState, string>>;
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[\d\s()+-]{7,}$/;
+const URL_RE = /^https?:\/\/.+\..+/i;
+const ACCEPT = '.pdf,.doc,.docx,.xls,.csv,.jpg,.jpeg,.png,.gif';
 
 function toDateInputValue(d: Date) {
   return d.toISOString().slice(0, 10);
@@ -116,12 +163,57 @@ function FieldError({ msg }: { msg?: string }) {
   return <p className="mt-1 text-xs text-red-500">{msg}</p>;
 }
 
-export default function JoinCoopForm() {
+function FileField({
+  id,
+  label,
+  hint,
+  file,
+  onChange,
+}: {
+  id: string;
+  label: string;
+  hint?: string;
+  file: File | null;
+  onChange: (file: File | null) => void;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  return (
+    <div>
+      <Label htmlFor={id}>{label}</Label>
+      {hint && <p className="-mt-1 mb-2 text-xs text-foreground/50">{hint}</p>}
+      <button
+        type="button"
+        onClick={() => inputRef.current?.click()}
+        className="flex w-full flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-gray-300 bg-white px-4 py-6 text-center transition hover:border-primary hover:bg-primary/5"
+      >
+        <UploadCloud className="h-6 w-6 text-foreground/40" aria-hidden="true" />
+        <span className="text-sm text-foreground/70">{file ? file.name : 'Click to upload'}</span>
+        <span className="text-xs text-foreground/40">PDF, DOC/DOCX, XLS/CSV, JPG/JPEG, PNG, GIF</span>
+      </button>
+      <input
+        ref={inputRef}
+        id={id}
+        type="file"
+        accept={ACCEPT}
+        className="hidden"
+        onChange={(e) => onChange(e.target.files?.[0] ?? null)}
+      />
+    </div>
+  );
+}
+
+export default function JoinCoopForm({ initialMembershipType }: { initialMembershipType?: MembershipType }) {
   const [form, setForm] = useState<FormState>(INITIAL);
+  const [membershipType, setMembershipType] = useState<MembershipType>(initialMembershipType ?? 'patron');
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+
+  // "Corporate / Sponsor Member" submits as a partner/vendor application (VendorForm's field set) instead.
+  const isVendorMode = membershipType === 'sponsor';
+  const [vendorForm, setVendorForm] = useState<VendorFormState>(INITIAL_VENDOR);
+  const [vendorErrors, setVendorErrors] = useState<VendorErrors>({});
 
   // Blocks future dates and bounds Date of Birth to a realistic 120-year range.
   const dobMax = toDateInputValue(new Date());
@@ -134,7 +226,7 @@ export default function JoinCoopForm() {
   const [cities, setCities] = useState<Option[]>([]);
   const [zips, setZips] = useState<Option[]>([]);
 
-  // Load countries and preselect United States (then load its states).
+  // Load countries and preselect United States + New Jersey (both locked; then load NJ's cities/counties).
   useEffect(() => {
     let active = true;
     getCountries().then((opts) => {
@@ -143,7 +235,20 @@ export default function JoinCoopForm() {
       const us = opts.find((o) => /united states/i.test(o.label));
       if (us) {
         setForm((f) => ({ ...f, country: us.value }));
-        getStates(us.value).then((s) => active && setStates(s));
+        setVendorForm((f) => ({ ...f, country: us.value }));
+        getStates(us.value).then(async (s) => {
+          if (!active) return;
+          setStates(s);
+          const nj = s.find((o) => /new jersey/i.test(o.label));
+          if (nj) {
+            setForm((f) => ({ ...f, state: nj.value }));
+            setVendorForm((f) => ({ ...f, state: nj.value }));
+            const [c, co] = await Promise.all([getCitiesByState(nj.value), getCounties(nj.value)]);
+            if (!active) return;
+            setCities(c);
+            setCounties(co);
+          }
+        });
       }
     });
     return () => {
@@ -186,6 +291,69 @@ export default function JoinCoopForm() {
     if (value) setZips(await getZips(value));
   };
 
+  /* ---------- vendor-mode fields & location cascade (Corporate / Sponsor Member) ---------- */
+
+  const setVendor = <K extends keyof VendorFormState>(key: K, value: VendorFormState[K]) => {
+    setVendorForm((f) => ({ ...f, [key]: value }));
+    setVendorErrors((e) => (e[key] ? { ...e, [key]: undefined } : e));
+  };
+
+  const onVendorCountryChange = async (value: string) => {
+    setVendorForm((f) => ({ ...f, country: value, state: '', city: '', zip: '', county: '' }));
+    setVendorErrors((prev) => ({ ...prev, country: undefined }));
+    setStates([]);
+    setCounties([]);
+    setCities([]);
+    setZips([]);
+    if (value) setStates(await getStates(value));
+  };
+
+  const onVendorStateChange = async (value: string) => {
+    setVendorForm((f) => ({ ...f, state: value, city: '', zip: '', county: '' }));
+    setVendorErrors((prev) => ({ ...prev, state: undefined }));
+    setCities([]);
+    setZips([]);
+    setCounties([]);
+    if (value) {
+      const [c, co] = await Promise.all([getCitiesByState(value), getCounties(value)]);
+      setCities(c);
+      setCounties(co);
+    }
+  };
+
+  const onVendorCityChange = async (value: string) => {
+    setVendorForm((f) => ({ ...f, city: value, zip: '' }));
+    setVendorErrors((prev) => ({ ...prev, city: undefined }));
+    setZips([]);
+    if (value) setZips(await getZips(value));
+  };
+
+  const validateVendor = (): VendorErrors => {
+    const e: VendorErrors = {};
+    if (!vendorForm.firstName.trim()) e.firstName = 'First name is required.';
+    if (!vendorForm.lastName.trim()) e.lastName = 'Last name is required.';
+
+    if (!vendorForm.phone.trim()) e.phone = 'Phone is required.';
+    else if (!PHONE_RE.test(vendorForm.phone)) e.phone = 'Enter a valid phone number.';
+
+    if (!vendorForm.email.trim()) e.email = 'Email is required.';
+    else if (!EMAIL_RE.test(vendorForm.email)) e.email = 'Enter a valid email address.';
+
+    if (!vendorForm.organizationName.trim()) e.organizationName = 'Organization name is required.';
+    if (!vendorForm.organizationStreetAddress.trim())
+      e.organizationStreetAddress = 'Organization street address is required.';
+    if (!vendorForm.country) e.country = 'Country is required.';
+    if (!vendorForm.state) e.state = 'State is required.';
+    if (!vendorForm.city) e.city = 'City is required.';
+    if (!vendorForm.zip) e.zip = 'Zip code is required.';
+    if (!vendorForm.county) e.county = 'County is required.';
+    if (!vendorForm.displayAddress.trim()) e.displayAddress = 'Display address is required.';
+
+    if (vendorForm.website.trim() && !URL_RE.test(vendorForm.website))
+      e.website = 'Enter a valid URL (including http:// or https://).';
+    return e;
+  };
+
   /* ---------- validation ---------- */
 
   const validate = (): Errors => {
@@ -224,9 +392,64 @@ export default function JoinCoopForm() {
     return e;
   };
 
-  const handleSubmit = async (ev: React.FormEvent) => {
-    ev.preventDefault();
-    setSubmitError(null);
+  const handleVendorSubmit = async () => {
+    const e = validateVendor();
+    setVendorErrors(e);
+    if (Object.keys(e).length > 0) {
+      const first = document.querySelector<HTMLElement>('[data-invalid="true"]');
+      first?.focus();
+      return;
+    }
+
+    let recaptchaToken = '';
+    if (RECAPTCHA_ENABLED) {
+      try {
+        recaptchaToken = await getRecaptchaToken('vendor_register');
+      } catch {
+        setSubmitError('Unable to verify you are human. Please refresh and try again.');
+        return;
+      }
+    }
+
+    const payload: VendorPayload = {
+      firstName: vendorForm.firstName.trim(),
+      lastName: vendorForm.lastName.trim(),
+      otherName: vendorForm.otherName.trim(),
+      phone: vendorForm.phone.trim(),
+      email: vendorForm.email.trim(),
+      organizationName: vendorForm.organizationName.trim(),
+      organizationStreetAddress: vendorForm.organizationStreetAddress.trim(),
+      country: vendorForm.country,
+      state: vendorForm.state,
+      city: vendorForm.city,
+      zip: vendorForm.zip,
+      county: vendorForm.county,
+      displayAddress: vendorForm.displayAddress.trim(),
+      website: vendorForm.website.trim(),
+      logo: vendorForm.logo,
+      banner: vendorForm.banner,
+      membershipType: membershipTypeLabel('sponsor'),
+      recaptchaToken,
+    };
+
+    setSubmitting(true);
+    const result = await submitVendor(payload);
+    setSubmitting(false);
+
+    if (result.ok) {
+      setSuccess(true);
+      return;
+    }
+
+    if (result.fieldErrors) {
+      setVendorErrors((prev) => ({ ...prev, ...result.fieldErrors }));
+      const firstKey = Object.keys(result.fieldErrors)[0];
+      document.getElementById(firstKey)?.focus();
+    }
+    setSubmitError(result.message ?? 'Something went wrong. Please try again.');
+  };
+
+  const handleRegistrationSubmit = async () => {
     const e = validate();
     setErrors(e);
     if (Object.keys(e).length > 0) {
@@ -245,7 +468,8 @@ export default function JoinCoopForm() {
       }
     }
 
-    const payload: RegistrationPayload = {
+    setSubmitting(true);
+    const result = await submitRegistration({
       email: form.email.trim(),
       firstName: form.firstName.trim(),
       middleInitial: form.middleInitial.trim(),
@@ -265,11 +489,9 @@ export default function JoinCoopForm() {
       veteranStatus: form.veteranStatus,
       isPublicAssessment: form.isPublicAssessment,
       password: form.password,
-      recaptchaToken: recaptchaToken,
-    };
-
-    setSubmitting(true);
-    const result = await submitRegistration(payload);
+      membershipType: membershipTypeLabel(membershipType),
+      recaptchaToken,
+    } satisfies RegistrationPayload);
     setSubmitting(false);
 
     if (result.ok) {
@@ -288,23 +510,36 @@ export default function JoinCoopForm() {
     }
   };
 
+  const handleSubmit = async (ev: React.FormEvent) => {
+    ev.preventDefault();
+    setSubmitError(null);
+    if (isVendorMode) {
+      await handleVendorSubmit();
+    } else {
+      await handleRegistrationSubmit();
+    }
+  };
+
+  const switchToSignIn = () => {
+    window.dispatchEvent(new CustomEvent('closeFormModal'));
+    window.dispatchEvent(new CustomEvent('openLoginModal', { detail: { role: isVendorMode ? 'partner' : 'coop' } }));
+  };
+
   if (success) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 px-6 py-16 text-center">
         <CheckCircle2 className="h-14 w-14 text-primary" aria-hidden="true" />
-        <h3 className="font-heading text-xl font-semibold text-foreground">You&apos;re all set!</h3>
+        <h3 className="font-heading text-xl font-semibold text-foreground">
+          {isVendorMode ? 'Thank you!' : "You're all set!"}
+        </h3>
         <p className="max-w-sm text-sm text-foreground/60">
-          Thanks for joining the Atlantic City Community Cooperative. We&apos;ve received your
-          registration and will be in touch soon.
+          {isVendorMode
+            ? "We've sent you an email to set your password. Please check your inbox and set your password."
+            : "Thanks for joining the Atlantic City Community Cooperative. We've received your registration and will be in touch soon."}
         </p>
       </div>
     );
   }
-
-  const switchToSignIn = () => {
-    window.dispatchEvent(new CustomEvent('closeFormModal'));
-    window.dispatchEvent(new CustomEvent('openLoginModal', { detail: { role: 'coop' } }));
-  };
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5 p-5">
@@ -315,6 +550,233 @@ export default function JoinCoopForm() {
         </button>
       </p>
 
+      {/* Membership Type */}
+      <Section title="Membership Type">
+        <div>
+          <Label htmlFor="membershipType" required>Type of Membership</Label>
+          <SearchableSelect
+            id="membershipType"
+            options={MEMBERSHIP_TYPE_OPTIONS}
+            value={membershipType}
+            onChange={(v) => setMembershipType(v as MembershipType)}
+            placeholder="Select membership type"
+          />
+        </div>
+      </Section>
+
+      {isVendorMode ? (
+        <>
+          {/* Your Details */}
+          <Section title="Your Details">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div>
+                <Label htmlFor="firstName" required>First Name</Label>
+                <input
+                  id="firstName"
+                  autoComplete="given-name"
+                  className={inputClass(!!vendorErrors.firstName)}
+                  data-invalid={!!vendorErrors.firstName}
+                  value={vendorForm.firstName}
+                  onChange={(e) => setVendor('firstName', e.target.value)}
+                />
+                <FieldError msg={vendorErrors.firstName} />
+              </div>
+              <div>
+                <Label htmlFor="lastName" required>Last Name</Label>
+                <input
+                  id="lastName"
+                  autoComplete="family-name"
+                  className={inputClass(!!vendorErrors.lastName)}
+                  data-invalid={!!vendorErrors.lastName}
+                  value={vendorForm.lastName}
+                  onChange={(e) => setVendor('lastName', e.target.value)}
+                />
+                <FieldError msg={vendorErrors.lastName} />
+              </div>
+              <div>
+                <Label htmlFor="otherName">Other Name</Label>
+                <input
+                  id="otherName"
+                  className={inputClass()}
+                  value={vendorForm.otherName}
+                  onChange={(e) => setVendor('otherName', e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <Label htmlFor="phone" required>Phone</Label>
+                <input
+                  id="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  className={inputClass(!!vendorErrors.phone)}
+                  data-invalid={!!vendorErrors.phone}
+                  value={vendorForm.phone}
+                  onChange={(e) => setVendor('phone', e.target.value)}
+                />
+                <FieldError msg={vendorErrors.phone} />
+              </div>
+              <div>
+                <Label htmlFor="email" required>Email</Label>
+                <input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  className={inputClass(!!vendorErrors.email)}
+                  data-invalid={!!vendorErrors.email}
+                  value={vendorForm.email}
+                  onChange={(e) => setVendor('email', e.target.value)}
+                />
+                <FieldError msg={vendorErrors.email} />
+              </div>
+            </div>
+          </Section>
+
+          {/* Organization */}
+          <Section title="Organization">
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="organizationName" required>Organization Name</Label>
+                <input
+                  id="organizationName"
+                  autoComplete="organization"
+                  className={inputClass(!!vendorErrors.organizationName)}
+                  data-invalid={!!vendorErrors.organizationName}
+                  value={vendorForm.organizationName}
+                  onChange={(e) => setVendor('organizationName', e.target.value)}
+                />
+                <FieldError msg={vendorErrors.organizationName} />
+              </div>
+              <div>
+                <Label htmlFor="organizationStreetAddress" required>Organization Street Address</Label>
+                <input
+                  id="organizationStreetAddress"
+                  autoComplete="street-address"
+                  className={inputClass(!!vendorErrors.organizationStreetAddress)}
+                  data-invalid={!!vendorErrors.organizationStreetAddress}
+                  value={vendorForm.organizationStreetAddress}
+                  onChange={(e) => setVendor('organizationStreetAddress', e.target.value)}
+                />
+                <FieldError msg={vendorErrors.organizationStreetAddress} />
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div>
+                  <Label htmlFor="country" required>Country</Label>
+                  <SearchableSelect
+                    id="country"
+                    options={countries}
+                    value={vendorForm.country}
+                    onChange={onVendorCountryChange}
+                    placeholder="Select country"
+                    disabled
+                    hasError={!!vendorErrors.country}
+                  />
+                  <FieldError msg={vendorErrors.country} />
+                </div>
+                <div>
+                  <Label htmlFor="state" required>State</Label>
+                  <SearchableSelect
+                    id="state"
+                    options={states}
+                    value={vendorForm.state}
+                    onChange={onVendorStateChange}
+                    placeholder="Select state"
+                    disabled
+                    hasError={!!vendorErrors.state}
+                  />
+                  <FieldError msg={vendorErrors.state} />
+                </div>
+                <div>
+                  <Label htmlFor="city" required>City</Label>
+                  <SearchableSelect
+                    id="city"
+                    options={cities}
+                    value={vendorForm.city}
+                    onChange={onVendorCityChange}
+                    placeholder="Select city"
+                    disabled={!vendorForm.state}
+                    hasError={!!vendorErrors.city}
+                  />
+                  <FieldError msg={vendorErrors.city} />
+                </div>
+                <div>
+                  <Label htmlFor="zip" required>Zip Code</Label>
+                  <SearchableSelect
+                    id="zip"
+                    options={zips}
+                    value={vendorForm.zip}
+                    onChange={(v) => setVendor('zip', v)}
+                    placeholder="Select zip code"
+                    disabled={!vendorForm.city}
+                    hasError={!!vendorErrors.zip}
+                  />
+                  <FieldError msg={vendorErrors.zip} />
+                </div>
+                <div>
+                  <Label htmlFor="county" required>County</Label>
+                  <SearchableSelect
+                    id="county"
+                    options={counties}
+                    value={vendorForm.county}
+                    onChange={(v) => setVendor('county', v)}
+                    placeholder="Select county"
+                    disabled={!vendorForm.state}
+                    hasError={!!vendorErrors.county}
+                  />
+                  <FieldError msg={vendorErrors.county} />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="displayAddress" required>Display Address</Label>
+                <textarea
+                  id="displayAddress"
+                  rows={3}
+                  className={`${inputClass(!!vendorErrors.displayAddress)} resize-y`}
+                  data-invalid={!!vendorErrors.displayAddress}
+                  value={vendorForm.displayAddress}
+                  onChange={(e) => setVendor('displayAddress', e.target.value)}
+                />
+                <FieldError msg={vendorErrors.displayAddress} />
+              </div>
+              <div>
+                <Label htmlFor="website">Your Website (If Exist)</Label>
+                <input
+                  id="website"
+                  type="url"
+                  inputMode="url"
+                  placeholder="Web URL goes here"
+                  className={inputClass(!!vendorErrors.website)}
+                  data-invalid={!!vendorErrors.website}
+                  value={vendorForm.website}
+                  onChange={(e) => setVendor('website', e.target.value)}
+                />
+                <FieldError msg={vendorErrors.website} />
+              </div>
+            </div>
+          </Section>
+
+          {/* Media */}
+          <Section title="Media">
+            <div className="space-y-4">
+              <FileField
+                id="logo"
+                label="Organization Logo"
+                file={vendorForm.logo}
+                onChange={(file) => setVendor('logo', file)}
+              />
+              <FileField
+                id="banner"
+                label="Organization Banner Image"
+                hint="Recommended size: 1920×360 px"
+                file={vendorForm.banner}
+                onChange={(file) => setVendor('banner', file)}
+              />
+            </div>
+          </Section>
+        </>
+      ) : (
+        <>
       {/* Account Information */}
       <Section title="Account Information" subtitle="Use an email address that you can access easily.">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -481,6 +943,7 @@ export default function JoinCoopForm() {
               value={form.country}
               onChange={onCountryChange}
               placeholder="Select country"
+              disabled
               hasError={!!errors.country}
             />
             <FieldError msg={errors.country} />
@@ -493,7 +956,7 @@ export default function JoinCoopForm() {
               value={form.state}
               onChange={onStateChange}
               placeholder="Select state"
-              disabled={!form.country}
+              disabled
               hasError={!!errors.state}
             />
             <FieldError msg={errors.state} />
@@ -597,7 +1060,7 @@ export default function JoinCoopForm() {
             />
           </div>
           <div>
-            <Label htmlFor="isPublicAssessment">Is Public Assistant?</Label>
+            <Label htmlFor="isPublicAssessment">Do you receive any public assistant?</Label>
             <SearchableSelect
               id="isPublicAssessment"
               options={PUBLIC_ASSISTANCE_OPTIONS}
@@ -608,6 +1071,8 @@ export default function JoinCoopForm() {
           </div>
         </div>
       </Section>
+        </>
+      )}
 
       {/* Terms + Submit */}
       <div className="rounded-xl border border-gray-200 bg-white p-5">

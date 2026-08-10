@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import CTAButton from '../components/CTAButton';
 import { Check, Users, HeartHandshake, Crown, Building2, Sparkles } from 'lucide-react';
+import type { MembershipType } from '../lib/registrationApi';
 
 export const metadata = {
   title: 'Membership | Atlantic City Community Cooperative',
@@ -9,11 +10,11 @@ export const metadata = {
 };
 
 export default function MembershipPage() {
-  const pathways = [
-    { icon: Users, title: 'Join Free', sub: 'Patron Member', desc: 'Start as a free supporter and stay connected to AC COOP launch, events, updates, and community campaigns.', cta: 'Join Free' },
-    { icon: HeartHandshake, title: 'Get Support', sub: 'Premium Access Member', desc: 'For qualifying Atlantic City residents who need food access, delivery support, wellness resources, and social impact services.', cta: 'Apply for Support' },
-    { icon: Crown, title: 'Own the Movement', sub: 'Community Owner Member / Class A Community Stock', desc: 'For eligible Atlantic City residents, workers, small businesses, and community stakeholders who want to help own and guide the movement.', cta: 'Become an Owner' },
-    { icon: Building2, title: 'Invest in Atlantic City', sub: 'Corporate / Sponsor Member', desc: 'For businesses, institutions, nonprofits, healthcare providers, foundations, and civic partners that want to sponsor community ownership and Atlantic City small business growth.', cta: 'Become a Sponsor' },
+  const pathways: { icon: typeof Users; title: string; sub: string; desc: string; cta: string; type: MembershipType }[] = [
+    { icon: Users, title: 'Join Free', sub: 'Patron Member', desc: 'Start as a free supporter and stay connected to AC COOP launch, events, updates, and community campaigns.', cta: 'Join Free', type: 'patron' },
+    { icon: HeartHandshake, title: 'Get Support', sub: 'Premium Access Member', desc: 'For qualifying Atlantic City residents who need food access, delivery support, wellness resources, and social impact services.', cta: 'Apply for Support', type: 'premium' },
+    { icon: Crown, title: 'Own the Movement', sub: 'Community Owner Member / Class A Community Stock', desc: 'For eligible Atlantic City residents, workers, small businesses, and community stakeholders who want to help own and guide the movement.', cta: 'Become an Owner', type: 'owner' },
+    { icon: Building2, title: 'Invest in Atlantic City', sub: 'Corporate / Sponsor Member', desc: 'For businesses, institutions, nonprofits, healthcare providers, foundations, and civic partners that want to sponsor community ownership and Atlantic City small business growth.', cta: 'Become a Sponsor', type: 'sponsor' },
   ];
 
   const patronBenefits = [
@@ -62,6 +63,18 @@ export default function MembershipPage() {
     { amount: '$5,000', name: 'Community Ownership Sponsor', desc: 'Supports sponsored Community Owner Memberships and resident ownership access.' },
     { amount: '$10,000', name: 'Atlantic City Impact Partner', desc: 'Supports citywide membership growth, food access, delivery equity, and small business participation.' },
     { amount: '$25,000+', name: 'Founding Corporate Partner', desc: "For major institutions and anchor partners committed to Atlantic City's long-term revitalization." },
+  ];
+
+  const sponsorBenefits = [
+    'Public recognition as an Atlantic City Community Cooperative sponsor',
+    'Logo and name placement on sponsor materials and digital channels',
+    'Invitations to COOP community events and sponsor briefings',
+    'Opportunity to sponsor Community Owner and Premium Access Memberships',
+    'Community impact and public benefit reporting updates',
+    'Access to workforce, vendor, and entrepreneurship referral networks',
+    'Opportunity to participate as a vendor, service provider, or community partner',
+    "Positive brand association with Atlantic City's community-owned revitalization",
+    'Direct connection to Atlantic City residents, small businesses, and civic partners',
   ];
 
   const sponsorshipDonations = [
@@ -161,7 +174,7 @@ export default function MembershipPage() {
                   <h3 className="font-heading font-bold text-xl text-foreground mb-1">{p.title}</h3>
                   <p className="text-sm font-heading font-semibold text-primary mb-3">{p.sub}</p>
                   <p className="text-sm text-foreground/70 leading-relaxed mb-6 grow">{p.desc}</p>
-                  <CTAButton formType={p.cta === 'Become a Sponsor' ? 'sponsor' : 'inquiry'} className="w-full bg-primary hover:bg-primary-dark text-white px-4 py-2.5 rounded-full font-heading font-semibold text-sm transition-colors inline-flex items-center justify-center">
+                  <CTAButton formType={p.type === 'sponsor' ? 'sponsor' : 'inquiry'} membershipType={p.type} className="w-full bg-primary hover:bg-primary-dark text-white px-4 py-2.5 rounded-full font-heading font-semibold text-sm transition-colors inline-flex items-center justify-center">
                     {p.cta}
                   </CTAButton>
                 </div>
@@ -205,7 +218,7 @@ export default function MembershipPage() {
             </div>
           </div>
           <div className="mt-8">
-            <CTAButton className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
+            <CTAButton membershipType="patron" className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
               Join Free Today
             </CTAButton>
             <p className="text-sm text-foreground/60 mt-3">Start supporting Atlantic City&apos;s community-owned future.</p>
@@ -251,7 +264,7 @@ export default function MembershipPage() {
             </div>
           </div>
           <div className="mt-8">
-            <CTAButton className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
+            <CTAButton membershipType="premium" className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
               Apply for Premium Access Membership
             </CTAButton>
             <p className="text-sm text-foreground/60 mt-3">Complete the Social Impact Application and let AC COOP help connect you to food, delivery, and support resources.</p>
@@ -306,7 +319,7 @@ export default function MembershipPage() {
               ))}
             </ul>
           </div>
-          <CTAButton className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
+          <CTAButton membershipType="owner" className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
             Become a Community Owner Member
           </CTAButton>
           <p className="text-sm text-foreground/60 mt-3">Help Atlantic City own the solution.</p>
@@ -322,10 +335,29 @@ export default function MembershipPage() {
           </div>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">Invest in Atlantic City as a Corporate / Sponsor Member</h2>
           <p className="text-lg text-foreground/70 mb-6">A non-voting sponsorship membership for businesses, institutions, nonprofits, and civic partners.</p>
-          <div className="space-y-4 text-foreground/80 leading-relaxed mb-10 max-w-4xl">
-            <p>Corporate / Sponsor Membership is for organizations that want to support Atlantic City Community Cooperative&apos;s public benefit mission without becoming voting shareholders.</p>
-            <p>This membership is designed for businesses, corporations, healthcare providers, banks, foundations, nonprofits, universities, casinos, hospitality companies, local employers, professional service firms, and civic partners that want to invest in Atlantic City&apos;s future through food access, community ownership, small business growth, workforce development, and neighborhood-level impact.</p>
-            <p className="text-sm bg-cream rounded-xl p-4">Corporate / Sponsor Membership is not a stock offering, does not include voting rights, and does not provide ownership in COOP. It is a public benefit sponsorship and partnership pathway.</p>
+          <div className="grid lg:grid-cols-2 gap-8 mb-10">
+            <div className="space-y-4 text-foreground/80 leading-relaxed">
+              <p>Corporate / Sponsor Membership is for organizations that want to support Atlantic City Community Cooperative&apos;s public benefit mission without becoming voting shareholders.</p>
+              <p>This membership is designed for businesses, corporations, healthcare providers, banks, foundations, nonprofits, universities, casinos, hospitality companies, local employers, professional service firms, and civic partners that want to invest in Atlantic City&apos;s future through food access, community ownership, small business growth, workforce development, and neighborhood-level impact.</p>
+              <div className="bg-cream rounded-2xl p-6 space-y-1.5 text-sm">
+                <p><span className="font-semibold">Sponsorship Range:</span> $500 to $25,000+</p>
+                <p><span className="font-semibold">Membership Type:</span> Corporate / Sponsor Member</p>
+                <p><span className="font-semibold">Stock Ownership:</span> No</p>
+                <p><span className="font-semibold">Voting Rights:</span> No</p>
+                <p><span className="font-semibold">Structure:</span> Public benefit sponsorship and partnership pathway, not a stock offering</p>
+              </div>
+            </div>
+            <div className="bg-cream rounded-2xl p-6">
+              <h3 className="font-heading font-semibold text-lg text-foreground mb-4">Benefits</h3>
+              <ul className="space-y-2.5">
+                {sponsorBenefits.map((b) => (
+                  <li key={b} className="flex items-start gap-2.5 text-sm text-foreground/80">
+                    <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           <h3 className="text-2xl font-heading font-bold text-foreground mb-6 text-center">Recommended Sponsorship Levels</h3>
@@ -339,15 +371,13 @@ export default function MembershipPage() {
             ))}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <CTAButton formType="sponsor" className="inline-flex items-center justify-center bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
+          <div className="mt-8">
+            <CTAButton formType="sponsor" membershipType="sponsor" className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
               Become a Corporate / Sponsor Member
             </CTAButton>
-            <CTAButton formType="sponsor" className="inline-flex items-center justify-center bg-white text-primary border-2 border-primary hover:bg-primary/5 px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300">
-              Sponsor Community Memberships
-            </CTAButton>
+            <p className="text-sm text-foreground/60 mt-3">Invest in Atlantic City&apos;s community-owned future.</p>
           </div>
-          <p className="text-xs text-foreground/50 mt-6 leading-relaxed max-w-3xl">
+          <p className="text-xs text-foreground/50 mt-3 leading-relaxed max-w-3xl">
             Corporate / Sponsor Membership is a non-voting sponsorship membership. It does not include stock ownership, shareholder rights, voting rights, dividends, or investment returns.
           </p>
         </div>
@@ -407,7 +437,7 @@ export default function MembershipPage() {
             ))}
           </div>
           <div className="text-center">
-            <CTAButton formType="sponsor" className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
+            <CTAButton formType="sponsor" membershipType="sponsor" className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
               Sponsor Community Memberships
             </CTAButton>
           </div>
@@ -467,16 +497,16 @@ export default function MembershipPage() {
             This is food access. This is local ownership. This is small business growth. This is community power.
           </p>
           <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center">
-            <CTAButton className="bg-white text-primary hover:bg-cream px-6 py-3.5 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
+            <CTAButton membershipType="patron" className="bg-white text-primary hover:bg-cream px-6 py-3.5 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center">
               Join Free
             </CTAButton>
-            <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-6 py-3.5 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
+            <CTAButton membershipType="premium" className="bg-white/15 hover:bg-white/25 text-white px-6 py-3.5 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
               Apply for Support
             </CTAButton>
-            <CTAButton className="bg-white/15 hover:bg-white/25 text-white px-6 py-3.5 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
+            <CTAButton membershipType="owner" className="bg-white/15 hover:bg-white/25 text-white px-6 py-3.5 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-white/60 inline-flex items-center justify-center">
               Become an Owner
             </CTAButton>
-            <CTAButton formType="sponsor" className="text-foreground px-6 py-3.5 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-accent hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center" style={{ backgroundColor: '#eeb171' }}>
+            <CTAButton formType="sponsor" membershipType="sponsor" className="text-foreground px-6 py-3.5 rounded-full font-heading font-semibold text-lg transition-all duration-300 border-2 border-accent hover:shadow-2xl hover:scale-105 inline-flex items-center justify-center" style={{ backgroundColor: '#eeb171' }}>
               Become a Sponsor
             </CTAButton>
           </div>

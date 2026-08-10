@@ -31,6 +31,8 @@ export interface VendorPayload {
   website: string;
   logo: File | null;
   banner: File | null;
+  /** Human-readable membership pathway label, set when submitted via the "Type of Membership" dropdown (e.g. "Corporate / Sponsor Member"). Omitted for the standalone "Become a Vendor" form. */
+  membershipType?: string;
   /** Google reCAPTCHA v3 token; the backend must verify it via siteverify. */
   recaptchaToken: string;
 }
@@ -85,6 +87,7 @@ export async function submitVendor(payload: VendorPayload): Promise<SubmitResult
   body.append('county_id', payload.county);
   body.append('display_address', payload.displayAddress);
   body.append('website_url', payload.website);
+  if (payload.membershipType) body.append('membership_type', payload.membershipType);
   if (payload.recaptchaToken) body.append('g-recaptcha-response', payload.recaptchaToken);
   if (payload.logo) body.append('logo', payload.logo);
   if (payload.banner) body.append('banner', payload.banner);
