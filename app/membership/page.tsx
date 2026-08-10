@@ -11,10 +11,10 @@ export const metadata = {
 
 export default function MembershipPage() {
   const pathways: { icon: typeof Users; title: string; sub: string; desc: string; cta: string; type: MembershipType }[] = [
-    { icon: Users, title: 'Join Free', sub: 'Patron Member', desc: 'Start as a free supporter and stay connected to AC COOP launch, events, updates, and community campaigns.', cta: 'Join Free', type: 'patron' },
-    { icon: HeartHandshake, title: 'Get Support', sub: 'Premium Access Member', desc: 'For qualifying Atlantic City residents who need food access, delivery support, wellness resources, and social impact services.', cta: 'Apply for Support', type: 'premium' },
-    { icon: Crown, title: 'Own the Movement', sub: 'Community Owner Member / Class A Community Stock', desc: 'For eligible Atlantic City residents, workers, small businesses, and community stakeholders who want to help own and guide the movement.', cta: 'Become an Owner', type: 'owner' },
-    { icon: Building2, title: 'Invest in Atlantic City', sub: 'Corporate / Sponsor Member', desc: 'For businesses, institutions, nonprofits, healthcare providers, foundations, and civic partners that want to sponsor community ownership and Atlantic City small business growth.', cta: 'Become a Sponsor', type: 'sponsor' },
+    { icon: Users, title: 'Patron Member', sub: 'Join Free', desc: 'Start as a free supporter and stay connected to AC COOP launch, events, updates, and community campaigns.', cta: 'Join Free', type: 'patron' },
+    { icon: HeartHandshake, title: 'VIP Member', sub: 'Apply for VIP Membership', desc: 'For qualifying Atlantic City residents who need food access, delivery support, wellness resources, and social impact services.', cta: 'Apply for Support', type: 'premium' },
+    { icon: Crown, title: 'Community Owner Member', sub: 'Class A Community Stock', desc: 'For eligible Atlantic City residents, workers, small businesses, and community stakeholders who want to help own and guide the movement.', cta: 'Become an Owner', type: 'owner' },
+    { icon: Building2, title: 'Corporate and Non-Profit Organization Member', sub: 'Support Atlantic City', desc: 'For businesses, institutions, nonprofits, healthcare providers, foundations, and civic partners that want to support community ownership and Atlantic City small business growth.', cta: 'Become a Sponsor', type: 'sponsor' },
   ];
 
   const patronBenefits = [
@@ -22,6 +22,7 @@ export default function MembershipPage() {
     'Digital Patron Member card',
     'AC COOP launch updates',
     'Boardwalk Basket updates',
+    'Patron Members can shop from Boardwalk Basket, Atlantic City`s Digital Market Platform',
     'Invitations to community meetings and events',
     'Selected member promotions',
     'Volunteer and ambassador opportunities',
@@ -160,7 +161,7 @@ export default function MembershipPage() {
               Choose the Membership Path That Fits You
             </h2>
             <p className="text-lg text-foreground/70 leading-relaxed">
-              There is more than one way to be part of Atlantic City Community Cooperative. You can join free as a supporter, apply for food and delivery support, become a Community Owner Member through Class A Community Stock, or support the movement as a Corporate / Sponsor Member.
+              There is more than one way to be part of Atlantic City Community Cooperative. You can join free as a supporter, apply for food and delivery support, become a Community Owner Member through Class A Community Stock, or support the movement as a Corporate / Support Member.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -189,9 +190,9 @@ export default function MembershipPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <Users className="w-8 h-8 text-primary" />
-            <span className="text-sm font-heading font-semibold text-primary uppercase tracking-wider">Join Free</span>
+            <span className="text-sm font-heading font-semibold text-primary uppercase tracking-wider">Patron Member</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">Join Free as a Patron Member</h2>
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">Join Free</h2>
           <p className="text-lg text-foreground/70 mb-6">The easiest way to join the movement.</p>
           <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-4 text-foreground/80 leading-relaxed">
@@ -231,14 +232,14 @@ export default function MembershipPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <HeartHandshake className="w-8 h-8 text-primary" />
-            <span className="text-sm font-heading font-semibold text-primary uppercase tracking-wider">Get Support</span>
+            <span className="text-sm font-heading font-semibold text-primary uppercase tracking-wider">VIP Membership</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">Get Support as a Premium Access Member</h2>
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">Apply for VIP Membership</h2>
           <p className="text-lg text-foreground/70 mb-6">Free food access and community support membership for qualifying Atlantic City residents.</p>
           <div className="grid lg:grid-cols-2 gap-8">
             <div className="space-y-4 text-foreground/80 leading-relaxed">
-              <p>Premium Access Membership is for Atlantic City residents receiving public assistance or facing financial hardship. This membership is designed to make healthy food, delivery support, wellness resources, and social impact services easier to access.</p>
-              <p>Premium Access Membership is a free social impact membership created to support residents who need access, affordability, and connection to services.</p>
+              <p>VIP Membership is for Atlantic City residents receiving public assistance or facing financial hardship. This membership is designed to make healthy food, delivery support, wellness resources, and social impact services easier to access.</p>
+              <p>VIP Membership is a free social impact membership created to support residents who need access, affordability, and connection to services.</p>
               <div className="bg-cream rounded-2xl p-6 space-y-2 text-sm">
                 <p className="font-heading font-semibold text-foreground">Who May Qualify</p>
                 <p className="text-foreground/70">Atlantic City residents may qualify if they receive or are eligible for support such as SNAP, EBT, WIC, Medicaid, Medicare-related assistance, TANF, housing assistance, unemployment support, SSI/SSDI, senior assistance, veterans support, reentry support, or other public assistance or hardship-based programs.</p>
@@ -265,7 +266,7 @@ export default function MembershipPage() {
           </div>
           <div className="mt-8">
             <CTAButton membershipType="premium" className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
-              Apply for Premium Access Membership
+              Apply for VIP Membership
             </CTAButton>
             <p className="text-sm text-foreground/60 mt-3">Complete the Social Impact Application and let AC COOP help connect you to food, delivery, and support resources.</p>
           </div>
@@ -277,7 +278,7 @@ export default function MembershipPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <Crown className="w-8 h-8 text-primary" />
-            <span className="text-sm font-heading font-semibold text-primary uppercase tracking-wider">Own the Movement</span>
+            <span className="text-sm font-heading font-semibold text-primary uppercase tracking-wider">Community Owner Member</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">Own the Movement as a Community Owner Member</h2>
           <p className="text-lg text-foreground/70 mb-6">For eligible Atlantic City residents, workers, small businesses, and local stakeholders.</p>
@@ -331,10 +332,10 @@ export default function MembershipPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-3">
             <Building2 className="w-8 h-8 text-primary" />
-            <span className="text-sm font-heading font-semibold text-primary uppercase tracking-wider">Invest in Atlantic City</span>
+            <span className="text-sm font-heading font-semibold text-primary uppercase tracking-wider">Support Atlantic City</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-2">Invest in Atlantic City as a Corporate / Sponsor Member</h2>
-          <p className="text-lg text-foreground/70 mb-6">A non-voting sponsorship membership for businesses, institutions, nonprofits, and civic partners.</p>
+          <p className="text-lg text-foreground/70 mb-6">A non-voting membership for businesses, institutions, nonprofits, and civic partners.</p>
           <div className="grid lg:grid-cols-2 gap-8 mb-10">
             <div className="space-y-4 text-foreground/80 leading-relaxed">
               <p>Corporate / Sponsor Membership is for organizations that want to support Atlantic City Community Cooperative&apos;s public benefit mission without becoming voting shareholders.</p>
