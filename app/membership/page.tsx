@@ -59,9 +59,9 @@ export default function MembershipPage() {
 
   const sponsorLevels = [
     { amount: '$500', name: 'Community Supporter', desc: 'For small businesses, local professionals, and individual civic supporters.' },
-    { amount: '$1,000', name: 'Neighborhood Builder', desc: 'Supports outreach, member enrollment, and neighborhood engagement.' },
-    { amount: '$2,500', name: 'Food Access Partner', desc: 'Supports grocery access, delivery support, and food bundle programs.' },
-    { amount: '$5,000', name: 'Community Ownership Sponsor', desc: 'Supports sponsored Community Owner Memberships and resident ownership access.' },
+    { amount: '$1,000', name: 'Non Profit or 501(c)(3)', desc: 'Supports outreach, member enrollment, and neighborhood engagement. Receive Atlantic City SMILE Participation.' },
+    { amount: '$2,500', name: 'Service Provider Partner', desc: "Provides support to ACOOP's VIP Members receiving public assistance." },
+    { amount: '$5,000', name: 'Food Access Partner', desc: 'Supports sponsored Community Owner Memberships and resident ownership access.' },
     { amount: '$10,000', name: 'Atlantic City Impact Partner', desc: 'Supports citywide membership growth, food access, delivery equity, and small business participation.' },
     { amount: '$25,000+', name: 'Founding Corporate Partner', desc: "For major institutions and anchor partners committed to Atlantic City's long-term revitalization." },
   ];
@@ -361,7 +361,7 @@ export default function MembershipPage() {
             </div>
           </div>
 
-          <h3 className="text-2xl font-heading font-bold text-foreground mb-6 text-center">Recommended Sponsorship Levels</h3>
+          <h3 className="text-2xl font-heading font-bold text-foreground mb-6 text-center">Recommended Membership Levels</h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             {sponsorLevels.map((level) => (
               <div key={level.name} className="bg-cream rounded-2xl p-6 border-t-4 border-primary">
