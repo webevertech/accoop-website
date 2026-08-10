@@ -146,7 +146,7 @@ export default function VendorForm() {
   const [zips, setZips] = useState<Option[]>([]);
   const [counties, setCounties] = useState<Option[]>([]);
 
-  // Load countries and preselect United States (then load its states).
+  // Load countries and preselect United States + New Jersey (both locked; then load NJ's cities/counties).
   useEffect(() => {
     let active = true;
     getCountries().then((opts) => {
@@ -155,7 +155,18 @@ export default function VendorForm() {
       const us = opts.find((o) => /united states/i.test(o.label));
       if (us) {
         setForm((f) => ({ ...f, country: us.value }));
-        getStates(us.value).then((s) => active && setStates(s));
+        getStates(us.value).then(async (s) => {
+          if (!active) return;
+          setStates(s);
+          const nj = s.find((o) => /new jersey/i.test(o.label));
+          if (nj) {
+            setForm((f) => ({ ...f, state: nj.value }));
+            const [c, co] = await Promise.all([getCitiesByState(nj.value), getCounties(nj.value)]);
+            if (!active) return;
+            setCities(c);
+            setCounties(co);
+          }
+        });
       }
     });
     return () => {
@@ -413,6 +424,7 @@ export default function VendorForm() {
                 value={form.country}
                 onChange={onCountryChange}
                 placeholder="Select country"
+                disabled
                 hasError={!!errors.country}
               />
               <FieldError msg={errors.country} />
@@ -425,7 +437,7 @@ export default function VendorForm() {
                 value={form.state}
                 onChange={onStateChange}
                 placeholder="Select state"
-                disabled={!form.country}
+                disabled
                 hasError={!!errors.state}
               />
               <FieldError msg={errors.state} />

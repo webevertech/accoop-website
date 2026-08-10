@@ -361,7 +361,7 @@ export default function Home() {
             <CTAButton formType="vendor" className="bg-white text-primary hover:bg-cream px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl w-full sm:w-auto inline-flex items-center justify-center">
               Become a Vendor
             </CTAButton>
-            <CTAButton formType="sponsor" className="bg-accent hover:bg-accent/90 text-foreground px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl w-full sm:w-auto inline-flex items-center justify-center">
+            <CTAButton formType="sponsor" membershipType="sponsor" className="bg-accent hover:bg-accent/90 text-foreground px-8 py-4 rounded-full font-heading font-semibold text-lg transition-all duration-300 hover:shadow-2xl w-full sm:w-auto inline-flex items-center justify-center">
               Become A Sponsor
             </CTAButton>
           </div>

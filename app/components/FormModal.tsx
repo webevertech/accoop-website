@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import type { FormType } from './CTAButton';
+import type { MembershipType } from '../lib/registrationApi';
 import JoinCoopForm from './JoinCoopForm';
 import VendorForm from './VendorForm';
 import SponsorForm from './SponsorForm';
@@ -34,15 +35,17 @@ export default function FormModal() {
   const [open, setOpen] = useState(false);
   const [formType, setFormType] = useState<FormType>('inquiry');
   const [heading, setHeading] = useState<string | undefined>(undefined);
+  const [membershipType, setMembershipType] = useState<MembershipType | undefined>(undefined);
   const [loaded, setLoaded] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const handler = (e: Event) => {
-      const detail = (e as CustomEvent<{ formType?: FormType; heading?: string }>).detail;
+      const detail = (e as CustomEvent<{ formType?: FormType; heading?: string; membershipType?: MembershipType }>).detail;
       setFormType(detail?.formType ?? 'inquiry');
       setHeading(detail?.heading);
+      setMembershipType(detail?.membershipType);
       setLoaded(false);
       triggerRef.current = document.activeElement as HTMLElement;
       setOpen(true);
@@ -131,11 +134,11 @@ export default function FormModal() {
         </div>
         <div className="relative flex-1 min-h-0 overflow-y-auto bg-background">
           {formType === 'inquiry' ? (
-            <JoinCoopForm />
+            <JoinCoopForm initialMembershipType={membershipType} />
           ) : formType === 'vendor' ? (
             <VendorForm />
           ) : formType === 'sponsor' ? (
-            <SponsorForm />
+            <SponsorForm initialMembershipType={membershipType} />
           ) : (
             <>
               {!loaded && (
