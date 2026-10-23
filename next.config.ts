@@ -14,9 +14,20 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Don't advertise the framework: `X-Powered-By: Next.js` lets scanners pick
+  // targets for the next Next.js CVE.
+  poweredByHeader: false,
   // Dev server is commonly opened via 127.0.0.1 as well as localhost;
   // Turbopack blocks dev/HMR requests from origins not in this list.
   allowedDevOrigins: ["localhost", "127.0.0.1"],
+  experimental: {
+    // Hostinger's build sandbox blocks the local-port connection Turbopack uses
+    // to reach its PostCSS child processes, so `next build` dies on globals.css
+    // with "node process exited before we could connect to it". Worker threads
+    // run inside the Next process and need no socket. Next silently falls back
+    // to child processes on Node >= 24.13.1, so keep Hostinger on Node 22.
+    turbopackPluginRuntimeStrategy: "workerThreads",
+  },
   images: {
     unoptimized: true, // Disable image optimization for Hostinger compatibility
     formats: ["image/avif", "image/webp"],

@@ -174,8 +174,6 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://links.webevertech.com" />
         <link rel="dns-prefetch" href="https://links.webevertech.com" />
-        {/* TODO: remove after debugging env var */}
-        <script dangerouslySetInnerHTML={{ __html: `console.log('[ENV] NEXT_PUBLIC_ONECONNECT_API_BASE:', '${process.env.NEXT_PUBLIC_ONECONNECT_API_BASE ?? "undefined"}')` }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }} />
       </head>

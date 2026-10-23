@@ -8,6 +8,11 @@ export async function GET(
 ) {
   const { id } = await params
 
+  // Partner IDs are numeric; anything else could walk the upstream path (../).
+  if (!/^\d+$/.test(id)) {
+    return NextResponse.json({ message: 'Partner not found' }, { status: 404 })
+  }
+
   const base =
     process.env.PARTNERS_API_BASE ||
     process.env.NEXT_PUBLIC_ONECONNECT_API_BASE ||
@@ -20,6 +25,11 @@ export async function GET(
     return NextResponse.json({ message: 'Upstream unavailable' }, { status: 502 })
   }
 
-  const json = await upstream.json()
+  let json: unknown
+  try {
+    json = await upstream.json()
+  } catch {
+    json = { message: 'Unexpected response from the partners service.' }
+  }
   return NextResponse.json(json, { status: upstream.status })
 }
