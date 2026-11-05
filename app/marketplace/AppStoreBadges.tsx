@@ -61,7 +61,7 @@ export function DownloadQr({ dark = false }: { dark?: boolean }) {
     <div className="hidden lg:flex items-center gap-3">
       <Image
         src="/marketplace/download-qr.svg"
-        alt="QR code that opens the Boardwalk Basket download section on your phone"
+        alt="QR code: scan to get Boardwalk Basket from the App Store on iPhone or Google Play on Android"
         width={84}
         height={84}
         className="h-21 w-21 rounded-lg bg-white p-1.5 shadow-sm"
