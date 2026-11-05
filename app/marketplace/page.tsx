@@ -29,10 +29,10 @@ const SOCIAL_TITLE = 'Boardwalk Basket: Atlantic City, Delivered.';
 const SOCIAL_DESCRIPTION =
   "Shop local businesses, discover services, and connect with community resources through Atlantic City's own digital marketplace.";
 const OG_IMAGE = {
-  url: '/marketplace/og-boardwalk-basket.jpg',
+  url: '/marketplace/og-boardwalk-basket-app.jpg',
   width: 1200,
   height: 630,
-  alt: 'Visitors and locals strolling the Atlantic City Boardwalk',
+  alt: 'Boardwalk Basket app screens: a local store, shopping categories, and the cart',
 };
 
 export const metadata: Metadata = {
