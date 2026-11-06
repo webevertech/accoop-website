@@ -10,21 +10,23 @@ import {
   HeartHandshake,
   HeartPulse,
   Hotel,
+  MapPin,
   ShoppingBag,
   ShoppingBasket,
   Sparkles,
+  TicketPercent,
   Users,
   UtensilsCrossed,
   Wrench,
   type LucideIcon,
 } from 'lucide-react';
 import CTAButton from '../components/CTAButton';
-import AppStoreBadges, { DownloadQr } from './AppStoreBadges';
+import AppStoreBadges, { DownloadQr, DownloadStrip } from './AppStoreBadges';
 import FaqAccordion, { type FaqItem } from './FaqAccordion';
 import StickyGetApp from './StickyGetApp';
 import { DOWNLOAD_ANCHOR } from './appLinks';
 
-const PAGE_URL = 'https://accoop.com/marketplace';
+const PAGE_URL = 'https://accoop.com/boardwalk-basket';
 const SOCIAL_TITLE = 'Boardwalk Basket: Atlantic City, Delivered.';
 const SOCIAL_DESCRIPTION =
   "Shop local businesses, discover services, and connect with community resources through Atlantic City's own digital marketplace.";
@@ -38,7 +40,7 @@ const OG_IMAGE = {
 export const metadata: Metadata = {
   title: { absolute: 'Boardwalk Basket | Atlantic City Shopping & Delivery' },
   description:
-    'Shop Atlantic City businesses, order groceries and meals, discover local services, and connect with community support. Download Boardwalk Basket.',
+    'A digital marketplace for Atlantic City only. Shop local businesses, order groceries and meals, discover local services, and connect with community support.',
   alternates: { canonical: PAGE_URL },
   openGraph: {
     type: 'website',
@@ -303,7 +305,7 @@ function CheckList({ items, className = '' }: { items: string[]; className?: str
 /* Page                                                                */
 /* ------------------------------------------------------------------ */
 
-export default function MarketplacePage() {
+export default function BoardwalkBasketPage() {
   return (
     <>
       {/* 1. Hero — text left / app screens right on desktop; on mobile: headline, short description, badges, then image */}
@@ -312,10 +314,22 @@ export default function MarketplacePage() {
           <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12">
             {/* display:contents on mobile lets the three text blocks be reordered around the badges */}
             <div className="contents lg:flex lg:flex-col lg:gap-6">
-              <div className="order-1 lg:order-none">
-                <h1 className="font-heading text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
-                  Boardwalk Basket
-                </h1>
+              <div className="order-1 lg:order-0">
+                <div className="flex items-center gap-4 md:gap-5">
+                  {/* Brand mark — alt="" because the H1 beside it already names it */}
+                  <Image
+                    src="/marketplace/boardwalk-basket-logo.webp"
+                    alt=""
+                    width={240}
+                    height={240}
+                    priority
+                    className="h-20 w-20 shrink-0 rounded-full shadow-xl ring-4 ring-white/15 sm:h-28 sm:w-28 lg:h-32 lg:w-32"
+                  />
+                  {/* Stacked two-line lockup beside the logo; the text content stays "Boardwalk Basket" */}
+                  <h1 className="font-heading text-[2.5rem] font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-[4.25rem]">
+                    <span className="block">Boardwalk</span> <span className="block">Basket</span>
+                  </h1>
+                </div>
                 <p className="mt-2 font-heading text-2xl font-semibold text-accent md:text-3xl">
                   Atlantic City, delivered.
                 </p>
@@ -328,7 +342,7 @@ export default function MarketplacePage() {
                 </p>
               </div>
 
-              <div className="order-3 space-y-3 text-lg leading-relaxed text-white/90 lg:order-none">
+              <div className="order-3 space-y-3 text-lg leading-relaxed text-white/90 lg:order-0">
                 <p>
                   Created by <strong className="text-white">Atlantic City Community Cooperative</strong>, Boardwalk
                   Basket brings together the people who live, work, and visit here with the businesses and
@@ -339,15 +353,15 @@ export default function MarketplacePage() {
                 </p>
               </div>
 
-              <div className="order-2 lg:order-none">
+              <div className="order-2 lg:order-0">
                 <div className="flex flex-wrap items-center gap-6">
                   <AppStoreBadges placement="hero" />
                   <DownloadQr dark />
                 </div>
                 <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                  <Link href="/membership" className={btnOnDark}>
+                  <CTAButton membershipType="patron" className={btnOnDark}>
                     Join AC Co-op
-                  </Link>
+                  </CTAButton>
                   <Link href="/vendors#vendor-application" className={btnOnDark}>
                     Become a Vendor
                   </Link>
@@ -360,8 +374,8 @@ export default function MarketplacePage() {
             </div>
 
             {/* Authentic app screens (no member data) — fixed aspect box reserves space to prevent layout shift */}
-            <div className="order-4 lg:order-none">
-              <div className="relative mx-auto aspect-[25/23] w-full max-w-140">
+            <div className="order-4 lg:order-0">
+              <div className="relative mx-auto aspect-25/23 w-full max-w-140">
                 <div
                   aria-hidden="true"
                   className="absolute inset-[12%] rounded-full bg-accent/25 blur-3xl"
@@ -389,6 +403,10 @@ export default function MarketplacePage() {
                   className="absolute left-1/2 top-0 w-[42%] -translate-x-1/2 drop-shadow-2xl"
                 />
               </div>
+              <p className="mx-auto mt-5 flex w-fit items-center gap-1.5 rounded-full bg-white/10 px-4 py-2.5 text-center font-heading text-sm font-semibold text-white ring-1 ring-white/20 min-[400px]:text-base sm:gap-2 sm:px-5">
+                <MapPin className="h-4 w-4 shrink-0 text-accent sm:h-5 sm:w-5" aria-hidden="true" />
+                A digital marketplace for Atlantic City only.
+              </p>
             </div>
           </div>
         </div>
@@ -435,11 +453,7 @@ export default function MarketplacePage() {
           <p className={`mt-8 text-center ${fineprint}`}>
             Check the app for currently available categories, providers, and ordering or booking options.
           </p>
-          <div className="mt-6 text-center">
-            <a href={`#${DOWNLOAD_ANCHOR}`} className={btnPrimary} data-track="download-cta" data-placement="categories">
-              Download Boardwalk Basket
-            </a>
-          </div>
+          <DownloadStrip placement="categories" className="mt-6" />
         </div>
       </section>
 
@@ -502,9 +516,9 @@ export default function MarketplacePage() {
               </Link>
               .
             </p>
-            <Link href="/membership" className={`${btnPrimary} mt-6`}>
+            <CTAButton membershipType="patron" className={`${btnPrimary} mt-6`}>
               Join AC Co-op
-            </Link>
+            </CTAButton>
           </div>
         </div>
       </section>
@@ -535,6 +549,36 @@ export default function MarketplacePage() {
                   </Link>{' '}
                   and participating partner network, we help you identify resources that fit your circumstances and
                   take the next steps toward accessing support.
+                </p>
+
+                {/* VIP coupon — ticket shape: the side notches are panel-coloured circles */}
+                <div className="relative mt-8 flex max-w-md rounded-2xl bg-accent text-foreground shadow-xl">
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-0 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-dark"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute right-0 top-1/2 h-8 w-8 -translate-y-1/2 translate-x-1/2 rounded-full bg-primary-dark"
+                  />
+                  <div className="flex-1 py-6 pl-8 pr-5">
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-foreground/70">
+                      New VIP Member coupon
+                    </p>
+                    <p className="mt-1 font-heading text-5xl font-extrabold leading-none tracking-tight sm:text-6xl">
+                      $100 <span className="text-3xl sm:text-4xl">OFF</span>
+                    </p>
+                    <p className="mt-2 text-sm font-semibold leading-snug">
+                      A Boardwalk Basket welcome offer for new VIP Members.
+                    </p>
+                  </div>
+                  <div className="flex w-20 shrink-0 flex-col items-center justify-center gap-1.5 border-l-2 border-dashed border-foreground/30 pr-3 pl-2 sm:w-24">
+                    <TicketPercent className="h-8 w-8" aria-hidden="true" />
+                    <span className="font-heading text-sm font-bold uppercase tracking-widest">VIP</span>
+                  </div>
+                </div>
+                <p className="mt-3 text-sm italic text-white/70">
+                  Terms apply. Available to newly approved VIP Members only.
                 </p>
               </div>
 
@@ -600,7 +644,7 @@ export default function MarketplacePage() {
 
       {/* 6. Visitors */}
       <section className="bg-white py-16 md:py-20">
-        <div className={`${container} grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16`}>
+        <div className={`${container} grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-x-16 lg:gap-y-12`}>
           <div className="overflow-hidden rounded-3xl shadow-xl">
             <Image
               src="/marketplace/ac-boardwalk.webp"
@@ -625,19 +669,14 @@ export default function MarketplacePage() {
             <p className="mt-6 font-heading text-lg font-bold text-foreground">
               Make your visit count for the local community.
             </p>
-            <a
-              href={`#${DOWNLOAD_ANCHOR}`}
-              className={`${btnPrimary} mt-5`}
-              data-track="download-cta"
-              data-placement="visitors"
-            >
-              Download Boardwalk Basket
-            </a>
             <p className={`mt-4 ${fineprint}`}>
               Hotel and accommodation deliveries depend on service coverage, property access rules, and designated
               handoff locations.
             </p>
           </div>
+
+          {/* Full-width download strip spanning both columns */}
+          <DownloadStrip placement="visitors" className="lg:col-span-2" />
         </div>
       </section>
 
@@ -812,9 +851,9 @@ export default function MarketplacePage() {
           </p>
           <AppStoreBadges placement="final-cta" className="mt-8 justify-center" />
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
-            <Link href="/membership" className={btnOnDark}>
+            <CTAButton membershipType="patron" className={btnOnDark}>
               Join AC Co-op
-            </Link>
+            </CTAButton>
             <Link href="/vendors#vendor-application" className={btnOnDark}>
               Become a Vendor
             </Link>

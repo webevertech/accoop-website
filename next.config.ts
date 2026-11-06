@@ -36,6 +36,13 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/((?!_next/).*)", headers: securityHeaders }];
   },
+  async redirects() {
+    return [
+      // The Boardwalk Basket page used to live at /marketplace; keep old links, bookmarks and
+      // search results working. Exact match only, so /marketplace/* image assets are unaffected.
+      { source: "/marketplace", destination: "/boardwalk-basket", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

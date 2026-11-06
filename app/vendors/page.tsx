@@ -197,7 +197,7 @@ export default function VendorsPage() {
               ))}
             </div>
 
-            {/* Vendor Application Form — anchor target for /marketplace "Apply to Become a Vendor" */}
+            {/* Vendor Application Form — anchor target for /boardwalk-basket "Apply to Become a Vendor" */}
             <div id="vendor-application" className="mt-16 text-center scroll-mt-6">
               <h3 className="text-2xl font-heading font-bold text-foreground mb-3">
                 Ready to Get Started? Fill Out the Form Below

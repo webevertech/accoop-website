@@ -37,8 +37,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/marketplace" className="text-sm text-white/95 hover:text-white transition-colors">
-                  Our Marketplace
+                <Link href="/boardwalk-basket" className="text-sm text-white/95 hover:text-white transition-colors">
+                  Boardwalk Basket
                 </Link>
               </li>
               <li>

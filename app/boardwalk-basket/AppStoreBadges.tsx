@@ -55,7 +55,23 @@ export default function AppStoreBadges({ placement, className = '' }: AppStoreBa
   );
 }
 
-/** Desktop-only QR code that opens the stable download section on a phone. */
+/**
+ * Green download strip: both store badges plus the desktop QR code, on the hero's dark green.
+ * Used for the in-page "Download Boardwalk Basket" calls to action. On phones the QR is hidden,
+ * leaving just the badges.
+ */
+export function DownloadStrip({ placement, className = '' }: AppStoreBadgesProps) {
+  return (
+    <div
+      className={`flex flex-wrap items-center justify-center gap-x-10 gap-y-5 rounded-2xl bg-primary-dark px-6 py-6 sm:px-8 ${className}`}
+    >
+      <AppStoreBadges placement={placement} className="justify-center" />
+      <DownloadQr dark />
+    </div>
+  );
+}
+
+/** Desktop-only QR code; encodes /get-app, which sends phones to the right app store. */
 export function DownloadQr({ dark = false }: { dark?: boolean }) {
   return (
     <div className="hidden lg:flex items-center gap-3">

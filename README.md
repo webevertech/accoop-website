@@ -7,7 +7,7 @@ A community-owned supermarket and social impact hub website built with Next.js 1
 ## 🌟 Features
 
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
-- **Full Page Suite**: Home, About, Membership, Marketplace, Social Impact, News, Contact, and more
+- **Full Page Suite**: Home, About, Membership, Boardwalk Basket, Social Impact, News, Contact, and more
 - **SEO Optimized**: Sitemap, robots.txt, and meta tags
 - **PWA Support**: Manifest and favicons for installable web app
 - **Clickable Contact Info**: Phone, email, and address with proper links
@@ -61,7 +61,7 @@ accoop-website/
 │   │   ├── Footer.tsx           # Site footer with contact info
 │   │   └── CountUp.tsx          # Animated counter component
 │   ├── contact/                  # Contact page
-│   ├── marketplace/              # Marketplace page
+│   ├── boardwalk-basket/         # Boardwalk Basket page (/marketplace redirects here)
 │   ├── membership/               # Membership information
 │   ├── news/                     # News and updates
 │   ├── social-impact/            # Social impact initiatives
