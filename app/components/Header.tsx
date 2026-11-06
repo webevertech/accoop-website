@@ -14,7 +14,7 @@ export default function Header() {
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
     { name: 'Membership', href: '/membership' },
-    { name: 'Our Marketplace', href: '/marketplace' },
+    { name: 'Boardwalk Basket', href: '/boardwalk-basket' },
     { name: 'Social Impact', href: '/social-impact' },
     { name: 'Block Captain', href: '/block-captain' },
     { name: 'Vendors', href: '/vendors' },
@@ -26,7 +26,12 @@ export default function Header() {
   return (
     <header className="relative z-30 bg-white/95 backdrop-blur-sm shadow-sm">
       <nav className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
-        <div className="flex justify-between items-center h-24">
+        {/*
+          All 10 links on one line. They need ~1,270px at the compact size, so the full row starts at
+          1366px (the common laptop width) and smaller screens use the hamburger menu. From 2xl (1536px)
+          up there's room for the roomier original sizing.
+        */}
+        <div className="flex justify-between items-center gap-4 h-24">
           {/* Logo */}
           <Link href="/" className="shrink-0">
             <Image
@@ -34,13 +39,13 @@ export default function Header() {
               alt="Atlantic City Community Cooperative"
               width={240}
               height={96}
-              className="h-20 w-auto"
+              className="h-16 2xl:h-20 w-auto"
               priority
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
+          <div className="hidden min-[1366px]:flex items-center">
             {navigation.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -48,7 +53,7 @@ export default function Header() {
                   key={item.name}
                   href={item.href}
                   aria-current={isActive ? 'page' : undefined}
-                  className={`px-3 py-2 text-base font-medium transition-colors duration-200 relative group ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'}`}
+                  className={`whitespace-nowrap px-2 2xl:px-3 py-2 text-[15px] 2xl:text-base font-medium transition-colors duration-200 relative group ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'}`}
                 >
                   {item.name}
                   <span className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`} />
@@ -58,17 +63,17 @@ export default function Header() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center space-x-3">
+          <div className="hidden min-[1366px]:flex items-center gap-2 2xl:gap-3 shrink-0">
             <AuthNav
-              primaryClassName="border-2 border-primary text-primary hover:bg-primary hover:text-white px-5 py-2 rounded-full font-medium transition-all duration-300 inline-flex items-center justify-center"
-              secondaryClassName="bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center justify-center"
+              primaryClassName="whitespace-nowrap border-2 border-primary text-primary hover:bg-primary hover:text-white px-4 2xl:px-5 py-2 rounded-full font-medium transition-all duration-300 inline-flex items-center justify-center"
+              secondaryClassName="whitespace-nowrap bg-primary hover:bg-primary-dark text-white px-5 2xl:px-6 py-2.5 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 inline-flex items-center justify-center"
             />
           </div>
 
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-md text-foreground hover:bg-cream"
+            className="min-[1366px]:hidden p-2 rounded-md text-foreground hover:bg-cream"
             aria-expanded={isMenuOpen}
             aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           >
@@ -93,7 +98,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden pb-4 animate-fadeIn">
+          <div className="min-[1366px]:hidden pb-4 animate-fadeIn">
             <div className="flex flex-col space-y-2">
               {navigation.map((item) => {
                 const isActive = pathname === item.href;
