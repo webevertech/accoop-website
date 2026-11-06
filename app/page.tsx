@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Users, ShoppingCart, Heart, DollarSign, Pill, Store, ShoppingBag, Briefcase, Building2, Handshake, ArrowRight, Smartphone, GraduationCap, Hotel, Home as HomeIcon, Sparkles, Car, ClipboardList, UtensilsCrossed, Stethoscope } from 'lucide-react';
 import CTAButton from './components/CTAButton';
+import LearnMoreDownloads from './components/LearnMoreDownloads';
 
 export const metadata = {
   title: 'Atlantic City Community Cooperative | Community-Owned Supermarket & Social Impact Hub',
@@ -101,7 +102,7 @@ export default function Home() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {[
               { title: 'Membership', icon: Users, href: '/membership', desc: 'Join our community' },
-              { title: 'Shop', icon: ShoppingCart, href: '/marketplace', desc: 'Fresh local products' },
+              { title: 'Shop', icon: ShoppingCart, href: '/boardwalk-basket', desc: 'Fresh local products' },
               { title: 'Become a Vendor', icon: Store, href: '/vendors', desc: 'Sell with us' },
               { title: 'Become A Sponsor', icon: DollarSign, href: '/sponsorship', desc: 'Support the co-op' },
             ].map((item) => {
@@ -346,6 +347,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Learn More — downloadable project brief + the two state reports */}
+      <LearnMoreDownloads />
 
       {/* Investment CTA */}
       <section className="py-20 bg-linear-to-r from-primary to-primary-dark text-white">

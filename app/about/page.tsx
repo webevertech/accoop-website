@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import CTAButton from '../components/CTAButton';
+import PdfDownloadCard, { type Downloadable } from '../components/PdfDownloadCard';
 import {
   Target,
   Eye,
@@ -16,6 +17,16 @@ import {
   Gift,
   Coins,
 } from 'lucide-react';
+
+const IWOWS_PROFILE: Downloadable = {
+  href: '/downloads/iwows-organization-profile-2026.pdf',
+  fileName: 'IWOWS-Organization-Profile-2026.pdf',
+  cover: '/downloads/covers/iwows-organization-profile-2026.webp',
+  kicker: 'Organization Profile · 2026',
+  title: 'IWOWS: From Public Assistance to the True Middle Class',
+  pages: 8,
+  size: '21.3 MB',
+};
 
 export const metadata = {
   title: 'About Us | Atlantic City Community Cooperative',
@@ -107,7 +118,9 @@ export default function AboutPage() {
 
       {/* 2. Our Story */}
       <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Story text left, downloadable organization profile right (stacks below on mobile/tablet) */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-12 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-center lg:gap-16">
+          <div>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-8">
             Our Story: Atlantic City Is Writing Its Own Future
           </h2>
@@ -130,6 +143,12 @@ export default function AboutPage() {
             <CTAButton className="inline-block bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-heading font-semibold transition-all duration-300 hover:shadow-lg">
               Join the Movement
             </CTAButton>
+          </div>
+          </div>
+
+          {/* Same card as the home page "Learn More" section */}
+          <div className="mx-auto w-full max-w-72 lg:mx-0">
+            <PdfDownloadCard doc={IWOWS_PROFILE} />
           </div>
         </div>
       </section>
