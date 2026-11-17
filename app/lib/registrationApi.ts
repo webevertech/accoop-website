@@ -137,6 +137,43 @@ export async function getZips(cityId: string): Promise<Option[]> {
 }
 
 /* ------------------------------------------------------------------ *
+ * Locked location (Atlantic City only)
+ * ------------------------------------------------------------------ */
+
+/** The co-op serves Atlantic City, NJ only — the forms pin city / zip / county to these. */
+export const LOCKED_CITY_NAME = 'Atlantic City';
+export const LOCKED_ZIP_CODE = '08401';
+/** The API names the county "Atlantic County"; plain "Atlantic" is accepted too. */
+const LOCKED_COUNTY_RE = /^atlantic(\s+county)?$/i;
+
+export interface LockedLocation {
+  /** One-item lists, so the pinned values still render with their labels. Empty if the API had no match. */
+  cities: Option[];
+  counties: Option[];
+  zips: Option[];
+  /** Selected values ('' when the API had no match). IDs differ per environment, so they are looked up by name. */
+  city: string;
+  county: string;
+  zip: string;
+}
+
+/** Resolves Atlantic City / Atlantic County / 08401 within a state (New Jersey). */
+export async function getLockedLocation(stateId: string): Promise<LockedLocation> {
+  const [cities, counties] = await Promise.all([getCitiesByState(stateId), getCounties(stateId)]);
+  const city = cities.find((o) => o.label.trim().toLowerCase() === LOCKED_CITY_NAME.toLowerCase());
+  const county = counties.find((o) => LOCKED_COUNTY_RE.test(o.label.trim()));
+  const zips = city ? (await getZips(city.value)).filter((o) => o.value === LOCKED_ZIP_CODE) : [];
+  return {
+    cities: city ? [city] : [],
+    counties: county ? [county] : [],
+    zips,
+    city: city?.value ?? '',
+    county: county?.value ?? '',
+    zip: zips[0]?.value ?? '',
+  };
+}
+
+/* ------------------------------------------------------------------ *
  * Submit
  * ------------------------------------------------------------------ */
 

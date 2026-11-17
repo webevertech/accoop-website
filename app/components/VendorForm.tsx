@@ -9,6 +9,7 @@ import {
   getCitiesByState,
   getCounties,
   getZips,
+  getLockedLocation,
   type Option,
 } from '../lib/registrationApi';
 import SearchableSelect from './SearchableSelect';
@@ -146,7 +147,8 @@ export default function VendorForm() {
   const [zips, setZips] = useState<Option[]>([]);
   const [counties, setCounties] = useState<Option[]>([]);
 
-  // Load countries and preselect United States + New Jersey (both locked; then load NJ's cities/counties).
+  // Load countries and preselect United States + New Jersey + Atlantic City / 08401 / Atlantic County.
+  // All five location fields are locked: the co-op serves Atlantic City only.
   useEffect(() => {
     let active = true;
     getCountries().then((opts) => {
@@ -161,10 +163,12 @@ export default function VendorForm() {
           const nj = s.find((o) => /new jersey/i.test(o.label));
           if (nj) {
             setForm((f) => ({ ...f, state: nj.value }));
-            const [c, co] = await Promise.all([getCitiesByState(nj.value), getCounties(nj.value)]);
+            const loc = await getLockedLocation(nj.value);
             if (!active) return;
-            setCities(c);
-            setCounties(co);
+            setCities(loc.cities);
+            setCounties(loc.counties);
+            setZips(loc.zips);
+            setForm((f) => ({ ...f, city: loc.city, county: loc.county, zip: loc.zip }));
           }
         });
       }
@@ -450,7 +454,7 @@ export default function VendorForm() {
                 value={form.city}
                 onChange={onCityChange}
                 placeholder="Select city"
-                disabled={!form.state}
+                disabled
                 hasError={!!errors.city}
               />
               <FieldError msg={errors.city} />
@@ -463,7 +467,7 @@ export default function VendorForm() {
                 value={form.zip}
                 onChange={(v) => set('zip', v)}
                 placeholder="Select zip code"
-                disabled={!form.city}
+                disabled
                 hasError={!!errors.zip}
               />
               <FieldError msg={errors.zip} />
@@ -476,7 +480,7 @@ export default function VendorForm() {
                 value={form.county}
                 onChange={(v) => set('county', v)}
                 placeholder="Select county"
-                disabled={!form.state}
+                disabled
                 hasError={!!errors.county}
               />
               <FieldError msg={errors.county} />
