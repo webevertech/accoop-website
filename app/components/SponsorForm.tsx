@@ -9,6 +9,7 @@ import {
   getCounties,
   getCitiesByState,
   getZips,
+  getLockedLocation,
   submitRegistration,
   GENDER_OPTIONS,
   LANGUAGE_OPTIONS,
@@ -218,7 +219,8 @@ export default function SponsorForm({ initialMembershipType }: { initialMembersh
   const [cities, setCities] = useState<Option[]>([]);
   const [zips, setZips] = useState<Option[]>([]);
 
-  // Load countries and preselect United States + New Jersey (both locked; then load NJ's cities/counties).
+  // Load countries and preselect United States + New Jersey + Atlantic City / 08401 / Atlantic County.
+  // All five location fields are locked: the co-op serves Atlantic City only.
   useEffect(() => {
     let active = true;
     getCountries().then((opts) => {
@@ -235,10 +237,13 @@ export default function SponsorForm({ initialMembershipType }: { initialMembersh
           if (nj) {
             setForm((f) => ({ ...f, state: nj.value }));
             setVendorForm((f) => ({ ...f, state: nj.value }));
-            const [c, co] = await Promise.all([getCitiesByState(nj.value), getCounties(nj.value)]);
+            const loc = await getLockedLocation(nj.value);
             if (!active) return;
-            setCities(c);
-            setCounties(co);
+            setCities(loc.cities);
+            setCounties(loc.counties);
+            setZips(loc.zips);
+            setForm((f) => ({ ...f, city: loc.city, county: loc.county, postalCode: loc.zip }));
+            setVendorForm((f) => ({ ...f, city: loc.city, county: loc.county, zip: loc.zip }));
           }
         });
       }
@@ -686,7 +691,7 @@ export default function SponsorForm({ initialMembershipType }: { initialMembersh
                     value={vendorForm.city}
                     onChange={onVendorCityChange}
                     placeholder="Select city"
-                    disabled={!vendorForm.state}
+                    disabled
                     hasError={!!vendorErrors.city}
                   />
                   <FieldError msg={vendorErrors.city} />
@@ -699,7 +704,7 @@ export default function SponsorForm({ initialMembershipType }: { initialMembersh
                     value={vendorForm.zip}
                     onChange={(v) => setVendor('zip', v)}
                     placeholder="Select zip code"
-                    disabled={!vendorForm.city}
+                    disabled
                     hasError={!!vendorErrors.zip}
                   />
                   <FieldError msg={vendorErrors.zip} />
@@ -712,7 +717,7 @@ export default function SponsorForm({ initialMembershipType }: { initialMembersh
                     value={vendorForm.county}
                     onChange={(v) => setVendor('county', v)}
                     placeholder="Select county"
-                    disabled={!vendorForm.state}
+                    disabled
                     hasError={!!vendorErrors.county}
                   />
                   <FieldError msg={vendorErrors.county} />
@@ -929,7 +934,7 @@ export default function SponsorForm({ initialMembershipType }: { initialMembersh
               value={form.city}
               onChange={onCityChange}
               placeholder="Select city"
-              disabled={!form.state}
+              disabled
               hasError={!!errors.city}
             />
             <FieldError msg={errors.city} />
@@ -943,7 +948,7 @@ export default function SponsorForm({ initialMembershipType }: { initialMembersh
               value={form.postalCode}
               onChange={(v) => set('postalCode', v)}
               placeholder="Select zip code"
-              disabled={!form.city}
+              disabled
               hasError={!!errors.postalCode}
             />
             <FieldError msg={errors.postalCode} />
@@ -957,7 +962,7 @@ export default function SponsorForm({ initialMembershipType }: { initialMembersh
               value={form.county}
               onChange={(v) => set('county', v)}
               placeholder="Select county"
-              disabled={!form.state}
+              disabled
               hasError={!!errors.county}
             />
             <FieldError msg={errors.county} />
