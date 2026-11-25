@@ -1034,7 +1034,9 @@ export default function SponsorForm({ initialMembershipType }: { initialMembersh
               value={form.isPublicAssessment}
               onChange={(v) => set('isPublicAssessment', v)}
               placeholder="Select an option"
+              hasError={!!errors.isPublicAssessment}
             />
+            <FieldError msg={errors.isPublicAssessment} />
           </div>
         </div>
       </Section>
