@@ -394,6 +394,14 @@ export default function JoinCoopForm({ initialMembershipType }: { initialMembers
     if (!form.gender) e.gender = 'Gender is required.';
 
     if (!form.preferredLanguage) e.preferredLanguage = 'Preferred language is required.';
+
+    // The register endpoint accepts public_assistance === 'yes' only, so catch
+    // both the blank and the "No" answer here rather than on a silent round-trip.
+    if (!form.isPublicAssessment)
+      e.isPublicAssessment = 'Please tell us whether you receive public assistance.';
+    else if (form.isPublicAssessment !== 'yes')
+      e.isPublicAssessment = 'This registration is strictly for public assistance recipients.';
+
     return e;
   };
 
@@ -1065,14 +1073,16 @@ export default function JoinCoopForm({ initialMembershipType }: { initialMembers
             />
           </div>
           <div>
-            <Label htmlFor="isPublicAssessment">Do you receive any public assistant?</Label>
+            <Label htmlFor="isPublicAssessment" required>Do you receive any public assistant?</Label>
             <SearchableSelect
               id="isPublicAssessment"
               options={PUBLIC_ASSISTANCE_OPTIONS}
               value={form.isPublicAssessment}
               onChange={(v) => set('isPublicAssessment', v)}
               placeholder="Select an option"
+              hasError={!!errors.isPublicAssessment}
             />
+            <FieldError msg={errors.isPublicAssessment} />
           </div>
         </div>
       </Section>
